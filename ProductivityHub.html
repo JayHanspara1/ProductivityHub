@@ -6,29 +6,28 @@
 <title>Productivity Hub</title>
 <style>
 *{box-sizing:border-box;margin:0;padding:0}
-body{font-family:Arial,sans-serif;background:#111;padding:16px;font-size:12px;color:#f0f0f0}
+body{font-family:Arial,sans-serif;background:#0d0d0d;padding:16px;font-size:13px;color:#f0f0f0}
 h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0)}
 
 /* ── LOGIN ── */
 #loginScreen{display:flex;align-items:center;justify-content:center;min-height:92vh}
-.lcard{background:#1a1a1a;border:0.5px solid #2e2e2e;border-radius:16px;padding:36px 32px;width:100%;max-width:400px}
-.lcard h2{color:#fff;font-size:22px;font-weight:500;margin-bottom:6px;text-align:center}
-.lcard-sub{font-size:12px;color:#666;margin-bottom:24px;text-align:center;line-height:1.6}
+.lcard{background:#1c1c1c;border:0.5px solid #333;border-radius:16px;padding:36px 32px;width:100%;max-width:400px}
+.lcard h2{color:#fff;font-size:22px;font-weight:500;margin-bottom:4px;text-align:center}
+.lcard-sub{font-size:11px;color:#555;margin-bottom:24px;text-align:center;line-height:1.6;font-style:italic}
 .lfield{margin-bottom:14px}
-.lfield label{display:block;font-size:11px;color:#888;margin-bottom:5px;font-weight:500}
-.lfield input{width:100%;background:#222;border:0.5px solid #333;color:#f0f0f0;border-radius:8px;padding:11px 13px;font-size:13px;outline:none;transition:border .15s}
+.lfield label{display:block;font-size:12px;color:#aaa;margin-bottom:5px;font-weight:500}
+.lfield input{width:100%;background:#252525;border:0.5px solid #3a3a3a;color:#f0f0f0;border-radius:8px;padding:11px 13px;font-size:13px;outline:none;transition:border .15s}
 .lfield input:focus{border-color:#4ade80}
-.lfield input::placeholder{color:#444}
+.lfield input::placeholder{color:#555}
 .lfield input.err-input{border-color:#fca5a5}
 .lbtn{width:100%;background:#166534;color:#86efac;border:none;border-radius:8px;padding:12px;font-size:13px;font-weight:500;cursor:pointer;transition:opacity .15s;margin-top:4px}
 .lbtn:hover{opacity:.88}
 .lbtn:disabled{opacity:.4;cursor:default}
-.lbtn.secondary{background:#222;color:#aaa;border:0.5px solid #333;margin-top:8px}
-.lerr{color:#fca5a5;font-size:11px;margin-top:10px;min-height:16px;text-align:center;line-height:1.5}
-.linfo{color:#4ade80;font-size:11px;margin-top:10px;text-align:center}
+.lbtn.secondary{background:#252525;color:#aaa;border:0.5px solid #333;margin-top:8px}
+.lerr{color:#fca5a5;font-size:12px;margin-top:10px;min-height:16px;text-align:center;line-height:1.5}
 .lspinner{text-align:center;padding:20px 0;display:none}
 .spinner{width:22px;height:22px;border:2px solid #2a2a2a;border-top-color:#4ade80;border-radius:50%;animation:spin .7s linear infinite;margin:0 auto}
-.stxt{color:#555;font-size:11px;margin-top:8px}
+.stxt{color:#888;font-size:11px;margin-top:8px}
 @keyframes spin{to{transform:rotate(360deg)}}
 .step-indicator{display:flex;align-items:center;gap:8px;margin-bottom:20px;justify-content:center}
 .step-dot{width:8px;height:8px;border-radius:50%;background:#2a2a2a;transition:background .3s}
@@ -36,22 +35,25 @@ h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,
 .step-dot.done{background:#166534}
 .new-badge{display:inline-block;background:#0f2d18;color:#4ade80;font-size:9px;padding:2px 8px;border-radius:8px;margin-left:6px;vertical-align:middle}
 .exists-badge{display:inline-block;background:#0c1a2e;color:#93c5fd;font-size:9px;padding:2px 8px;border-radius:8px;margin-left:6px;vertical-align:middle}
-.pass-hint{font-size:10px;color:#555;margin-top:4px}
+.pass-hint{font-size:11px;color:#555;margin-top:4px}
 .strength-bar{height:3px;background:#222;border-radius:2px;margin-top:5px;overflow:hidden}
 .strength-fill{height:3px;border-radius:2px;transition:width .3s,background .3s}
 
 /* ── APP ── */
 #app{display:none}
-.wrap{background:#161616;border-radius:12px;border:0.5px solid #2e2e2e;overflow:hidden}
-.header{background:#1c1c1c;padding:10px 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid #2a2a2a;flex-wrap:wrap;gap:8px}
-.header h1{color:#fff;font-size:14px;font-weight:500}
+.wrap{background:#181818;border-radius:12px;border:0.5px solid #2e2e2e;overflow:hidden}
+
+/* HEADER */
+.header{background:#1e1e1e;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid #2a2a2a;flex-wrap:wrap;gap:8px}
+.header-brand h1{color:#fff;font-size:15px;font-weight:500;line-height:1.2}
+.header-brand p{color:#4ade80;font-size:10px;font-style:italic;opacity:.8}
 .hdr-right{display:flex;gap:6px;align-items:center;flex-wrap:wrap}
-.hdr-right select,.hdr-right input[type=number]{background:#222;border:0.5px solid #333;color:#e0e0e0;border-radius:6px;padding:4px 7px;font-size:11px;outline:none}
-.hdr-right input[type=number]{width:58px}
-.user-chip{display:flex;align-items:center;gap:6px;background:#222;border:0.5px solid #2e2e2e;border-radius:20px;padding:3px 10px 3px 4px}
+.hdr-right select,.hdr-right input[type=number]{background:#252525;border:0.5px solid #3a3a3a;color:#e8e8e8;border-radius:6px;padding:4px 7px;font-size:11px;outline:none}
+.hdr-right input[type=number]{width:60px}
+.user-chip{display:flex;align-items:center;gap:6px;background:#252525;border:0.5px solid #333;border-radius:20px;padding:3px 10px 3px 4px}
 .user-av{width:22px;height:22px;border-radius:50%;background:#166534;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:500;color:#4ade80;flex-shrink:0;text-transform:uppercase}
-.user-nm{font-size:11px;color:#ccc;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.logout-btn{background:none;border:none;color:#444;cursor:pointer;font-size:11px;padding:0;margin-left:2px}
+.user-nm{font-size:11px;color:#ddd;max-width:100px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.logout-btn{background:none;border:none;color:#555;cursor:pointer;font-size:11px;padding:0;margin-left:2px}
 .logout-btn:hover{color:#fca5a5}
 .save-dot{width:7px;height:7px;border-radius:50%;background:#2a2a2a;transition:background .3s;flex-shrink:0}
 .save-dot.saving{background:#fcd34d;animation:pulse 1s ease-in-out infinite}
@@ -59,103 +61,128 @@ h2.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,
 .save-dot.fail{background:#fca5a5}
 @keyframes pulse{0%,100%{opacity:1}50%{opacity:.4}}
 
-.tabs{display:flex;background:#111;border-bottom:0.5px solid #222}
-.tab{padding:8px 18px;font-size:12px;color:#555;cursor:pointer;border-bottom:2px solid transparent;user-select:none;transition:color .15s}
+/* TABS */
+.tabs{display:flex;background:#111;border-bottom:0.5px solid #252525}
+.tab{padding:9px 20px;font-size:12px;color:#666;cursor:pointer;border-bottom:2px solid transparent;user-select:none;transition:color .15s;font-weight:500}
 .tab.active{color:#4ade80;border-bottom-color:#4ade80}
-.tab:hover:not(.active){color:#aaa}
-.tbadge{display:inline-block;background:#222;color:#666;font-size:9px;padding:1px 5px;border-radius:8px;margin-left:4px;vertical-align:middle}
+.tab:hover:not(.active){color:#bbb}
+.tbadge{display:inline-block;background:#252525;color:#777;font-size:9px;padding:1px 5px;border-radius:8px;margin-left:4px;vertical-align:middle}
 .tab.active .tbadge{background:#0f2d18;color:#4ade80}
 
-.stats-row{display:grid;gap:6px;padding:10px 16px;background:#111}
-.stat{background:#1c1c1c;border-radius:7px;border:0.5px solid #252525;padding:8px 10px;text-align:center}
-.stat-val{font-size:18px;font-weight:500;color:#fff}
-.stat-lbl{font-size:9px;color:#666;margin-top:1px}
+/* STATS */
+.stats-row{display:grid;gap:8px;padding:12px 16px;background:#111}
+.stat{background:#1e1e1e;border-radius:8px;border:0.5px solid #2a2a2a;padding:10px 12px;text-align:center}
+.stat-val{font-size:20px;font-weight:500;color:#fff}
+.stat-lbl{font-size:10px;color:#888;margin-top:2px}
 
-.sec-hdr{padding:8px 16px 4px;font-size:9px;font-weight:500;color:#555;text-transform:uppercase;letter-spacing:.8px;border-top:0.5px solid #1e1e1e}
+.sec-hdr{padding:9px 16px 5px;font-size:10px;font-weight:500;color:#666;text-transform:uppercase;letter-spacing:.8px;border-top:0.5px solid #222}
+
+/* DAILY COMPLETION */
 .daily-grid{display:flex;flex-wrap:wrap;gap:3px;padding:5px 16px 10px}
-.dc-card{background:#1c1c1c;border-radius:4px;border:0.5px solid #252525;padding:3px 4px;text-align:center;flex:0 0 calc((100% - 30*3px)/31);min-width:22px}
+.dc-card{background:#1e1e1e;border-radius:4px;border:0.5px solid #2a2a2a;padding:3px 4px;text-align:center;flex:0 0 calc((100% - 30*3px)/31);min-width:22px}
 .dc-card.is-today{border-color:#4ade80;background:#0c1a0e}
 .dc-card.is-future{opacity:.2}
-.dc-dow{font-size:7px;color:#555;line-height:1.2}
-.dc-num{font-size:9px;font-weight:500;color:#aaa;line-height:1.3}
+.dc-dow{font-size:7px;color:#666;line-height:1.2}
+.dc-num{font-size:10px;font-weight:500;color:#ccc;line-height:1.3}
 .dc-card.is-today .dc-num{color:#4ade80}
-.dc-bar{height:2px;background:#252525;border-radius:1px;margin:2px 1px 0;overflow:hidden}
+.dc-bar{height:2px;background:#2a2a2a;border-radius:1px;margin:2px 1px 0;overflow:hidden}
 .dc-fill{height:2px;border-radius:1px}
 
+/* HABIT TABLE */
 .table-wrap{overflow-x:auto;padding-bottom:6px}
 table{border-collapse:collapse;width:max-content;min-width:100%}
-.th-main{background:#1c1c1c;color:#888;font-weight:500;padding:6px 4px;text-align:center;font-size:10px;white-space:nowrap;border-bottom:0.5px solid #2a2a2a}
+.th-main{background:#1e1e1e;color:#aaa;font-weight:500;padding:7px 4px;text-align:center;font-size:11px;white-space:nowrap;border-bottom:0.5px solid #2a2a2a}
 .th-main.hcol{text-align:left;padding-left:10px;min-width:155px;width:155px;position:sticky;left:0;z-index:2}
-.th-sub{background:#161616;color:#444;font-size:9px;padding:3px 2px;text-align:center;min-width:24px;border-bottom:0.5px solid #1e1e1e}
+.th-sub{background:#181818;color:#666;font-size:10px;padding:3px 2px;text-align:center;min-width:24px;border-bottom:0.5px solid #222}
 .th-sub.hcol{text-align:left;padding-left:10px;position:sticky;left:0;z-index:2}
-tbody tr{border-bottom:0.5px solid #1c1c1c}
-tbody tr:hover{background:#1a1a1a}
+tbody tr{border-bottom:0.5px solid #1e1e1e}
+tbody tr:hover{background:#1c1c1c}
 tbody td{padding:0;text-align:center;vertical-align:middle}
-td.hcol{text-align:left;padding:4px 10px;font-size:11px;color:#ccc;background:#161616;position:sticky;left:0;z-index:1;border-right:0.5px solid #222;max-width:155px;min-width:155px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-td.pct-col{font-size:11px;font-weight:500;padding:0 5px;min-width:44px;color:#fff}
-.hc{width:22px;height:26px;cursor:pointer;display:flex;align-items:center;justify-content:center;margin:1px auto;border-radius:3px;font-size:9px;user-select:none;color:#2a2a2a}
+td.hcol{text-align:left;padding:5px 10px;font-size:12px;color:#ddd;background:#181818;position:sticky;left:0;z-index:1;border-right:0.5px solid #252525;max-width:155px;min-width:155px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#fff}
+.hc{width:22px;height:28px;cursor:pointer;display:flex;align-items:center;justify-content:center;margin:1px auto;border-radius:3px;font-size:10px;user-select:none;color:#333}
 .hc.done{background:#166534;color:#86efac}
-.hc.future{opacity:.1;cursor:default}
+.hc.future{opacity:.15;cursor:default}
 .hc.tday{border:0.5px solid #4ade80}
 .hc:not(.done):not(.future):hover{background:#1a2e1a;color:#4ade80}
-.pbar{height:2px;background:#222;border-radius:1px;margin:2px 4px 0 0;overflow:hidden}
+.pbar{height:2px;background:#252525;border-radius:1px;margin:2px 4px 0 0;overflow:hidden}
 .pbar-fill{height:2px;border-radius:1px}
-.mood-lbl-td{font-size:9px;color:#555;padding:4px 10px;background:#161616;text-align:left;position:sticky;left:0;border-right:0.5px solid #222}
-.mb{cursor:pointer;font-size:11px;display:inline-block;line-height:1;border-radius:3px;padding:1px;filter:grayscale(1);opacity:.25}
+.mood-lbl-td{font-size:10px;color:#666;padding:4px 10px;background:#181818;text-align:left;position:sticky;left:0;border-right:0.5px solid #252525}
+.mb{cursor:pointer;font-size:12px;display:inline-block;line-height:1;border-radius:3px;padding:1px;filter:grayscale(1);opacity:.3}
 .mb.on{filter:grayscale(0);opacity:1;background:#1a2e1a}
-.del-btn{color:#2a2a2a;cursor:pointer;font-size:12px;padding:0 2px;background:none;border:none;line-height:1}
+.del-btn{color:#333;cursor:pointer;font-size:13px;padding:0 2px;background:none;border:none;line-height:1}
 .del-btn:hover{color:#fca5a5}
 
-.add-row{display:flex;gap:6px;padding:8px 16px;border-top:0.5px solid #1e1e1e;background:#111}
-.add-row input{flex:1;background:#1c1c1c;border:0.5px solid #2a2a2a;color:#f0f0f0;border-radius:6px;padding:5px 9px;font-size:11px;outline:none}
-.add-row input::placeholder,.todo-add input::placeholder{color:#444}
+.add-row{display:flex;gap:6px;padding:8px 16px;border-top:0.5px solid #222;background:#111}
+.add-row input{flex:1;background:#1e1e1e;border:0.5px solid #2a2a2a;color:#f0f0f0;border-radius:6px;padding:6px 10px;font-size:12px;outline:none}
+.add-row input::placeholder,.todo-add input::placeholder{color:#555}
 .add-row input:focus,.todo-add input:focus{border-color:#4ade80}
-.add-row button,.todo-add button{background:#166534;color:#86efac;border:none;border-radius:6px;padding:5px 12px;font-size:11px;cursor:pointer}
-.exp-btn{background:transparent;color:#555;border:0.5px solid #252525;border-radius:6px;padding:4px 10px;font-size:10px;cursor:pointer;margin:0 16px 8px auto;display:block}
+.add-row button,.todo-add button{background:#166534;color:#86efac;border:none;border-radius:6px;padding:6px 13px;font-size:12px;cursor:pointer;font-weight:500}
+.exp-btn{background:transparent;color:#666;border:0.5px solid #2a2a2a;border-radius:6px;padding:4px 10px;font-size:11px;cursor:pointer;margin:0 16px 10px auto;display:block}
 .exp-btn:hover{color:#4ade80;border-color:#4ade80}
 
-.todo-toolbar{display:flex;gap:6px;padding:8px 16px;border-bottom:0.5px solid #1e1e1e;flex-wrap:wrap}
-.todo-toolbar input,.todo-toolbar select{background:#1c1c1c;border:0.5px solid #2a2a2a;color:#e0e0e0;border-radius:6px;padding:5px 8px;font-size:11px;outline:none}
+/* ══ WEEKLY RING VIEW (Tasks) ══════════════════════════════ */
+.week-view{display:grid;grid-template-columns:repeat(7,1fr);gap:0;background:#111;padding:12px 16px 4px;border-bottom:0.5px solid #222}
+.week-col{display:flex;flex-direction:column;align-items:center;gap:4px;padding:10px 4px 14px;border-radius:10px;transition:background .15s;cursor:default;position:relative}
+.week-col.is-today{background:#0c1a0e}
+.week-col.is-today .wday-name{color:#4ade80}
+.week-col.is-today .wday-date{color:#86efac}
+.wday-name{font-size:11px;font-weight:500;color:#aaa;letter-spacing:.3px;text-transform:uppercase}
+.wday-date{font-size:10px;color:#666;margin-bottom:2px}
+.ring-wrap{position:relative;width:64px;height:64px}
+.ring-wrap svg{width:64px;height:64px;transform:rotate(-90deg)}
+.ring-bg{fill:none;stroke:#252525;stroke-width:6}
+.ring-fg{fill:none;stroke-width:6;stroke-linecap:round;transition:stroke-dasharray .4s ease}
+.ring-pct{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);font-size:13px;font-weight:500;color:#fff;line-height:1;text-align:center}
+.ring-pct small{display:block;font-size:9px;color:#666;font-weight:400;margin-top:1px}
+.week-task-count{font-size:10px;color:#666;margin-top:2px}
+.week-today-dot{width:5px;height:5px;border-radius:50%;background:#4ade80;position:absolute;bottom:6px;left:50%;transform:translateX(-50%)}
+
+/* TASK FILTERS */
+.todo-toolbar{display:flex;gap:6px;padding:8px 16px;border-bottom:0.5px solid #222;flex-wrap:wrap}
+.todo-toolbar input,.todo-toolbar select{background:#1e1e1e;border:0.5px solid #2a2a2a;color:#e0e0e0;border-radius:6px;padding:5px 8px;font-size:12px;outline:none}
 .todo-toolbar input[type=text]{flex:1;min-width:100px}
-.todo-list{padding:0 16px 10px}
-.tgroup-hdr{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:.7px;padding:10px 0 4px;border-bottom:0.5px solid #1e1e1e;margin-bottom:2px;display:flex;justify-content:space-between}
-.todo-item{display:flex;align-items:center;gap:8px;padding:6px 0;border-bottom:0.5px solid #1a1a1a}
+.todo-toolbar input:focus{border-color:#4ade80}
+
+/* TASK LIST */
+.todo-list{padding:0 16px 8px}
+.tgroup-hdr{font-size:10px;color:#666;text-transform:uppercase;letter-spacing:.7px;padding:10px 0 5px;border-bottom:0.5px solid #222;margin-bottom:3px;display:flex;justify-content:space-between;align-items:center}
+.tgroup-hdr span:first-child{font-weight:500}
+.tgroup-count{background:#252525;color:#888;font-size:9px;padding:1px 6px;border-radius:8px}
+.todo-item{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:0.5px solid #1e1e1e}
 .todo-item:last-child{border-bottom:none}
-.todo-cb{width:14px;height:14px;cursor:pointer;accent-color:#4ade80;flex-shrink:0}
-.todo-txt{flex:1;font-size:12px;color:#ddd;background:transparent;border:none;outline:none}
-.todo-txt:focus{background:#1c1c1c;border-radius:4px;padding:2px 5px;color:#f0f0f0}
-.todo-txt.done-txt{text-decoration:line-through;color:#444;cursor:default}
+.todo-cb{width:15px;height:15px;cursor:pointer;accent-color:#4ade80;flex-shrink:0}
+.todo-txt{flex:1;font-size:13px;color:#e0e0e0;background:transparent;border:none;outline:none}
+.todo-txt:focus{background:#1e1e1e;border-radius:4px;padding:2px 6px;color:#f0f0f0}
+.todo-txt.done-txt{text-decoration:line-through;color:#555;cursor:default}
 .todo-meta{display:flex;gap:5px;align-items:center;flex-shrink:0;flex-wrap:wrap}
-.todo-sel{background:#1c1c1c;border:0.5px solid #2a2a2a;color:#888;border-radius:5px;padding:2px 4px;font-size:10px;cursor:pointer;outline:none}
-.badge{display:inline-block;padding:1px 7px;border-radius:8px;font-size:9px;font-weight:500;white-space:nowrap}
+.todo-sel{background:#1e1e1e;border:0.5px solid #2a2a2a;color:#aaa;border-radius:5px;padding:3px 5px;font-size:10px;cursor:pointer;outline:none}
+.badge{display:inline-block;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:500;white-space:nowrap}
 .p1{background:#2d0e0e;color:#fca5a5}.p2{background:#2d1f08;color:#fcd34d}
-.p3{background:#0f2d18;color:#86efac}.p4{background:#1e1e1e;color:#666}
+.p3{background:#0f2d18;color:#86efac}.p4{background:#1e1e1e;color:#777}
 .cat-Work{background:#0c1a2e;color:#93c5fd}.cat-Personal{background:#1f0f2d;color:#d8b4fe}
 .cat-Health{background:#0f2d18;color:#86efac}.cat-Study{background:#2d2208;color:#fcd34d}
-.cat-Social{background:#2d0a1a;color:#f9a8d4}.cat-Other{background:#1e1e1e;color:#777}
-.due-ok{color:#555;font-size:10px}.due-today{color:#fcd34d;font-size:10px;font-weight:500}.due-late{color:#fca5a5;font-size:10px;font-weight:500}
-.todo-add{display:flex;gap:6px;padding:8px 16px;border-top:0.5px solid #1e1e1e;background:#111;flex-wrap:wrap}
-.todo-add input,.todo-add select{background:#1c1c1c;border:0.5px solid #2a2a2a;color:#f0f0f0;border-radius:6px;padding:5px 8px;font-size:11px;outline:none}
+.cat-Social{background:#2d0a1a;color:#f9a8d4}.cat-Other{background:#1e1e1e;color:#888}
+.due-ok{color:#777;font-size:11px}.due-today{color:#fcd34d;font-size:11px;font-weight:500}.due-late{color:#fca5a5;font-size:11px;font-weight:500}
+.todo-add{display:flex;gap:6px;padding:8px 16px;border-top:0.5px solid #222;background:#111;flex-wrap:wrap}
+.todo-add input,.todo-add select{background:#1e1e1e;border:0.5px solid #2a2a2a;color:#f0f0f0;border-radius:6px;padding:6px 8px;font-size:12px;outline:none}
 .todo-add input[type=text]{flex:2;min-width:100px}
 .todo-add select{flex:1;min-width:80px}
-.empty-st{text-align:center;padding:24px;color:#444;font-size:11px}
+.empty-st{text-align:center;padding:28px;color:#555;font-size:12px}
 </style>
 </head>
 <body>
-<h2 class="sr-only">Productivity Hub — secure login, habit tracker and task manager with Google Sheets storage.</h2>
+<h2 class="sr-only">Productivity Hub — secure login, habit tracker and task manager.</h2>
 
-<!-- ══ LOGIN ══════════════════════════════════════════════ -->
+<!-- ══ LOGIN ══════════════════════════════════════════════════ -->
 <div id="loginScreen">
   <div class="lcard">
     <h2>Productivity Hub</h2>
-    <p class="lcard-sub" id="lsub">Track habits &amp; tasks. Data saved to Google Sheets.</p>
-
+    <p class="lcard-sub">be just true to yourself</p>
     <div class="step-indicator">
       <div class="step-dot active" id="sd1"></div>
       <div class="step-dot" id="sd2"></div>
     </div>
-
-    <!-- Step 1: Username -->
     <div id="step1">
       <div class="lfield">
         <label>Username</label>
@@ -165,8 +192,6 @@ td.pct-col{font-size:11px;font-weight:500;padding:0 5px;min-width:44px;color:#ff
       </div>
       <button class="lbtn" id="btnCheck" onclick="checkUser()" disabled>Continue</button>
     </div>
-
-    <!-- Step 2: Password (hidden initially) -->
     <div id="step2" style="display:none">
       <div class="lfield">
         <label id="unameLabel">Username</label>
@@ -176,9 +201,7 @@ td.pct-col{font-size:11px;font-weight:500;padding:0 5px;min-width:44px;color:#ff
         <label id="passLabel">Password</label>
         <input id="passIn" type="password" placeholder="Enter password" maxlength="50" autocomplete="off"
           oninput="onPassInput()" onkeydown="if(event.key==='Enter') doAuth()">
-        <div class="strength-bar" id="strengthBar" style="display:none">
-          <div class="strength-fill" id="strengthFill"></div>
-        </div>
+        <div class="strength-bar" id="strengthBar" style="display:none"><div class="strength-fill" id="strengthFill"></div></div>
         <div class="pass-hint" id="passHint"></div>
       </div>
       <div class="lfield" id="confirmField" style="display:none">
@@ -189,20 +212,19 @@ td.pct-col{font-size:11px;font-weight:500;padding:0 5px;min-width:44px;color:#ff
       <button class="lbtn" id="btnAuth" onclick="doAuth()">Sign In</button>
       <button class="lbtn secondary" onclick="backToStep1()">← Change username</button>
     </div>
-
-    <div class="lspinner" id="lspinner">
-      <div class="spinner"></div>
-      <div class="stxt" id="stxt">Checking…</div>
-    </div>
+    <div class="lspinner" id="lspinner"><div class="spinner"></div><div class="stxt" id="stxt">Checking…</div></div>
     <div class="lerr" id="lerr"></div>
   </div>
 </div>
 
-<!-- ══ APP ════════════════════════════════════════════════ -->
+<!-- ══ APP ════════════════════════════════════════════════════ -->
 <div id="app">
 <div class="wrap">
   <div class="header">
-    <h1>Productivity Hub</h1>
+    <div class="header-brand">
+      <h1>Productivity Hub</h1>
+      <p>be just true to yourself</p>
+    </div>
     <div class="hdr-right">
       <select id="monthSel"></select>
       <input type="number" id="yearIn" min="2020" max="2099">
@@ -210,7 +232,7 @@ td.pct-col{font-size:11px;font-weight:500;padding:0 5px;min-width:44px;color:#ff
         <div class="user-av" id="userAv"></div>
         <span class="user-nm" id="userNm"></span>
         <button class="logout-btn" onclick="logout()" title="Sign out">✕</button>
-        <div class="save-dot" id="saveDot" title="Auto-save status"></div>
+        <div class="save-dot" id="saveDot"></div>
       </div>
     </div>
   </div>
@@ -220,6 +242,7 @@ td.pct-col{font-size:11px;font-weight:500;padding:0 5px;min-width:44px;color:#ff
     <div class="tab" onclick="switchTab('tasks')">Tasks <span class="tbadge" id="tbadge">0</span></div>
   </div>
 
+  <!-- HABITS -->
   <div id="habits-panel">
     <div class="stats-row" id="hStats" style="grid-template-columns:repeat(4,1fr)"></div>
     <div class="sec-hdr">Daily Completion</div>
@@ -233,10 +256,15 @@ td.pct-col{font-size:11px;font-weight:500;padding:0 5px;min-width:44px;color:#ff
     <button class="exp-btn" onclick="exportHabits()">Export CSV</button>
   </div>
 
+  <!-- TASKS -->
   <div id="tasks-panel" style="display:none">
     <div class="stats-row" id="tStats" style="grid-template-columns:repeat(5,1fr)"></div>
+
+    <!-- WEEKLY RING VIEW -->
+    <div class="week-view" id="weekView"></div>
+
     <div class="todo-toolbar">
-      <input type="text" id="tsrch" placeholder="Search…" oninput="renderTasks()">
+      <input type="text" id="tsrch" placeholder="Search tasks…" oninput="renderTasks()">
       <select id="tcat" onchange="renderTasks()"><option value="">All categories</option>
         <option>Work</option><option>Personal</option><option>Health</option>
         <option>Study</option><option>Social</option><option>Other</option></select>
@@ -262,12 +290,13 @@ td.pct-col{font-size:11px;font-weight:500;padding:0 5px;min-width:44px;color:#ff
 </div>
 
 <script>
-// ─── PASTE YOUR WEB APP URL HERE ─────────────────────────────
+// ─── PASTE YOUR WEB APP URL HERE ──────────────────────────────
 const WEB_APP_URL = 'https://script.google.com/macros/s/AKfycbxYHbrso4D-STHuQSbWvXYXhKad2nkTuFw0pl4Xk1s71g1gj6d4XP6FkuFV3ZxiZyIGIg/exec';
-// ─────────────────────────────────────────────────────────────
+// ──────────────────────────────────────────────────────────────
 
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
-const DOW=['Su','Mo','Tu','We','Th','Fr','Sa'];
+const DOW_FULL=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+const DOW_SHORT=['Su','Mo','Tu','We','Th','Fr','Sa'];
 const MOODS=['😞','😐','🙂','😀','🤩'];
 
 let currentUser=null, currentPass=null;
@@ -275,172 +304,127 @@ let month=new Date().getMonth(), year=new Date().getFullYear();
 let habits=[], hdata={}, mood={}, tasks=[], nextTid=1;
 let saveTimer=null, currentTab='habits', isNewUser=false;
 
-// ── VALIDATION ───────────────────────────────────────────────
+// ── VALIDATION ────────────────────────────────────────────────
 function validateUsername(v){
-  const s=v.trim().toLowerCase().replace(/[^a-z0-9_-]/g,'');
-  if(!v.trim()) return {ok:false,msg:''};
-  if(v.trim().length<3) return {ok:false,msg:'Minimum 3 characters'};
+  if(!v.trim()) return{ok:false,msg:''};
+  if(v.trim().length<3) return{ok:false,msg:'Minimum 3 characters'};
   if(v.trim()!==v.trim().toLowerCase().replace(/[^a-z0-9_-]/g,''))
-    return {ok:false,msg:'Only a-z, 0-9, underscore, hyphen allowed'};
-  return {ok:true,msg:''};
+    return{ok:false,msg:'Only a-z, 0-9, _ or - allowed'};
+  return{ok:true,msg:''};
 }
-
 function validatePassword(v,isNew){
-  if(!v) return {ok:false,msg:'',strength:0};
+  if(!v) return{ok:false,msg:'',strength:0};
   if(isNew){
-    if(v.length<6) return {ok:false,msg:'Minimum 6 characters',strength:1};
-    if(v.length<8) return {ok:true,msg:'Weak — consider longer password',strength:2};
-    if(/[A-Z]/.test(v)&&/[0-9]/.test(v)) return {ok:true,msg:'Strong',strength:4};
-    return {ok:true,msg:'Good',strength:3};
+    if(v.length<6) return{ok:false,msg:'Minimum 6 characters',strength:1};
+    if(v.length<8) return{ok:true,msg:'Weak — consider longer password',strength:2};
+    if(/[A-Z]/.test(v)&&/[0-9]/.test(v)) return{ok:true,msg:'Strong',strength:4};
+    return{ok:true,msg:'Good',strength:3};
   }
-  return {ok:v.length>=1,msg:'',strength:0};
+  return{ok:v.length>=1,msg:'',strength:0};
 }
-
 function passStrengthColor(s){return['','#fca5a5','#fcd34d','#4ade80','#4ade80'][s]||'#222';}
 
-// ── LOGIN UI ─────────────────────────────────────────────────
+// ── LOGIN UI ──────────────────────────────────────────────────
 function onUnameInput(){
   const v=document.getElementById('unameIn').value;
   const r=validateUsername(v);
   const hint=document.getElementById('unameHint');
-  hint.style.color='#fca5a5';
-  hint.textContent=r.msg||'';
+  hint.style.color='#fca5a5'; hint.textContent=r.msg||'';
   document.getElementById('unameIn').classList.toggle('err-input',!r.ok&&v.trim().length>0);
   document.getElementById('btnCheck').disabled=!r.ok;
 }
-
 function onPassInput(){
   const v=document.getElementById('passIn').value;
   const r=validatePassword(v,isNewUser);
   const hint=document.getElementById('passHint');
-  const bar=document.getElementById('strengthBar');
   hint.textContent=r.msg;
   hint.style.color=r.strength>=3?'#4ade80':r.strength>=2?'#fcd34d':'#fca5a5';
   if(isNewUser){
-    bar.style.display='';
+    document.getElementById('strengthBar').style.display='';
     document.getElementById('strengthFill').style.cssText=
       `width:${r.strength*25}%;background:${passStrengthColor(r.strength)}`;
   }
 }
-
 function setErr(msg){document.getElementById('lerr').textContent=msg;}
 function setSpinner(show,txt){
-  document.getElementById('lspinner').style.display=show?'':'none';
+  document.getElementById('lspinner').style.display=show?'block':'none';
   if(txt) document.getElementById('stxt').textContent=txt;
 }
-function disableAll(v){
-  ['btnCheck','btnAuth'].forEach(id=>{
-    const el=document.getElementById(id);if(el)el.disabled=v;
-  });
-}
+function disableAll(v){['btnCheck','btnAuth'].forEach(id=>{const el=document.getElementById(id);if(el)el.disabled=v;});}
 
-// ── STEP 1: CHECK USERNAME ───────────────────────────────────
 async function checkUser(){
   const raw=document.getElementById('unameIn').value.trim();
   const r=validateUsername(raw);
   if(!r.ok){setErr(r.msg);return;}
-  if(WEB_APP_URL==='PASTE_WEB_APP_URL_HERE'){setErr('Web App URL not configured. Update the WEB_APP_URL constant in the HTML.');return;}
-
+  if(WEB_APP_URL==='PASTE_WEB_APP_URL_HERE'){setErr('Web App URL not configured.');return;}
   setErr('');disableAll(true);setSpinner(true,'Checking username…');
-
   try{
-    const url=WEB_APP_URL+'?action=check&user='+encodeURIComponent(raw)+'&t='+Date.now();
-    const res=await fetch(url,{redirect:'follow',credentials:'omit'});
+    const res=await fetch(WEB_APP_URL+'?action=check&user='+encodeURIComponent(raw)+'&t='+Date.now(),{redirect:'follow',credentials:'omit'});
     if(!res.ok) throw new Error('Server error '+res.status);
     const json=await res.json();
     if(json.error) throw new Error(json.error);
-
     isNewUser=!json.exists;
     showStep2(raw,isNewUser);
-  }catch(e){
-    setErr('Connection failed: '+e.message);
-    console.error(e);
-  }finally{
-    disableAll(false);setSpinner(false);
-  }
+  }catch(e){setErr('Connection failed: '+e.message);console.error(e);}
+  finally{disableAll(false);setSpinner(false);}
 }
 
 function showStep2(username,isNew){
   document.getElementById('step1').style.display='none';
-  document.getElementById('step2').style.display='';
+  document.getElementById('step2').style.display='block';
   document.getElementById('sd1').classList.replace('active','done');
   document.getElementById('sd2').classList.add('active');
-
   document.getElementById('unameDisplay').value=username;
-  document.getElementById('unameLabel').innerHTML=
-    'Username'+(isNew?'<span class="new-badge">NEW</span>':'<span class="exists-badge">RETURNING</span>');
-
-  document.getElementById('lsub').textContent=
-    isNew?'Create a password to secure your new account.':'Welcome back! Enter your password to continue.';
-
+  document.getElementById('unameLabel').innerHTML='Username'+(isNew?'<span class="new-badge">NEW</span>':'<span class="exists-badge">RETURNING</span>');
+  document.getElementById('lcard-sub')&&(document.getElementById('lcard-sub').textContent=isNew?'Create a password to secure your account.':'Welcome back!');
   document.getElementById('passLabel').textContent=isNew?'Create Password':'Password';
   document.getElementById('btnAuth').textContent=isNew?'Create Account':'Sign In';
-  document.getElementById('confirmField').style.display=isNew?'':'none';
-  document.getElementById('strengthBar').style.display=isNew?'':'none';
-  document.getElementById('passIn').value='';
-  document.getElementById('passIn').focus();
+  document.getElementById('confirmField').style.display=isNew?'block':'none';
+  document.getElementById('strengthBar').style.display=isNew?'block':'none';
+  document.getElementById('passIn').value=''; document.getElementById('passIn').focus();
 }
 
 function backToStep1(){
   document.getElementById('step2').style.display='none';
-  document.getElementById('step1').style.display='';
+  document.getElementById('step1').style.display='block';
   document.getElementById('sd1').className='step-dot active';
   document.getElementById('sd2').className='step-dot';
   document.getElementById('lerr').textContent='';
   document.getElementById('passHint').textContent='';
-  document.getElementById('lsub').textContent='Track habits & tasks. Data saved to Google Sheets.';
-  document.getElementById('unameIn').focus();
 }
 
-// ── STEP 2: REGISTER or LOGIN ────────────────────────────────
 async function doAuth(){
   const uname=document.getElementById('unameDisplay').value;
   const pass=document.getElementById('passIn').value;
   const confirm=document.getElementById('confirmIn').value;
-
   const pr=validatePassword(pass,isNewUser);
   if(!pr.ok){setErr(pr.msg||'Password too short');return;}
-
-  if(isNewUser&&pass!==confirm){
-    setErr('Passwords do not match');
-    document.getElementById('confirmIn').focus();
-    return;
-  }
-
+  if(isNewUser&&pass!==confirm){setErr('Passwords do not match');document.getElementById('confirmIn').focus();return;}
   setErr('');disableAll(true);setSpinner(true,isNewUser?'Creating account…':'Signing in…');
-
   try{
     let json;
     if(isNewUser){
       seedDefaultData();
-      const body=new URLSearchParams({
-        action:'register', user:uname, pass,
-        data:JSON.stringify(getAllData())
-      });
+      const body=new URLSearchParams({action:'register',user:uname,pass,data:JSON.stringify(getAllData())});
       const res=await fetch(WEB_APP_URL,{method:'POST',body,redirect:'follow',credentials:'omit'});
       if(!res.ok) throw new Error('Server error '+res.status);
       json=await res.json();
       if(json.error) throw new Error(json.error);
-    } else {
-      const url=WEB_APP_URL+'?action=login&user='+encodeURIComponent(uname)+'&pass='+encodeURIComponent(pass)+'&t='+Date.now();
-      const res=await fetch(url,{redirect:'follow',credentials:'omit'});
+    }else{
+      const res=await fetch(WEB_APP_URL+'?action=login&user='+encodeURIComponent(uname)+'&pass='+encodeURIComponent(pass)+'&t='+Date.now(),{redirect:'follow',credentials:'omit'});
       if(!res.ok) throw new Error('Server error '+res.status);
       json=await res.json();
       if(!json.success) throw new Error(json.error||'Incorrect password');
       if(json.data) applyData(json.data);
     }
-    currentUser={id:uname,name:uname};
-    currentPass=pass;
+    currentUser={id:uname,name:uname}; currentPass=pass;
     launchApp();
   }catch(e){
     setErr(e.message);
-    if(e.message.toLowerCase().includes('password')||e.message.toLowerCase().includes('unauthorized')){
+    if(e.message.toLowerCase().includes('password')||e.message.toLowerCase().includes('unauthorized'))
       document.getElementById('passIn').classList.add('err-input');
-    }
     console.error(e);
-  }finally{
-    disableAll(false);setSpinner(false);
-  }
+  }finally{disableAll(false);setSpinner(false);}
 }
 
 function launchApp(){
@@ -455,8 +439,8 @@ function launchApp(){
 }
 
 function logout(){
-  if(!confirm('Sign out? Unsaved changes will be lost.'))return;
-  currentUser=null;currentPass=null;
+  if(!confirm('Sign out?'))return;
+  currentUser=null; currentPass=null;
   habits=[];hdata={};mood={};tasks=[];nextTid=1;
   document.getElementById('app').style.display='none';
   document.getElementById('loginScreen').style.display='flex';
@@ -468,38 +452,26 @@ function logout(){
   document.getElementById('passIn').value='';
   document.getElementById('lerr').textContent='';
   document.getElementById('passHint').textContent='';
-  document.getElementById('lsub').textContent='Track habits & tasks. Data saved to Google Sheets.';
   document.getElementById('monthSel').innerHTML='';
   onUnameInput();
 }
 
-// ── SAVE ─────────────────────────────────────────────────────
+// ── SAVE ──────────────────────────────────────────────────────
 function setDot(s){document.getElementById('saveDot').className='save-dot '+s;}
-
 async function saveData(){
   if(!currentUser||!currentPass)return;
   try{
     setDot('saving');
-    const body=new URLSearchParams({
-      action:'save', user:currentUser.id, pass:currentPass,
-      data:JSON.stringify(getAllData())
-    });
+    const body=new URLSearchParams({action:'save',user:currentUser.id,pass:currentPass,data:JSON.stringify(getAllData())});
     const res=await fetch(WEB_APP_URL,{method:'POST',body,redirect:'follow',credentials:'omit'});
     if(!res.ok) throw new Error('HTTP '+res.status);
     const json=await res.json();
     if(json.error) throw new Error(json.error);
-    setDot('saved');
-    setTimeout(()=>setDot(''),3000);
-  }catch(e){
-    setDot('fail');
-    console.error('Save failed:',e.message);
-  }
+    setDot('saved'); setTimeout(()=>setDot(''),3000);
+  }catch(e){setDot('fail');console.error('Save failed:',e.message);}
 }
-
 function scheduleSave(){clearTimeout(saveTimer);saveTimer=setTimeout(saveData,1200);}
-
 function getAllData(){return{habits,hdata,mood,tasks,next_tid:nextTid};}
-
 function applyData(d){
   if(!d)return;
   if(Array.isArray(d.habits)&&d.habits.length) habits=d.habits;
@@ -508,7 +480,6 @@ function applyData(d){
   if(Array.isArray(d.tasks)) tasks=d.tasks;
   if(d.next_tid) nextTid=+d.next_tid||1;
 }
-
 function seedDefaultData(){
   habits=['Wake up 6am','Workout','Drink 8 glasses water','Read 30 mins','Meditate','No junk food','Sleep by 10pm'];
   tasks=[
@@ -527,7 +498,6 @@ function switchTab(t){
   document.getElementById('tasks-panel').style.display=t==='tasks'?'block':'none';
   if(t==='tasks')renderTasks();
 }
-
 function initMonthSel(){
   const sel=document.getElementById('monthSel');
   if(sel.options.length)return;
@@ -544,6 +514,7 @@ function daysInMonth(){return new Date(year,month+1,0).getDate();}
 function pColor(p){return p>=80?'#4ade80':p>=50?'#fcd34d':'#fca5a5';}
 function dOff(n){const d=new Date();d.setDate(d.getDate()+n);return d.toISOString().split('T')[0];}
 function today(){return new Date().toISOString().split('T')[0];}
+function isoDate(y,m,d){return y+'-'+String(m+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');}
 
 // ── HABITS ────────────────────────────────────────────────────
 function toggleH(h,d){hdata[k(h,d)]=!hdata[k(h,d)];renderHabits();scheduleSave();}
@@ -570,9 +541,9 @@ function renderHabits(){
   let dg='';
   for(let d=1;d<=D;d++){
     const p=dayPct(d),wd=new Date(year,month,d).getDay();
-    const isFut=isCur&&d>todayD,isT=isCur&&d===todayD,pc=isFut?'#252525':pColor(p);
-    dg+=`<div class="dc-card${isT?' is-today':''}${isFut?' is-future':''}" title="${DOW[wd]} ${d}${isFut?'':' — '+p+'%'}">
-      <div class="dc-dow">${DOW[wd]}</div><div class="dc-num">${d}</div>
+    const isFut=isCur&&d>todayD,isT=isCur&&d===todayD,pc=isFut?'#2a2a2a':pColor(p);
+    dg+=`<div class="dc-card${isT?' is-today':''}${isFut?' is-future':''}" title="${DOW_SHORT[wd]} ${d}${isFut?'':' — '+p+'%'}">
+      <div class="dc-dow">${DOW_SHORT[wd]}</div><div class="dc-num">${d}</div>
       <div class="dc-bar"><div class="dc-fill" style="width:${isFut?0:p}%;background:${pc}"></div></div></div>`;
   }
   document.getElementById('dailyGrid').innerHTML=dg;
@@ -581,11 +552,10 @@ function renderHabits(){
   let t2=`<th class="th-sub hcol">Habit</th>`;
   for(let d=1;d<=D;d++){
     const wd=new Date(year,month,d).getDay(),isT=isCur&&d===todayD,wk=[0,6].includes(wd);
-    t1+=`<th class="th-main" style="${isT?'color:#4ade80;border-bottom:1px solid #4ade80':wk?'color:#2e2e2e':''}">${d}</th>`;
-    t2+=`<th class="th-sub" style="${wk?'color:#2e2e2e':''}">${DOW[wd]}</th>`;
+    t1+=`<th class="th-main" style="${isT?'color:#4ade80;border-bottom:1.5px solid #4ade80':wk?'color:#333':''}">${d}</th>`;
+    t2+=`<th class="th-sub" style="${wk?'color:#333':''}">${DOW_SHORT[wd]}</th>`;
   }
-  t1+=`<th class="th-main" style="min-width:44px">%</th>`;
-  t2+=`<th class="th-sub"></th>`;
+  t1+=`<th class="th-main" style="min-width:44px">%</th>`;t2+=`<th class="th-sub"></th>`;
   let rows='';
   habits.forEach((h,hi)=>{
     const p=hPct(h,todayD),pc=pColor(p);
@@ -608,10 +578,63 @@ function renderHabits(){
 }
 
 function addHabit(){const v=document.getElementById('newHabit').value.trim();if(!v)return;habits.push(v);document.getElementById('newHabit').value='';renderHabits();scheduleSave();}
-function delHabit(i){if(!confirm('Remove this habit and all its data?'))return;habits.splice(i,1);renderHabits();scheduleSave();}
+function delHabit(i){if(!confirm('Remove this habit?'))return;habits.splice(i,1);renderHabits();scheduleSave();}
+
+// ── WEEKLY RING VIEW ──────────────────────────────────────────
+function renderWeekView(){
+  const now=new Date();
+  const todayStr=today();
+  // get start of current week (Monday)
+  const dow=now.getDay(); // 0=Sun
+  const mondayOff=dow===0?-6:1-dow;
+  const weekDays=[];
+  for(let i=0;i<7;i++){
+    const d=new Date(now);
+    d.setDate(now.getDate()+mondayOff+i);
+    weekDays.push(d);
+  }
+
+  const R=26, circ=2*Math.PI*R;
+  let html='';
+  weekDays.forEach(d=>{
+    const ds=d.toISOString().split('T')[0];
+    const isT=ds===todayStr;
+    const isFut=ds>todayStr;
+    // tasks due this day
+    const dueTasks=tasks.filter(t=>t.due===ds);
+    const doneCount=dueTasks.filter(t=>t.done).length;
+    const total=dueTasks.length;
+    const pct=total?Math.round(doneCount/total*100):0;
+    const pc=isFut&&!total?'#2a2a2a':pct>=80?'#4ade80':pct>=50?'#fcd34d':'#fca5a5';
+    const fill=total?(pct/100*circ).toFixed(1):'0';
+    const dayName=DOW_FULL[d.getDay()].slice(0,3).toUpperCase();
+    const dateStr=String(d.getDate()).padStart(2,'0')+'.'+String(d.getMonth()+1).padStart(2,'0')+'.'+d.getFullYear();
+
+    html+=`<div class="week-col${isT?' is-today':''}">
+      <div class="wday-name">${dayName}</div>
+      <div class="wday-date">${dateStr}</div>
+      <div class="ring-wrap">
+        <svg viewBox="0 0 64 64">
+          <circle class="ring-bg" cx="32" cy="32" r="${R}"/>
+          <circle class="ring-fg" cx="32" cy="32" r="${R}"
+            stroke="${pc}"
+            stroke-dasharray="${fill} ${circ.toFixed(1)}"/>
+        </svg>
+        <div class="ring-pct">
+          ${total?pct+'%':'—'}
+          ${total?`<small>${doneCount}/${total}</small>`:'<small>no tasks</small>'}
+        </div>
+      </div>
+      <div class="week-task-count">${total?total+' task'+(total>1?'s':''):''}</div>
+      ${isT?'<div class="week-today-dot"></div>':''}
+    </div>`;
+  });
+  document.getElementById('weekView').innerHTML=html;
+}
 
 // ── TASKS ─────────────────────────────────────────────────────
 function renderTasks(){
+  renderWeekView();
   const s=document.getElementById('tsrch').value.toLowerCase();
   const fc=document.getElementById('tcat').value,fp=document.getElementById('tpri').value,fs=document.getElementById('tstat').value;
   const filtered=tasks.filter(t=>(!s||t.text.toLowerCase().includes(s))&&(!fc||t.cat===fc)&&(!fp||t.pri===+fp)&&(!fs||t.status===fs));
@@ -635,11 +658,14 @@ function renderTasks(){
     else if(t.due===today())groups['Today'].push(t);
     else groups['Upcoming'].push(t);
   });
-  const GCOL={'Overdue':'#fca5a5','Today':'#fcd34d','Upcoming':'#93c5fd','No date':'#555','Done':'#333'};
+  const GCOL={'Overdue':'#fca5a5','Today':'#fcd34d','Upcoming':'#93c5fd','No date':'#888','Done':'#444'};
   let html='';
   ['Overdue','Today','Upcoming','No date','Done'].forEach(g=>{
     const items=groups[g];if(!items.length)return;
-    html+=`<div class="tgroup-hdr"><span style="color:${GCOL[g]}">${g}</span><span>${items.length} task${items.length>1?'s':''}</span></div>`;
+    html+=`<div class="tgroup-hdr">
+      <span style="color:${GCOL[g]}">${g}</span>
+      <span class="tgroup-count">${items.length} task${items.length>1?'s':''}</span>
+    </div>`;
     items.forEach(t=>{
       const dLabel=!t.due?'':t.due===today()?'Today':t.due<today()?dDiff(t.due)+' overdue':dDiff2(t.due);
       const dc=!t.due?'':'due-'+(t.due<today()?'late':t.due===today()?'today':'ok');
@@ -649,7 +675,8 @@ function renderTasks(){
         <div class="todo-meta">
           <span class="badge cat-${t.cat}">${t.cat}</span>
           <span class="badge p${t.pri}">P${t.pri}</span>
-          <select class="todo-sel" onchange="updTask(${t.id},'status',this.value)" style="color:${t.status==='Done'?'#4ade80':t.status==='Blocked'?'#fca5a5':t.status==='In-Progress'?'#93c5fd':'#666'}">
+          <select class="todo-sel" onchange="updTask(${t.id},'status',this.value)"
+            style="color:${t.status==='Done'?'#4ade80':t.status==='Blocked'?'#fca5a5':t.status==='In-Progress'?'#93c5fd':'#aaa'}">
             ${['Todo','In-Progress','Done','Blocked'].map(s=>`<option${s===t.status?' selected':''}>${s}</option>`).join('')}
           </select>
           ${t.due?`<span class="${dc}">${dLabel}</span>`:''}
@@ -658,7 +685,7 @@ function renderTasks(){
       </div>`;
     });
   });
-  document.getElementById('todoList').innerHTML=html||'<div class="empty-st">No tasks found.</div>';
+  document.getElementById('todoList').innerHTML=html||'<div class="empty-st">No tasks found. Add one below.</div>';
 }
 
 function dDiff(due){return Math.round((new Date(today())-new Date(due))/86400000)+'d';}
