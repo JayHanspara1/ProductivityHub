@@ -125,14 +125,20 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 .todo-list{padding:0 16px 8px}
 .tgroup-hdr{font-size:10px;text-transform:uppercase;letter-spacing:.7px;padding:10px 0 5px;border-bottom:0.5px solid #222;margin-bottom:3px;display:flex;justify-content:space-between;align-items:center}
 .tg-cnt{background:#252525;color:#888;font-size:9px;padding:1px 6px;border-radius:8px}
-.todo-item{display:flex;align-items:center;gap:8px;padding:7px 0;border-bottom:0.5px solid #1e1e1e}
+.todo-item{display:grid;grid-template-columns:18px 1fr auto;align-items:center;gap:8px;padding:7px 0;border-bottom:0.5px solid #1e1e1e}
 .todo-item:last-child{border-bottom:none}
 .todo-cb{width:15px;height:15px;cursor:pointer;accent-color:#4ade80;flex-shrink:0}
-.todo-txt{flex:1;font-size:13px;color:#e0e0e0;background:transparent;border:none;outline:none}
-.todo-txt:focus{background:#1e1e1e;border-radius:4px;padding:2px 6px;color:#f0f0f0}
+.todo-txt{font-size:13px;color:#e0e0e0;background:transparent;border:none;outline:none;width:100%;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.todo-txt:focus{background:#1e1e1e;border-radius:4px;padding:2px 6px;color:#f0f0f0;white-space:normal}
 .todo-txt.done-txt{text-decoration:line-through;color:#555;cursor:default}
-.todo-meta{display:flex;gap:5px;align-items:center;flex-shrink:0;flex-wrap:wrap}
-.todo-sel{background:#1e1e1e;border:0.5px solid #2a2a2a;color:#aaa;border-radius:5px;padding:3px 5px;font-size:10px;cursor:pointer;outline:none}
+.todo-meta{display:flex;gap:4px;align-items:center;flex-shrink:0;flex-wrap:nowrap}
+.todo-sel{background:#1e1e1e;border:0.5px solid #2a2a2a;color:#aaa;border-radius:5px;padding:3px 4px;font-size:10px;cursor:pointer;outline:none;max-width:90px}
+@media(max-width:600px){
+  .todo-item{grid-template-columns:18px 1fr;grid-template-rows:auto auto}
+  .todo-meta{grid-column:2;flex-wrap:wrap;gap:3px;margin-top:3px}
+  .badge{font-size:9px;padding:1px 5px}
+  .todo-sel{font-size:9px;padding:2px 3px}
+}
 .badge{display:inline-block;padding:2px 8px;border-radius:8px;font-size:10px;font-weight:500;white-space:nowrap}
 .p1{background:#2d0e0e;color:#fca5a5}.p2{background:#2d1f08;color:#fcd34d}
 .p3{background:#0f2d18;color:#86efac}.p4{background:#1e1e1e;color:#777}
@@ -218,14 +224,15 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 .tnote{font-size:11px;color:#333;margin-top:12px;line-height:1.7;max-width:500px}
 
 /* Focus objects */
-.t-dot{width:20px;height:20px;border-radius:50%;background:#fff;animation:dp 4s ease-in-out infinite}
-@keyframes dp{0%,100%{box-shadow:0 0 20px rgba(255,255,255,.15)}50%{box-shadow:0 0 40px rgba(255,255,255,.45)}}
+.t-dot{width:18px;height:18px;border-radius:50%;background:#e11d48;animation:dp 4s ease-in-out infinite}
+@keyframes dp{0%,100%{box-shadow:0 0 18px rgba(225,29,72,.3)}50%{box-shadow:0 0 38px rgba(225,29,72,.7)}}
 @keyframes mandalaspin{to{transform:rotate(360deg)}}
 @keyframes og{0%,100%{opacity:.5}50%{opacity:.85}}
-@keyframes fl{0%,100%{transform:scaleX(1) scaleY(1)}30%{transform:scaleX(.87) scaleY(1.08)}60%{transform:scaleX(1.09) scaleY(.92)}}
 .t-flame{display:flex;flex-direction:column;align-items:center}
-.flame{width:20px;height:40px;background:linear-gradient(to top,#ff4500,#ffa500,#fffde7);border-radius:50% 50% 20% 20%;animation:fl 1.8s ease-in-out infinite;transform-origin:bottom center}
+.flame{width:22px;height:46px;background:linear-gradient(to top,#b91c1c,#f97316,#fef3c7);border-radius:50% 50% 18% 18%;transform-origin:bottom center}
 .candle{width:16px;height:52px;background:linear-gradient(to right,#c8a96e,#e8d5b7,#c8a96e);border-radius:2px}
+.fsb{background:#166534;color:#86efac;border:none;border-radius:6px;padding:6px 14px;font-size:11px;cursor:pointer;font-weight:500}
+.fsb:hover{opacity:.85}
 
 /* MODAL */
 .mod-ov{display:none;position:fixed;inset:0;background:rgba(0,0,0,.8);z-index:200;align-items:center;justify-content:center;padding:20px}
@@ -428,6 +435,7 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
       <div class="tctrl">
         <button class="tsb" id="tSBtn" onclick="startT()">Begin Focus</button>
         <button class="teb" id="tEBtn" onclick="endT()" style="display:none">End Session</button>
+        <button class="fsb" onclick="goFullscreen()">⛶ Fullscreen</button>
       </div>
       <p class="tnote">Fix your gaze softly on the object without blinking. When eyes water, close them gently and visualize the image internally.</p>
     </div>
@@ -666,10 +674,21 @@ function renderNamJap(){
   const tdc=njDaily[todayStr()]||0;
   document.getElementById('njbadge').textContent=tdc;
   document.getElementById('jTodLbl').textContent=`Today: ${tdc} (${Math.floor(tdc/108)} mala${Math.floor(tdc/108)!==1?'s':''})`;
-  const bars=[];for(let i=13;i>=0;i--){const d=new Date();d.setDate(d.getDate()-i);bars.push({lbl:String(d.getDate()),cnt:njDaily[d.toISOString().split('T')[0]]||0});}
+
+  // Full current month bars
+  const now=new Date(),D=new Date(now.getFullYear(),now.getMonth()+1,0).getDate();
+  const bars=[];
+  for(let d=1;d<=D;d++){
+    const ds=now.getFullYear()+'-'+String(now.getMonth()+1).padStart(2,'0')+'-'+String(d).padStart(2,'0');
+    bars.push({lbl:String(d),cnt:njDaily[ds]||0,fut:d>now.getDate()});
+  }
   const mx=Math.max(...bars.map(b=>b.cnt),108);
-  document.getElementById('jBar').innerHTML=bars.map(b=>{const col=b.cnt>=108?'#4ade80':b.cnt>=54?'#fcd34d':b.cnt>0?'#93c5fd':'#1e1e1e';return`<div class="jbw"><div class="jbi"><div class="jbr" style="height:${b.cnt?Math.max(b.cnt/mx*100,3):2}%;background:${col}"></div></div><div class="jbl">${b.lbl}</div></div>`;}).join('');
-  const now=new Date(),mTotal=Object.entries(njDaily).filter(([k])=>{const d=new Date(k);return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();}).reduce((s,[,v])=>s+v,0);
+  document.getElementById('jBar').innerHTML=bars.map(b=>{
+    const col=b.fut?'#1a1a1a':b.cnt>=108?'#4ade80':b.cnt>=54?'#fcd34d':b.cnt>0?'#93c5fd':'#1e1e1e';
+    return`<div class="jbw"><div class="jbi"><div class="jbr" style="height:${b.cnt&&!b.fut?Math.max(b.cnt/mx*100,3):2}%;background:${col}"></div></div><div class="jbl">${b.lbl}</div></div>`;
+  }).join('');
+
+  const mTotal=Object.entries(njDaily).filter(([k])=>{const d=new Date(k);return d.getMonth()===now.getMonth()&&d.getFullYear()===now.getFullYear();}).reduce((s,[,v])=>s+v,0);
   const allTime=Object.values(njDaily).reduce((s,v)=>s+v,0);
   document.getElementById('jStats').innerHTML=`<div class="stat"><div class="stat-val" style="color:#4ade80">${tdc}</div><div class="stat-lbl">Today</div></div><div class="stat"><div class="stat-val" style="color:#fcd34d">${Math.floor(mTotal/108)}</div><div class="stat-lbl">Month (malas)</div></div><div class="stat"><div class="stat-val" style="color:#d8b4fe">${Math.floor(allTime/108)}</div><div class="stat-lbl">All time (malas)</div></div>`;
 }
@@ -677,12 +696,41 @@ function renderNamJap(){
 /* BINDU TRATAK */
 const YOBJS={
   dot:`<div class="t-dot"></div>`,
-  yantra:`<svg width="270" height="270" viewBox="0 0 300 300" style="opacity:.7"><defs><style>.ys{fill:none;stroke:#4ade80;stroke-width:1}</style></defs><rect x="8" y="8" width="284" height="284" class="ys" stroke-width="1.5"/><rect x="22" y="22" width="256" height="256" class="ys" stroke-width=".6"/><line x1="8" y1="68" x2="28" y2="68" class="ys" stroke-width=".6"/><line x1="8" y1="98" x2="28" y2="98" class="ys" stroke-width=".6"/><line x1="8" y1="202" x2="28" y2="202" class="ys" stroke-width=".6"/><line x1="8" y1="232" x2="28" y2="232" class="ys" stroke-width=".6"/><line x1="272" y1="68" x2="292" y2="68" class="ys" stroke-width=".6"/><line x1="272" y1="98" x2="292" y2="98" class="ys" stroke-width=".6"/><line x1="272" y1="202" x2="292" y2="202" class="ys" stroke-width=".6"/><line x1="272" y1="232" x2="292" y2="232" class="ys" stroke-width=".6"/><line x1="68" y1="8" x2="68" y2="28" class="ys" stroke-width=".6"/><line x1="98" y1="8" x2="98" y2="28" class="ys" stroke-width=".6"/><line x1="202" y1="8" x2="202" y2="28" class="ys" stroke-width=".6"/><line x1="232" y1="8" x2="232" y2="28" class="ys" stroke-width=".6"/><line x1="68" y1="272" x2="68" y2="292" class="ys" stroke-width=".6"/><line x1="98" y1="272" x2="98" y2="292" class="ys" stroke-width=".6"/><line x1="202" y1="272" x2="202" y2="292" class="ys" stroke-width=".6"/><line x1="232" y1="272" x2="232" y2="292" class="ys" stroke-width=".6"/><circle cx="150" cy="150" r="112" class="ys"/><circle cx="150" cy="150" r="100" class="ys" stroke-width=".5"/><circle cx="150" cy="150" r="60" class="ys" stroke-width=".5"/><polygon points="150,42 262,234 38,234" class="ys" stroke-width="1.2"/><polygon points="150,66 250,220 50,220" class="ys" stroke-width=".7"/><polygon points="150,90 238,206 62,206" class="ys" stroke-width=".7"/><polygon points="150,112 224,192 76,192" class="ys" stroke-width=".7"/><polygon points="150,258 38,66 262,66" class="ys" stroke-width="1.2"/><polygon points="150,234 50,80 250,80" class="ys" stroke-width=".7"/><polygon points="150,210 62,94 238,94" class="ys" stroke-width=".7"/><polygon points="150,188 76,108 224,108" class="ys" stroke-width=".7"/><polygon points="150,168 90,122 210,122" class="ys" stroke-width=".7"/><circle cx="150" cy="150" r="5" fill="#4ade80"/><circle cx="150" cy="150" r="9" class="ys" stroke-width=".5"/></svg>`,
-  om:`<div style="font-size:120px;color:rgba(74,222,128,.65);font-family:serif;animation:og 3s ease-in-out infinite">ॐ</div>`,
-  mandala:`<svg width="270" height="270" viewBox="0 0 270 270" style="animation:mandalaspin 90s linear infinite;opacity:.65"><g transform="translate(135,135)" fill="none" stroke="#4ade80" stroke-width=".7">${Array.from({length:12},(_,i)=>{const a=i*30*Math.PI/180;return`<line x1="0" y1="0" x2="${(114*Math.cos(a)).toFixed(1)}" y2="${(114*Math.sin(a)).toFixed(1)}" opacity=".2"/>`;}).join('')}${[114,92,70,50,30,13].map(r=>`<circle r="${r}" opacity=".3"/>`).join('')}${Array.from({length:8},(_,i)=>{const a=i*45*Math.PI/180,x1=(48*Math.cos(a)).toFixed(1),y1=(48*Math.sin(a)).toFixed(1),x2=(85*Math.cos(a+.28)).toFixed(1),y2=(85*Math.sin(a+.28)).toFixed(1),x3=(85*Math.cos(a-.28)).toFixed(1),y3=(85*Math.sin(a-.28)).toFixed(1);return`<path d="M${x1},${y1} C${x2},${y2} ${x3},${y3} ${x1},${y1}" opacity=".5"/>`;}).join('')}<circle r="5" fill="#4ade80" stroke="none"/></g></svg>`,
-  flame:`<div class="t-flame"><div class="flame"></div><div class="candle"></div></div>`
+  yantra:`<svg width="270" height="270" viewBox="0 0 300 300" style="opacity:.75"><defs><style>.ys{fill:none;stroke:#e11d48;stroke-width:1}</style></defs><rect x="8" y="8" width="284" height="284" class="ys" stroke-width="1.5"/><rect x="22" y="22" width="256" height="256" class="ys" stroke-width=".6"/><line x1="8" y1="68" x2="28" y2="68" class="ys" stroke-width=".6"/><line x1="8" y1="98" x2="28" y2="98" class="ys" stroke-width=".6"/><line x1="8" y1="202" x2="28" y2="202" class="ys" stroke-width=".6"/><line x1="8" y1="232" x2="28" y2="232" class="ys" stroke-width=".6"/><line x1="272" y1="68" x2="292" y2="68" class="ys" stroke-width=".6"/><line x1="272" y1="98" x2="292" y2="98" class="ys" stroke-width=".6"/><line x1="272" y1="202" x2="292" y2="202" class="ys" stroke-width=".6"/><line x1="272" y1="232" x2="292" y2="232" class="ys" stroke-width=".6"/><line x1="68" y1="8" x2="68" y2="28" class="ys" stroke-width=".6"/><line x1="98" y1="8" x2="98" y2="28" class="ys" stroke-width=".6"/><line x1="202" y1="8" x2="202" y2="28" class="ys" stroke-width=".6"/><line x1="232" y1="8" x2="232" y2="28" class="ys" stroke-width=".6"/><line x1="68" y1="272" x2="68" y2="292" class="ys" stroke-width=".6"/><line x1="98" y1="272" x2="98" y2="292" class="ys" stroke-width=".6"/><line x1="202" y1="272" x2="202" y2="292" class="ys" stroke-width=".6"/><line x1="232" y1="272" x2="232" y2="292" class="ys" stroke-width=".6"/><circle cx="150" cy="150" r="112" class="ys"/><circle cx="150" cy="150" r="100" class="ys" stroke-width=".5"/><circle cx="150" cy="150" r="60" class="ys" stroke-width=".5"/><polygon points="150,42 262,234 38,234" class="ys" stroke-width="1.2"/><polygon points="150,66 250,220 50,220" class="ys" stroke-width=".7"/><polygon points="150,90 238,206 62,206" class="ys" stroke-width=".7"/><polygon points="150,112 224,192 76,192" class="ys" stroke-width=".7"/><polygon points="150,258 38,66 262,66" class="ys" stroke-width="1.2"/><polygon points="150,234 50,80 250,80" class="ys" stroke-width=".7"/><polygon points="150,210 62,94 238,94" class="ys" stroke-width=".7"/><polygon points="150,188 76,108 224,108" class="ys" stroke-width=".7"/><polygon points="150,168 90,122 210,122" class="ys" stroke-width=".7"/><circle cx="150" cy="150" r="5" fill="#e11d48"/><circle cx="150" cy="150" r="9" class="ys" stroke-width=".5"/></svg>`,
+  om:`<div style="font-size:120px;color:rgba(225,29,72,.7);font-family:serif;animation:og 3s ease-in-out infinite">ॐ</div>`,
+  mandala:`<svg width="270" height="270" viewBox="0 0 270 270" style="animation:mandalaspin 90s linear infinite;opacity:.7"><g transform="translate(135,135)" fill="none" stroke="#e11d48" stroke-width=".7">${Array.from({length:12},(_,i)=>{const a=i*30*Math.PI/180;return`<line x1="0" y1="0" x2="${(114*Math.cos(a)).toFixed(1)}" y2="${(114*Math.sin(a)).toFixed(1)}" opacity=".2"/>`;}).join('')}${[114,92,70,50,30,13].map(r=>`<circle r="${r}" opacity=".3"/>`).join('')}${Array.from({length:8},(_,i)=>{const a=i*45*Math.PI/180,x1=(48*Math.cos(a)).toFixed(1),y1=(48*Math.sin(a)).toFixed(1),x2=(85*Math.cos(a+.28)).toFixed(1),y2=(85*Math.sin(a+.28)).toFixed(1),x3=(85*Math.cos(a-.28)).toFixed(1),y3=(85*Math.sin(a-.28)).toFixed(1);return`<path d="M${x1},${y1} C${x2},${y2} ${x3},${y3} ${x1},${y1}" opacity=".5"/>`;}).join('')}<circle r="5" fill="#e11d48" stroke="none"/></g></svg>`,
+  flame:`<div class="t-flame"><div style="position:relative;width:22px;height:98px"><div class="flame" id="flameEl" style="position:absolute;bottom:52px;left:0;width:22px"></div><div class="candle" style="position:absolute;bottom:0;left:3px"></div></div></div>`
 };
-function setYantra(name,el){curY=name;document.querySelectorAll('.yb').forEach(b=>b.classList.remove('active'));el.classList.add('active');document.getElementById('fObj').innerHTML=YOBJS[name]||YOBJS.dot;}
+function setYantra(name,el){curY=name;document.querySelectorAll('.yb').forEach(b=>b.classList.remove('active'));el.classList.add('active');document.getElementById('fObj').innerHTML=YOBJS[name]||YOBJS.dot;if(name==='flame')startFlameAnim();}
+
+let flameAnimId=null;
+function startFlameAnim(){
+  if(flameAnimId)cancelAnimationFrame(flameAnimId);
+  let t=0;
+  function frame(){
+    const el=document.getElementById('flameEl');
+    if(!el){flameAnimId=null;return;}
+    t+=0.05;
+    const sx=0.85+Math.sin(t*1.3)*0.12+Math.sin(t*2.7)*0.06+Math.random()*0.04;
+    const sy=0.92+Math.cos(t*1.1)*0.1+Math.sin(t*3.2)*0.05+Math.random()*0.04;
+    const sk=Math.sin(t*0.9)*4+Math.sin(t*2.1)*2;
+    const h=40+Math.sin(t*1.5)*8+Math.random()*5;
+    el.style.transform=`scaleX(${sx.toFixed(3)}) scaleY(${sy.toFixed(3)}) skewX(${sk.toFixed(1)}deg)`;
+    el.style.height=h.toFixed(1)+'px';
+    const r=Math.round(185+Math.random()*40),g=Math.round(60+Math.sin(t)*30),b2=0;
+    el.style.background=`linear-gradient(to top,#b91c1c,rgb(${r},${g},${b2}),#fef3c7)`;
+    flameAnimId=requestAnimationFrame(frame);
+  }
+  frame();
+}
+
+function goFullscreen(){
+  const el=document.getElementById('p-tratak');
+  if(document.fullscreenElement){document.exitFullscreen();}
+  else if(el.requestFullscreen){el.requestFullscreen();}
+  else if(el.webkitRequestFullscreen){el.webkitRequestFullscreen();}
+  else if(el.mozRequestFullScreen){el.mozRequestFullScreen();}
+}
 function startT(){tSecs=0;tRun=true;document.getElementById('tSBtn').style.display='none';document.getElementById('tEBtn').style.display='block';document.getElementById('ftDisp').classList.add('on');tInt=setInterval(()=>{tSecs++;document.getElementById('ftDisp').textContent=fmts(tSecs);},1000);}
 function endT(){clearInterval(tInt);tRun=false;document.getElementById('tSBtn').style.display='block';document.getElementById('tEBtn').style.display='none';document.getElementById('ftDisp').classList.remove('on');if(tSecs>10)alert(`Session complete: ${fmts(tSecs)} of focused attention.`);tSecs=0;document.getElementById('ftDisp').textContent='00:00';}
 
