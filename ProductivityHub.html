@@ -260,6 +260,12 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
   .sess-grid{grid-template-columns:repeat(4,1fr)}
   .todo-toolbar,.todo-add{flex-direction:column}
 }
+.table-wrap::-webkit-scrollbar{width:0;height:0}
+.table-wrap{scrollbar-width:none;-ms-overflow-style:none}
+#p-tratak:fullscreen,#p-tratak:-webkit-full-screen{background:#000!important;display:flex;flex-direction:column;align-items:center;justify-content:center}
+#p-tratak:fullscreen .tratak-panel,#p-tratak:-webkit-full-screen .tratak-panel{background:#000;padding:0;width:100%;height:100%;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px}
+#p-tratak:fullscreen .farea,#p-tratak:-webkit-full-screen .farea{width:92vw;height:82vh;background:#000;border-color:#111;border-radius:6px}
+#p-tratak:fullscreen .ysel,#p-tratak:fullscreen .tctrl,#p-tratak:fullscreen .tnote,#p-tratak:-webkit-full-screen .ysel,#p-tratak:-webkit-full-screen .tctrl,#p-tratak:-webkit-full-screen .tnote{display:none}
 </style>
 </head>
 <body>
