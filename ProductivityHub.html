@@ -169,23 +169,25 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 .sm.active{background:#166534;color:#86efac;border-color:#166534}
 .sm:hover:not(.active){border-color:#4ade80;color:#4ade80}
 /* NAM JAP */
-.jap-panel{padding:16px}
-.jap-center{display:flex;flex-direction:column;align-items:center;gap:12px;padding:8px 0 20px}
-.jnum{font-size:80px;font-weight:500;color:#fff;line-height:1;letter-spacing:-3px}
-.jmalas{font-size:12px;color:#555}
-.jbtn{width:180px;height:180px;border-radius:50%;background:#1a1a1a;border:0.5px solid #2a2a2a;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:500;color:#4ade80;letter-spacing:2px;text-transform:uppercase;user-select:none;-webkit-user-select:none;transition:all .1s}
-.jbtn:active{transform:scale(.93);background:#0c1a0e;border-color:#4ade80}
-.jreset{background:transparent;border:0.5px solid #2a2a2a;color:#555;border-radius:7px;padding:7px 24px;font-size:11px;cursor:pointer}
-.jreset:hover{border-color:#fca5a5;color:#fca5a5}
-.jchart-box{background:#1e1e1e;border-radius:10px;border:0.5px solid #2a2a2a;padding:16px;margin-bottom:14px}
-.jch-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px;flex-wrap:wrap;gap:6px}
-.jch-head h4{color:#ddd;font-size:13px;font-weight:500}
-.jbar-ch{display:flex;align-items:flex-end;height:110px;gap:3px;border-bottom:0.5px solid #2a2a2a;padding-bottom:4px;overflow-x:auto}
-.jbw{flex:0 0 auto;width:calc((100% - 30*3px)/31);min-width:16px;display:flex;flex-direction:column;align-items:center;height:100%}
+.jap-panel{padding:12px;display:flex;flex-direction:column;gap:10px}
+.j-analytics{background:#1e1e1e;border-radius:10px;border:0.5px solid #2a2a2a;padding:12px}
+.jch-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:6px}
+.jch-head h4{color:#ddd;font-size:12px;font-weight:500}
+.jbar-ch{display:flex;align-items:flex-end;height:80px;gap:2px;border-bottom:0.5px solid #2a2a2a;padding-bottom:3px;overflow-x:auto}
+.jbw{flex:0 0 auto;width:calc((100% - 30*2px)/31);min-width:14px;display:flex;flex-direction:column;align-items:center;height:100%}
 .jbi{width:100%;display:flex;align-items:flex-end;justify-content:center;flex:1}
-.jbr{width:100%;border-radius:3px 3px 0 0;min-height:2px;max-width:20px;transition:height .3s}
-.jbl{font-size:7px;color:#333;margin-top:3px;text-align:center}
-.jstats{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.jbr{width:100%;border-radius:2px 2px 0 0;min-height:2px;max-width:18px;transition:height .3s}
+.jbl{font-size:6px;color:#333;margin-top:2px;text-align:center}
+.jstats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.jst{background:#141414;border-radius:6px;padding:8px;text-align:center}
+.jst-v{font-size:16px;font-weight:500}
+.jst-l{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:.6px;margin-top:2px}
+.j-counter{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:8px 0}
+.jnum{font-size:72px;font-weight:500;color:#fff;line-height:1;letter-spacing:-3px}
+.jmalas{font-size:11px;color:#555;margin-top:-6px}
+.jbtn{width:220px;height:220px;border-radius:50%;background:#0f1f0f;border:1.5px solid #166534;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;color:#4ade80;letter-spacing:3px;text-transform:uppercase;user-select:none;-webkit-user-select:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:background .08s,transform .06s;}
+.jreset{background:transparent;border:0.5px solid #2a2a2a;color:#444;border-radius:7px;padding:6px 22px;font-size:11px;cursor:pointer}
+.jreset:hover{border-color:#fca5a5;color:#fca5a5}
 /* TRATAK */
 .tratak-panel{padding:16px}
 .ysel{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:14px}
@@ -377,24 +379,26 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
   <!-- NAM JAP -->
   <div id="p-namjap" style="display:none">
     <div class="jap-panel">
-      <div class="jap-center">
-        <div class="jnum" id="jNum">0</div>
-        <div class="jmalas" id="jMalas">0 rounds (Malas) of 108</div>
-        <div class="jbtn" onclick="countJ()">COUNT</div>
-        <button class="jreset" onclick="resetJ()">Reset Session</button>
-      </div>
-      <div class="jchart-box">
+      <!-- Analytics compact top -->
+      <div class="j-analytics">
         <div class="jch-head">
-          <h4>Daily Jap Count</h4>
-          <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-            <select id="njMSel" onchange="renderNamJap()" style="background:#1e1e1e;border:0.5px solid #2a2a2a;color:#aaa;border-radius:5px;padding:2px 6px;font-size:10px;outline:none"></select>
-            <input type="number" id="njYSel" min="2020" max="2099" onchange="renderNamJap()" style="background:#1e1e1e;border:0.5px solid #2a2a2a;color:#aaa;border-radius:5px;padding:2px 4px;font-size:10px;outline:none;width:50px">
-            <span style="font-size:11px;color:#4ade80" id="jTodLbl"></span>
+          <h4>Daily Jap — <span id="jMonthLbl"></span></h4>
+          <div style="display:flex;gap:6px;align-items:center">
+            <select id="njMSel" onchange="renderNamJap()" style="background:#1a1a1a;border:0.5px solid #2a2a2a;color:#aaa;border-radius:5px;padding:2px 5px;font-size:10px;outline:none"></select>
+            <input type="number" id="njYSel" min="2020" max="2099" onchange="renderNamJap()" style="background:#1a1a1a;border:0.5px solid #2a2a2a;color:#aaa;border-radius:5px;padding:2px 4px;font-size:10px;outline:none;width:48px">
           </div>
         </div>
         <div class="jbar-ch" id="jBar"></div>
+        <div class="jstats-row" id="jStats"></div>
       </div>
-      <div class="jstats" id="jStats"></div>
+      <!-- Counter — full width, main focus -->
+      <div class="j-counter">
+        <div class="jnum" id="jNum">0</div>
+        <div class="jmalas" id="jMalas">0 rounds (Malas) of 108</div>
+        <div class="jbtn" id="jBtn" onclick="countJ()">COUNT</div>
+        <span style="font-size:11px;color:#4ade80;margin-top:-4px" id="jTodLbl"></span>
+        <button class="jreset" onclick="resetJ()">Reset Session</button>
+      </div>
     </div>
   </div>
   <!-- BINDU TRATAK -->
@@ -439,7 +443,7 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 </div>
 </div>
 <script>
-const WEB_APP_URL='https://script.google.com/macros/s/AKfycbxYHbrso4D-STHuQSbWvXYXhKad2nkTuFw0pl4Xk1s71g1gj6d4XP6FkuFV3ZxiZyIGIg/exec';
+const WEB_APP_URL='https://script.google.com/macros/s/AKfycbwA3ptek_VG-39ENWAat_A_vzKlCnIEOyUGEyiUbNuGkDgM1Rlwpi1Znw8GyWijKwVp8A/exec';
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DOW_S=['Su','Mo','Tu','We','Th','Fr','Sa'];
 const MOODS=['😞','😐','🙂','😀','🤩'];
@@ -448,7 +452,8 @@ const FC=2*Math.PI*96;
 let currentUser=null,currentPass=null,isNewUser=false;
 let month=new Date().getMonth(),year=new Date().getFullYear();
 let habits=[],hdata={},mood={},tasks=[],nextTid=1;
-let njSess=0,njDaily={},njCurrentDate='';
+let njDaily={};  // source of truth — date → count, synced with backend
+let njSess=0;    // current session count (resets with "Reset Session" button)
 let saveTimer=null,currentTab='habits';
 let fSecs=1500,fTotal=1500,fRun=false,fInt=null,selMin=25;
 let tRun=false,tSecs=0,tInt=null,curY='dot';
@@ -500,7 +505,7 @@ function applyData(d){
   if(s.mood&&typeof s.mood==='object'&&!Array.isArray(s.mood))mood=s.mood;
   if(Array.isArray(s.tasks))tasks=s.tasks;
   if(s.next_tid)nextTid=+s.next_tid||1;
-  if(s.namjap_daily&&typeof s.namjap_daily==='object')njDaily=s.namjap_daily;
+  if(s.namjap_daily&&typeof s.namjap_daily==='object') njDaily=s.namjap_daily;
 }
 async function doAuth(){
   const u=document.getElementById('unameDisplay').value,pw=document.getElementById('passIn').value,conf=document.getElementById('confirmIn').value;
@@ -520,15 +525,12 @@ function launchApp(){
   document.getElementById('userAv').textContent=currentUser.name[0].toUpperCase();document.getElementById('userNm').textContent=currentUser.name;
   initMonthSel();initNjSel();renderHabits();renderTasks();
   document.getElementById('ndue').value=todayStr();
-  initFocusBtns();renderNamJap();setYantra('dot',document.querySelector('.yb'));
-  njCurrentDate=todayStr();
-  // Midnight auto-reset check
-  setInterval(()=>{const n=todayStr();if(njCurrentDate&&njCurrentDate!==n){njCurrentDate=n;njSess=0;renderNamJap();}},30000);
+  initFocusBtns();renderNamJap();  setYantra('dot',document.querySelector('.yb'));
 }
 
 function logout(){
   if(!confirm('Sign out?'))return;clearInterval(fInt);clearInterval(tInt);if(flameAnimId)cancelAnimationFrame(flameAnimId);
-  currentUser=null;currentPass=null;habits=[];hdata={};mood={};tasks=[];nextTid=1;njSess=0;njDaily={};njCurrentDate='';
+  currentUser=null;currentPass=null;habits=[];hdata={};mood={};tasks=[];nextTid=1;njDaily={};njSess=0;
   document.getElementById('app').style.display='none';document.getElementById('loginScreen').style.display='flex';
   document.getElementById('step2').style.display='none';document.getElementById('step1').style.display='block';
   document.getElementById('sd1').className='sdot active';document.getElementById('sd2').className='sdot';
@@ -540,6 +542,16 @@ function logout(){
 
 const setDot=s=>document.getElementById('saveDot').className='sdot2 '+s;
 const getAll=()=>({habits,hdata,mood,tasks,next_tid:nextTid,namjap_daily:njDaily});
+
+// Save Nam Jap immediately to backend (no debounce — every count must persist)
+async function saveNamJap(){
+  if(!currentUser||!currentPass)return;
+  try{
+    const b=new URLSearchParams({action:'save',user:currentUser.id,pass:currentPass,data:JSON.stringify(getAll())});
+    await fetch(WEB_APP_URL,{method:'POST',body:b,redirect:'follow',credentials:'omit'});
+    setDot('saved');setTimeout(()=>setDot(''),2000);
+  }catch(e){setDot('fail');console.error('NJ save:',e.message);}
+}
 async function saveData(){
   if(!currentUser||!currentPass)return;setDot('saving');
   try{const b=new URLSearchParams({action:'save',user:currentUser.id,pass:currentPass,data:JSON.stringify(getAll())});const r=await fetch(WEB_APP_URL,{method:'POST',body:b,redirect:'follow',credentials:'omit'});if(!r.ok)throw new Error('HTTP '+r.status);const j=await r.json();if(j.error)throw new Error(j.error);setDot('saved');setTimeout(()=>setDot(''),3000);}
@@ -640,18 +652,31 @@ function startF(){if(fRun)return;fRun=true;document.getElementById('fSt').disabl
 function pauseF(){clearInterval(fInt);fRun=false;document.getElementById('fSt').disabled=false;document.getElementById('fPa').disabled=true;}
 function resetF(){pauseF();fSecs=fTotal;updFUI();}
 
-/* NAM JAP */
+/* NAM JAP — njDaily[date] is the single source of truth */
 function countJ(){
   const t=todayStr();
-  if(njCurrentDate&&njCurrentDate!==t){njSess=0;} // auto-reset on new day
-  njCurrentDate=t;
-  njSess++;
   njDaily[t]=(njDaily[t]||0)+1;
+  njSess++;  // increment session count
+  // Visual feedback on button
+  const btn=document.getElementById('jBtn');
+  if(btn){
+    btn.style.transform='scale(.88)';
+    btn.style.background='#0c2a0c';
+    btn.style.borderColor='#4ade80';
+    setTimeout(()=>{btn.style.transform='';btn.style.background='';btn.style.borderColor='';},110);
+  }
   renderNamJap();
-  scheduleSave();
-  if(navigator.vibrate)navigator.vibrate(15);
+  setDot('saving');
+  saveNamJap(); // immediate save — no debounce
+  if(navigator.vibrate)navigator.vibrate(12);
 }
-function resetJ(){if(!confirm('Reset session count?'))return;njSess=0;renderNamJap();}
+
+function resetJ(){
+  if(!confirm('Reset today\'s session count to zero?'))return;
+  njSess=0;  // reset session count
+  renderNamJap();
+  // Note: This doesn't reset njDaily - the daily total is preserved
+}
 function renderNamJap(){
   const malas=Math.floor(njSess/108);
   document.getElementById('jNum').textContent=njSess;
@@ -691,9 +716,10 @@ const YOBJS={
       <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%) rotate(9deg);transform-origin:bottom center;width:3px;height:22px;background:linear-gradient(to top,#1c0a00,#7c3f0a,#92400e);border-radius:2px 1px 0 0"></div>
       <div style="position:absolute;bottom:27px;left:calc(50% + 3px);width:7px;height:7px;background:radial-gradient(circle,rgba(254,215,170,.95),rgba(251,146,60,.85),transparent);border-radius:50%;filter:blur(1px)"></div>
     </div>
-    <div style="width:36px;height:80px;background:linear-gradient(to right,#713f12,#92400e,#b45309,#d97706,#f59e0b,#fbbf24,#f59e0b,#d97706,#b45309,#92400e,#713f12);border-radius:3px 3px 5px 5px;position:relative;box-shadow:0 0 28px rgba(180,130,0,.18),inset 0 0 10px rgba(0,0,0,.25)">
-      <div style="position:absolute;top:-5px;left:0;right:0;height:8px;background:linear-gradient(to bottom,#a16207,#b45309);border-radius:50% 50% 0 0;box-shadow:0 -2px 10px rgba(200,140,0,.22)"></div>
-      <div style="position:absolute;top:1px;right:5px;width:6px;height:17px;background:linear-gradient(to bottom,#ca8a04,#a16207);border-radius:0 0 50% 50%;opacity:.72"></div>
+    <div style="width:38px;height:84px;background:linear-gradient(to right,#bbb 0%,#e8e8e8 20%,#fff 38%,#f0f0f0 52%,#e0e0e0 68%,#c8c8c8 82%,#b0b0b0 100%);border-radius:3px 3px 5px 5px;position:relative;box-shadow:0 0 28px rgba(180,130,0,.15),inset 0 0 8px rgba(0,0,0,.1)">
+      <div style="position:absolute;top:-5px;left:0;right:0;height:8px;background:linear-gradient(to bottom,#ccc,#ddd);border-radius:50% 50% 0 0;box-shadow:0 -2px 8px rgba(200,200,200,.18)"></div>
+      <div style="position:absolute;top:6px;right:7px;width:5px;height:20px;background:linear-gradient(to bottom,#d0d0d0,#aaa);border-radius:0 0 50% 50%;opacity:.55"></div>
+      <div style="position:absolute;top:4px;left:7px;width:3px;height:14px;background:rgba(255,255,255,.45);border-radius:2px"></div>
     </div>
   </div>`
 };
@@ -706,16 +732,23 @@ function setYantra(name,el){
 
 function startFlameAnim(){
   if(flameAnimId)cancelAnimationFrame(flameAnimId);
+  // Use slow sine waves — NO Math.random() to prevent jitter
   let t=0;
+  // Target values for smooth lerp
+  let cSkew=0,cScaleX=1,cTx=0;
   function frame(){
     const el=document.getElementById('flameEl');
     if(!el){flameAnimId=null;return;}
-    t+=0.022;
-    const skewX=Math.sin(t*1.1)*5+Math.sin(t*2.8)*3+Math.sin(t*6.1)*1.5+Math.sin(t*11.7)*.7+(Math.random()-.5)*3.2;
-    const scaleX=0.9+Math.sin(t*1.85)*.08+Math.sin(t*3.7)*.04+Math.sin(t*7.3)*.02+(Math.random()-.5)*.055;
-    const scaleY=0.97+Math.cos(t*1.35)*.035+Math.sin(t*4.2)*.018+(Math.random()-.5)*.022;
-    const tx=Math.sin(t*.82)*2.8+Math.sin(t*2.2)*1.1+(Math.random()-.5)*1.6;
-    el.style.transform=`translateX(${tx.toFixed(1)}px) scaleX(${scaleX.toFixed(3)}) scaleY(${scaleY.toFixed(3)}) skewX(${skewX.toFixed(2)}deg)`;
+    t+=0.008; // very slow tick
+    // Target: gentle slow drift using pure sines, no randomness
+    const tSkew  = Math.sin(t*0.9)*4 + Math.sin(t*1.7)*2;
+    const tScaleX= 1 + Math.sin(t*1.1)*.06 + Math.sin(t*2.3)*.03;
+    const tTx    = Math.sin(t*0.7)*3 + Math.sin(t*1.5)*1.2;
+    // Lerp toward target — smooths out any step changes
+    cSkew  += (tSkew  - cSkew)  * 0.06;
+    cScaleX+= (tScaleX- cScaleX)* 0.06;
+    cTx    += (tTx    - cTx)    * 0.06;
+    el.style.transform=`translateX(${cTx.toFixed(2)}px) scaleX(${cScaleX.toFixed(4)}) skewX(${cSkew.toFixed(2)}deg)`;
     flameAnimId=requestAnimationFrame(frame);
   }
   frame();
@@ -723,7 +756,27 @@ function startFlameAnim(){
 
 function startT(){tSecs=0;tRun=true;document.getElementById('tSBtn').style.display='none';document.getElementById('tEBtn').style.display='block';document.getElementById('ftDisp').classList.add('on');tInt=setInterval(()=>{tSecs++;document.getElementById('ftDisp').textContent=fmts(tSecs);},1000);}
 function endT(){clearInterval(tInt);tRun=false;document.getElementById('tSBtn').style.display='block';document.getElementById('tEBtn').style.display='none';document.getElementById('ftDisp').classList.remove('on');if(tSecs>10)alert(`Session complete: ${fmts(tSecs)} of focused attention.`);tSecs=0;document.getElementById('ftDisp').textContent='00:00';}
-function goFullscreen(){const el=document.getElementById('p-tratak');if(document.fullscreenElement||document.webkitFullscreenElement){(document.exitFullscreen||document.webkitExitFullscreen||function(){}).call(document);}else if(el.requestFullscreen)el.requestFullscreen();else if(el.webkitRequestFullscreen)el.webkitRequestFullscreen();}
+let wakeLock=null;
+async function reqWakeLock(){
+  if('wakeLock' in navigator){
+    try{wakeLock=await navigator.wakeLock.request('screen');}catch(e){console.log('WakeLock denied',e);}
+  }
+}
+function relWakeLock(){if(wakeLock){wakeLock.release();wakeLock=null;}}
+
+function goFullscreen(){
+  const el=document.getElementById('p-tratak');
+  if(document.fullscreenElement||document.webkitFullscreenElement){
+    relWakeLock();
+    (document.exitFullscreen||document.webkitExitFullscreen||function(){}).call(document);
+  }else if(el.requestFullscreen){
+    el.requestFullscreen().then(reqWakeLock);
+  }else if(el.webkitRequestFullscreen){
+    el.webkitRequestFullscreen();reqWakeLock();
+  }
+}
+document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)relWakeLock();});
+document.addEventListener('webkitfullscreenchange',()=>{if(!document.webkitFullscreenElement)relWakeLock();});
 
 /* SETTINGS MODAL */
 function openModal(){document.getElementById('settingsModal').classList.add('open');}
