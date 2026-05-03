@@ -210,7 +210,7 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 #p-tratak:fullscreen .farea,#p-tratak:-webkit-full-screen .farea{width:100vw;height:100vh;background:#000;border:none;border-radius:0;max-width:none}
 #p-tratak:fullscreen .ysel,#p-tratak:fullscreen .tctrl,#p-tratak:fullscreen .tnote,#p-tratak:-webkit-full-screen .ysel,#p-tratak:-webkit-full-screen .tctrl,#p-tratak:-webkit-full-screen .tnote{display:none}
 /* Focus object animations */
-.t-dot{width:18px;height:18px;border-radius:50%;background:#e11d48;animation:dotpulse 4s ease-in-out infinite}
+.t-dot{width:12px;height:12px;border-radius:50%;background:#e11d48;animation:dotpulse 4s ease-in-out infinite}
 @keyframes dotpulse{0%,100%{box-shadow:0 0 16px rgba(225,29,72,.3)}50%{box-shadow:0 0 36px rgba(225,29,72,.75)}}
 @keyframes mandalaspin{to{transform:rotate(360deg)}}
 @keyframes omglow{0%,100%{opacity:.5}50%{opacity:.85}}
@@ -672,16 +672,20 @@ function countJ(){
 }
 
 function resetJ(){
-  if(!confirm('Reset today\'s session count to zero?'))return;
-  njSess=0;  // reset session count
+  if(!confirm('Reset today\'s count to zero?'))return;
+  njDaily[todayStr()]=0;
+  njSess=0;
   renderNamJap();
-  // Note: This doesn't reset njDaily - the daily total is preserved
+  saveNamJap();
 }
 function renderNamJap(){
+  // Sync session count with today's daily total
+  const tdc=njDaily[todayStr()]||0;
+  njSess=tdc;
+  
   const malas=Math.floor(njSess/108);
   document.getElementById('jNum').textContent=njSess;
   document.getElementById('jMalas').textContent=`${malas} rounds (Malas) of 108`;
-  const tdc=njDaily[todayStr()]||0;
   document.getElementById('njbadge').textContent=tdc;
   document.getElementById('jTodLbl').textContent=`Today: ${tdc} (${Math.floor(tdc/108)}m)`;
   // Get selected month/year for bar chart
@@ -705,7 +709,64 @@ function renderNamJap(){
 /* BINDU TRATAK */
 const YOBJS={
   dot:`<div class="t-dot"></div>`,
-  yantra:`<svg width="270" height="270" viewBox="0 0 300 300" style="opacity:.75"><defs><style>.ys{fill:none;stroke:#e11d48;stroke-width:1.2}</style></defs><rect x="8" y="8" width="284" height="284" class="ys" stroke-width="2"/><rect x="22" y="22" width="256" height="256" class="ys" stroke-width=".8"/><line x1="8" y1="68" x2="28" y2="68" class="ys"/><line x1="8" y1="98" x2="28" y2="98" class="ys"/><line x1="8" y1="202" x2="28" y2="202" class="ys"/><line x1="8" y1="232" x2="28" y2="232" class="ys"/><line x1="272" y1="68" x2="292" y2="68" class="ys"/><line x1="272" y1="98" x2="292" y2="98" class="ys"/><line x1="272" y1="202" x2="292" y2="202" class="ys"/><line x1="272" y1="232" x2="292" y2="232" class="ys"/><line x1="68" y1="8" x2="68" y2="28" class="ys"/><line x1="98" y1="8" x2="98" y2="28" class="ys"/><line x1="202" y1="8" x2="202" y2="28" class="ys"/><line x1="232" y1="8" x2="232" y2="28" class="ys"/><line x1="68" y1="272" x2="68" y2="292" class="ys"/><line x1="98" y1="272" x2="98" y2="292" class="ys"/><line x1="202" y1="272" x2="202" y2="292" class="ys"/><line x1="232" y1="272" x2="232" y2="292" class="ys"/><circle cx="150" cy="150" r="112" class="ys" stroke-width="1.5"/><circle cx="150" cy="150" r="100" class="ys" stroke-width=".8"/><circle cx="150" cy="150" r="60" class="ys" stroke-width=".8"/><polygon points="150,42 262,234 38,234" class="ys" stroke-width="1.8"/><polygon points="150,66 250,220 50,220" class="ys" stroke-width="1.1"/><polygon points="150,90 238,206 62,206" class="ys" stroke-width="1.1"/><polygon points="150,112 224,192 76,192" class="ys" stroke-width="1.1"/><polygon points="150,258 38,66 262,66" class="ys" stroke-width="1.8"/><polygon points="150,234 50,80 250,80" class="ys" stroke-width="1.1"/><polygon points="150,210 62,94 238,94" class="ys" stroke-width="1.1"/><polygon points="150,188 76,108 224,108" class="ys" stroke-width="1.1"/><polygon points="150,168 90,122 210,122" class="ys" stroke-width="1.1"/><circle cx="150" cy="150" r="6" fill="#e11d48"/><circle cx="150" cy="150" r="11" class="ys" stroke-width=".8"/></svg>`,
+  yantra:`<svg width="300" height="300" viewBox="0 0 300 300" style="opacity:.8">
+    <defs>
+      <style>.ys{fill:none;stroke:#e11d48;stroke-width:1}</style>
+    </defs>
+    <!-- Outer square (bhupura) with gates -->
+    <rect x="15" y="15" width="270" height="270" class="ys" stroke-width="2.5"/>
+    <rect x="25" y="25" width="250" height="250" class="ys" stroke-width="1.2"/>
+    <!-- Gates on square -->
+    <line x1="15" y1="75" x2="35" y2="75" class="ys" stroke-width="2"/>
+    <line x1="15" y1="105" x2="35" y2="105" class="ys" stroke-width="2"/>
+    <line x1="15" y1="195" x2="35" y2="195" class="ys" stroke-width="2"/>
+    <line x1="15" y1="225" x2="35" y2="225" class="ys" stroke-width="2"/>
+    <line x1="265" y1="75" x2="285" y2="75" class="ys" stroke-width="2"/>
+    <line x1="265" y1="105" x2="285" y2="105" class="ys" stroke-width="2"/>
+    <line x1="265" y1="195" x2="285" y2="195" class="ys" stroke-width="2"/>
+    <line x1="265" y1="225" x2="285" y2="225" class="ys" stroke-width="2"/>
+    <line x1="75" y1="15" x2="75" y2="35" class="ys" stroke-width="2"/>
+    <line x1="105" y1="15" x2="105" y2="35" class="ys" stroke-width="2"/>
+    <line x1="195" y1="15" x2="195" y2="35" class="ys" stroke-width="2"/>
+    <line x1="225" y1="15" x2="225" y2="35" class="ys" stroke-width="2"/>
+    <line x1="75" y1="265" x2="75" y2="285" class="ys" stroke-width="2"/>
+    <line x1="105" y1="265" x2="105" y2="285" class="ys" stroke-width="2"/>
+    <line x1="195" y1="265" x2="195" y2="285" class="ys" stroke-width="2"/>
+    <line x1="225" y1="265" x2="225" y2="285" class="ys" stroke-width="2"/>
+    <!-- Lotus petals outer ring -->
+    ${Array.from({length:16},(_,i)=>{
+      const angle=(i*22.5-90)*Math.PI/180;
+      const r1=125,r2=135;
+      const x1=150+r1*Math.cos(angle),y1=150+r1*Math.sin(angle);
+      const x2=150+r2*Math.cos(angle),y2=150+r2*Math.sin(angle);
+      const ctrl1x=150+(r1+8)*Math.cos(angle-0.15),ctrl1y=150+(r1+8)*Math.sin(angle-0.15);
+      const ctrl2x=150+(r1+8)*Math.cos(angle+0.15),ctrl2y=150+(r1+8)*Math.sin(angle+0.15);
+      return`<path d="M${x1},${y1} Q${ctrl1x},${ctrl1y} ${x2},${y2} Q${ctrl2x},${ctrl2y} ${x1},${y1}" class="ys" stroke-width="0.8"/>`;
+    }).join('')}
+    <!-- Concentric circles -->
+    <circle cx="150" cy="150" r="120" class="ys" stroke-width="1.5"/>
+    <circle cx="150" cy="150" r="108" class="ys" stroke-width="1"/>
+    <circle cx="150" cy="150" r="96" class="ys" stroke-width="1"/>
+    <!-- Nine interlocking triangles of Sri Yantra -->
+    <!-- Outermost downward triangle -->
+    <polygon points="150,54 245,228 55,228" class="ys" stroke-width="1.5"/>
+    <!-- Upward triangles -->
+    <polygon points="150,68 233,216 67,216" class="ys" stroke-width="1.2"/>
+    <polygon points="150,82 221,204 79,204" class="ys" stroke-width="1.2"/>
+    <polygon points="150,96 209,192 91,192" class="ys" stroke-width="1.2"/>
+    <polygon points="150,110 197,180 103,180" class="ys" stroke-width="1.2"/>
+    <!-- Downward triangles -->
+    <polygon points="150,246 67,84 233,84" class="ys" stroke-width="1.5"/>
+    <polygon points="150,232 79,96 221,96" class="ys" stroke-width="1.2"/>
+    <polygon points="150,218 91,108 209,108" class="ys" stroke-width="1.2"/>
+    <polygon points="150,204 103,120 197,120" class="ys" stroke-width="1.2"/>
+    <!-- Inner triangles -->
+    <polygon points="150,124 185,168 115,168" class="ys" stroke-width="1"/>
+    <polygon points="150,176 115,132 185,132" class="ys" stroke-width="1"/>
+    <!-- Central bindu -->
+    <circle cx="150" cy="150" r="3" fill="#e11d48"/>
+    <circle cx="150" cy="150" r="6" class="ys" stroke-width="0.8"/>
+  </svg>`,
   om:`<div style="font-size:120px;color:rgba(225,29,72,.72);font-family:serif;animation:omglow 3s ease-in-out infinite">ॐ</div>`,
   mandala:`<svg width="270" height="270" viewBox="0 0 270 270" style="animation:mandalaspin 90s linear infinite;opacity:.72"><g transform="translate(135,135)" fill="none" stroke="#e11d48">${Array.from({length:12},(_,i)=>{const a=i*30*Math.PI/180;return`<line x1="0" y1="0" x2="${(114*Math.cos(a)).toFixed(1)}" y2="${(114*Math.sin(a)).toFixed(1)}" stroke-width="1" opacity=".35"/>`;}).join('')}${[114,92,70,50,30,13].map((r,i)=>`<circle r="${r}" stroke-width="${i<2?2:1.5}" opacity=".45"/>`).join('')}${Array.from({length:8},(_,i)=>{const a=i*45*Math.PI/180,x1=(48*Math.cos(a)).toFixed(1),y1=(48*Math.sin(a)).toFixed(1),x2=(85*Math.cos(a+.28)).toFixed(1),y2=(85*Math.sin(a+.28)).toFixed(1),x3=(85*Math.cos(a-.28)).toFixed(1),y3=(85*Math.sin(a-.28)).toFixed(1);return`<path d="M${x1},${y1} C${x2},${y2} ${x3},${y3} ${x1},${y1}" stroke-width="1.4" opacity=".6"/>`;}).join('')}<circle r="6" fill="#e11d48" stroke="none"/></g></svg>`,
   flame:`<div style="display:flex;flex-direction:column;align-items:center">
