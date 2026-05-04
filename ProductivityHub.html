@@ -176,7 +176,7 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 .jbar-ch{display:flex;align-items:flex-end;height:80px;gap:2px;border-bottom:0.5px solid #2a2a2a;padding-bottom:3px;overflow-x:auto}
 .jbw{flex:0 0 auto;width:calc((100% - 30*2px)/31);min-width:14px;display:flex;flex-direction:column;align-items:center;height:100%}
 .jbi{width:100%;display:flex;align-items:flex-end;justify-content:center;flex:1}
-.jbr{width:100%;border-radius:2px 2px 0 0;min-height:2px;max-width:18px;transition:height .3s}
+.jbr{width:100%;border-radius:2px 2px 0 0;min-height:2px;max-width:18px;transition:height .3s;position:relative}
 .jbl{font-size:6px;color:#333;margin-top:2px;text-align:center}
 .jstats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
 .jst{background:#141414;border-radius:6px;padding:8px;text-align:center}
@@ -194,7 +194,7 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 .yb{background:#1e1e1e;border:0.5px solid #2a2a2a;border-radius:7px;padding:6px 12px;font-size:11px;color:#666;cursor:pointer;transition:all .15s;font-weight:500}
 .yb.active{background:#0f2d18;border-color:#4ade80;color:#4ade80}
 .yb:hover:not(.active){border-color:#666;color:#aaa}
-.farea{width:100%;height:400px;background:#000;border-radius:12px;border:0.5px solid #1e1e1e;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.farea{width:100%;min-height:60vh;max-height:80vh;background:#000;border-radius:12px;border:0.5px solid #1e1e1e;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
 .ft-disp{font-size:11px;color:#1a1a1a;position:absolute;bottom:12px;left:50%;transform:translateX(-50%);font-variant-numeric:tabular-nums;letter-spacing:2px;transition:color .3s}
 .ft-disp.on{color:#2a2a2a}
 .tctrl{display:flex;gap:10px;margin-top:14px;align-items:center;flex-wrap:wrap}
@@ -443,7 +443,7 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 </div>
 </div>
 <script>
-const WEB_APP_URL='https://script.google.com/macros/s/AKfycbwA3ptek_VG-39ENWAat_A_vzKlCnIEOyUGEyiUbNuGkDgM1Rlwpi1Znw8GyWijKwVp8A/exec';
+const WEB_APP_URL='https://script.google.com/macros/s/AKfycbwDb7W5z4bDRibyz_9sE6UAPHVCPPIdp_vemgTw1694BE5T-RMoZq2Kwq0eKO5rtq5PYQ/exec';
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DOW_S=['Su','Mo','Tu','We','Th','Fr','Sa'];
 const MOODS=['😞','😐','🙂','😀','🤩'];
@@ -699,7 +699,7 @@ function renderNamJap(){
     bars.push({lbl:String(d),cnt:njDaily[ds]||0,fut:isFut});
   }
   const mx=Math.max(...bars.map(b=>b.cnt),108);
-  document.getElementById('jBar').innerHTML=bars.map(b=>{const col=b.fut?'#1a1a1a':b.cnt>=108?'#4ade80':b.cnt>=54?'#fcd34d':b.cnt>0?'#93c5fd':'#1e1e1e';return`<div class="jbw"><div class="jbi"><div class="jbr" style="height:${b.cnt&&!b.fut?Math.max(b.cnt/mx*100,3):2}%;background:${col}"></div></div><div class="jbl">${b.lbl}</div></div>`;}).join('');
+  document.getElementById('jBar').innerHTML=bars.map(b=>{const col=b.fut?'#1a1a1a':b.cnt>=108?'#4ade80':b.cnt>=54?'#fcd34d':b.cnt>0?'#93c5fd':'#1e1e1e';return`<div class="jbw"><div class="jbi"><div class="jbr" style="height:${b.cnt&&!b.fut?Math.max(b.cnt/mx*100,3):2}%;background:${col}">${b.cnt>0&&!b.fut?`<span style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:#888;white-space:nowrap">${b.cnt}</span>`:''}</div></div><div class="jbl">${b.lbl}</div></div>`;}).join('');
   const cm=now.getMonth(),cy=now.getFullYear();
   const mTotal=Object.entries(njDaily).filter(([k])=>{const d=new Date(k);return d.getMonth()===cm&&d.getFullYear()===cy;}).reduce((s,[,v])=>s+v,0);
   const allTime=Object.values(njDaily).reduce((s,v)=>s+v,0);
@@ -709,67 +709,139 @@ function renderNamJap(){
 /* BINDU TRATAK */
 const YOBJS={
   dot:`<div class="t-dot"></div>`,
-  yantra:`<svg width="300" height="300" viewBox="0 0 300 300" style="opacity:.8">
+  yantra:`<svg width="100%" height="100%" viewBox="0 0 500 500" style="max-width:min(85vw,85vh);max-height:min(85vw,85vh)">
     <defs>
-      <style>.ys{fill:none;stroke:#e11d48;stroke-width:1}</style>
+      <style>
+        .ys{fill:none;stroke:#e11d48;stroke-width:2}
+        .yf{fill:#e11d48;stroke:#e11d48;stroke-width:1.5}
+      </style>
     </defs>
-    <!-- Outer square (bhupura) with gates -->
-    <rect x="15" y="15" width="270" height="270" class="ys" stroke-width="2.5"/>
-    <rect x="25" y="25" width="250" height="250" class="ys" stroke-width="1.2"/>
-    <!-- Gates on square -->
-    <line x1="15" y1="75" x2="35" y2="75" class="ys" stroke-width="2"/>
-    <line x1="15" y1="105" x2="35" y2="105" class="ys" stroke-width="2"/>
-    <line x1="15" y1="195" x2="35" y2="195" class="ys" stroke-width="2"/>
-    <line x1="15" y1="225" x2="35" y2="225" class="ys" stroke-width="2"/>
-    <line x1="265" y1="75" x2="285" y2="75" class="ys" stroke-width="2"/>
-    <line x1="265" y1="105" x2="285" y2="105" class="ys" stroke-width="2"/>
-    <line x1="265" y1="195" x2="285" y2="195" class="ys" stroke-width="2"/>
-    <line x1="265" y1="225" x2="285" y2="225" class="ys" stroke-width="2"/>
-    <line x1="75" y1="15" x2="75" y2="35" class="ys" stroke-width="2"/>
-    <line x1="105" y1="15" x2="105" y2="35" class="ys" stroke-width="2"/>
-    <line x1="195" y1="15" x2="195" y2="35" class="ys" stroke-width="2"/>
-    <line x1="225" y1="15" x2="225" y2="35" class="ys" stroke-width="2"/>
-    <line x1="75" y1="265" x2="75" y2="285" class="ys" stroke-width="2"/>
-    <line x1="105" y1="265" x2="105" y2="285" class="ys" stroke-width="2"/>
-    <line x1="195" y1="265" x2="195" y2="285" class="ys" stroke-width="2"/>
-    <line x1="225" y1="265" x2="225" y2="285" class="ys" stroke-width="2"/>
-    <!-- Lotus petals outer ring -->
-    ${Array.from({length:16},(_,i)=>{
-      const angle=(i*22.5-90)*Math.PI/180;
-      const r1=125,r2=135;
-      const x1=150+r1*Math.cos(angle),y1=150+r1*Math.sin(angle);
-      const x2=150+r2*Math.cos(angle),y2=150+r2*Math.sin(angle);
-      const ctrl1x=150+(r1+8)*Math.cos(angle-0.15),ctrl1y=150+(r1+8)*Math.sin(angle-0.15);
-      const ctrl2x=150+(r1+8)*Math.cos(angle+0.15),ctrl2y=150+(r1+8)*Math.sin(angle+0.15);
-      return`<path d="M${x1},${y1} Q${ctrl1x},${ctrl1y} ${x2},${y2} Q${ctrl2x},${ctrl2y} ${x1},${y1}" class="ys" stroke-width="0.8"/>`;
-    }).join('')}
+    
+    <!-- Background -->
+    <rect width="500" height="500" fill="#000"/>
+    
+    <!-- Outer square frames with T-gates -->
+    <rect x="30" y="30" width="440" height="440" class="ys" stroke-width="3"/>
+    <rect x="45" y="45" width="410" height="410" class="ys" stroke-width="2"/>
+    <rect x="58" y="58" width="384" height="384" class="ys" stroke-width="1.5"/>
+    
+    <!-- T-shaped gates -->
+    <!-- Top left gate -->
+    <rect x="30" y="30" width="24" height="65" class="ys" stroke-width="2.5"/>
+    <rect x="36" y="30" width="12" height="50" class="yf"/>
+    <rect x="30" y="30" width="65" height="24" class="ys" stroke-width="2.5"/>
+    <rect x="30" y="36" width="50" height="12" class="yf"/>
+    
+    <!-- Top right gate -->
+    <rect x="446" y="30" width="24" height="65" class="ys" stroke-width="2.5"/>
+    <rect x="452" y="30" width="12" height="50" class="yf"/>
+    <rect x="405" y="30" width="65" height="24" class="ys" stroke-width="2.5"/>
+    <rect x="420" y="36" width="50" height="12" class="yf"/>
+    
+    <!-- Bottom left gate -->
+    <rect x="30" y="405" width="24" height="65" class="ys" stroke-width="2.5"/>
+    <rect x="36" y="420" width="12" height="50" class="yf"/>
+    <rect x="30" y="446" width="65" height="24" class="ys" stroke-width="2.5"/>
+    <rect x="30" y="452" width="50" height="12" class="yf"/>
+    
+    <!-- Bottom right gate -->
+    <rect x="446" y="405" width="24" height="65" class="ys" stroke-width="2.5"/>
+    <rect x="452" y="420" width="12" height="50" class="yf"/>
+    <rect x="405" y="446" width="65" height="24" class="ys" stroke-width="2.5"/>
+    <rect x="420" y="452" width="50" height="12" class="yf"/>
+    
+    <!-- Side gates (left and right) -->
+    <rect x="30" y="162" width="28" height="23" class="yf"/>
+    <rect x="30" y="315" width="28" height="23" class="yf"/>
+    <rect x="442" y="162" width="28" height="23" class="yf"/>
+    <rect x="442" y="315" width="28" height="23" class="yf"/>
+    
     <!-- Concentric circles -->
-    <circle cx="150" cy="150" r="120" class="ys" stroke-width="1.5"/>
-    <circle cx="150" cy="150" r="108" class="ys" stroke-width="1"/>
-    <circle cx="150" cy="150" r="96" class="ys" stroke-width="1"/>
-    <!-- Nine interlocking triangles of Sri Yantra -->
-    <!-- Outermost downward triangle -->
-    <polygon points="150,54 245,228 55,228" class="ys" stroke-width="1.5"/>
-    <!-- Upward triangles -->
-    <polygon points="150,68 233,216 67,216" class="ys" stroke-width="1.2"/>
-    <polygon points="150,82 221,204 79,204" class="ys" stroke-width="1.2"/>
-    <polygon points="150,96 209,192 91,192" class="ys" stroke-width="1.2"/>
-    <polygon points="150,110 197,180 103,180" class="ys" stroke-width="1.2"/>
-    <!-- Downward triangles -->
-    <polygon points="150,246 67,84 233,84" class="ys" stroke-width="1.5"/>
-    <polygon points="150,232 79,96 221,96" class="ys" stroke-width="1.2"/>
-    <polygon points="150,218 91,108 209,108" class="ys" stroke-width="1.2"/>
-    <polygon points="150,204 103,120 197,120" class="ys" stroke-width="1.2"/>
-    <!-- Inner triangles -->
-    <polygon points="150,124 185,168 115,168" class="ys" stroke-width="1"/>
-    <polygon points="150,176 115,132 185,132" class="ys" stroke-width="1"/>
-    <!-- Central bindu -->
-    <circle cx="150" cy="150" r="3" fill="#e11d48"/>
-    <circle cx="150" cy="150" r="6" class="ys" stroke-width="0.8"/>
+    <circle cx="250" cy="250" r="205" class="ys" stroke-width="2.5"/>
+    <circle cx="250" cy="250" r="190" class="ys" stroke-width="2"/>
+    <circle cx="250" cy="250" r="175" class="ys" stroke-width="1.5"/>
+    
+    <!-- Outer 16 lotus petals (filled) -->
+    ${Array.from({length:16},(_,i)=>{
+      const angle = (i * 22.5 - 90) * Math.PI / 180;
+      const r1 = 175, r2 = 190;
+      const spread = 0.196; // petal width angle
+      
+      const x1 = 250 + r1 * Math.cos(angle);
+      const y1 = 250 + r1 * Math.sin(angle);
+      const x2 = 250 + r2 * Math.cos(angle);
+      const y2 = 250 + r2 * Math.sin(angle);
+      const x3 = 250 + r1 * Math.cos(angle + spread);
+      const y3 = 250 + r1 * Math.sin(angle + spread);
+      
+      return `<path d="M${x1},${y1} L${x2},${y2} L${x3},${y3} Z" class="yf"/>`;
+    }).join('')}
+    
+    <!-- Inner 8 lotus petals (filled, larger) -->
+    ${Array.from({length:8},(_,i)=>{
+      const angle = (i * 45 - 90) * Math.PI / 180;
+      const r1 = 160, r2 = 175;
+      const spread = 0.393; // wider petals
+      
+      const x1 = 250 + r1 * Math.cos(angle);
+      const y1 = 250 + r1 * Math.sin(angle);
+      const x2 = 250 + r2 * Math.cos(angle);
+      const y2 = 250 + r2 * Math.sin(angle);
+      const x3 = 250 + r1 * Math.cos(angle + spread);
+      const y3 = 250 + r1 * Math.sin(angle + spread);
+      
+      return `<path d="M${x1},${y1} L${x2},${y2} L${x3},${y3} Z" class="yf"/>`;
+    }).join('')}
+    
+    <circle cx="250" cy="250" r="160" class="ys" stroke-width="2"/>
+    
+    <!-- Nine interlocking triangles (Sri Yantra) -->
+    <!-- These need to be precisely calculated for proper interlocking -->
+    
+    <!-- Largest downward triangle -->
+    <polygon points="250,95 380,370 120,370" class="ys" stroke-width="2.5"/>
+    
+    <!-- Largest upward triangle -->  
+    <polygon points="250,405 120,130 380,130" class="ys" stroke-width="2.5"/>
+    
+    <!-- Second downward triangles -->
+    <polygon points="250,115 365,355 135,355" class="ys" stroke-width="2"/>
+    
+    <!-- Second upward triangle -->
+    <polygon points="250,385 135,145 365,145" class="ys" stroke-width="2"/>
+    
+    <!-- Third layer downward -->
+    <polygon points="250,138 345,335 155,335" class="ys" stroke-width="2"/>
+    
+    <!-- Third layer upward -->
+    <polygon points="250,362 155,165 345,165" class="ys" stroke-width="2"/>
+    
+    <!-- Fourth layer downward -->
+    <polygon points="250,162 325,315 175,315" class="ys" stroke-width="1.8"/>
+    
+    <!-- Fourth layer upward -->
+    <polygon points="250,338 175,185 325,185" class="ys" stroke-width="1.8"/>
+    
+    <!-- Fifth layer - small triangles near center -->
+    <polygon points="250,195 295,280 205,280" class="ys" stroke-width="1.5"/>
+    <polygon points="250,305 205,220 295,220" class="ys" stroke-width="1.5"/>
+    
+    <!-- Inner small triangles -->
+    <polygon points="250,215 280,270 220,270" class="ys" stroke-width="1.5"/>
+    <polygon points="250,285 220,230 280,230" class="ys" stroke-width="1.5"/>
+    
+    <!-- Centermost triangles -->
+    <polygon points="250,235 270,260 230,260" class="ys" stroke-width="1.2"/>
+    <polygon points="250,265 230,240 270,240" class="ys" stroke-width="1.2"/>
+    
+    <!-- Central bindu (sacred point) -->
+    <circle cx="250" cy="250" r="16" class="ys" stroke-width="1.5"/>
+    <circle cx="250" cy="250" r="10" class="ys" stroke-width="1.2"/>
+    <circle cx="250" cy="250" r="5" fill="#e11d48"/>
   </svg>`,
-  om:`<div style="font-size:120px;color:rgba(225,29,72,.72);font-family:serif;animation:omglow 3s ease-in-out infinite">ॐ</div>`,
-  mandala:`<svg width="270" height="270" viewBox="0 0 270 270" style="animation:mandalaspin 90s linear infinite;opacity:.72"><g transform="translate(135,135)" fill="none" stroke="#e11d48">${Array.from({length:12},(_,i)=>{const a=i*30*Math.PI/180;return`<line x1="0" y1="0" x2="${(114*Math.cos(a)).toFixed(1)}" y2="${(114*Math.sin(a)).toFixed(1)}" stroke-width="1" opacity=".35"/>`;}).join('')}${[114,92,70,50,30,13].map((r,i)=>`<circle r="${r}" stroke-width="${i<2?2:1.5}" opacity=".45"/>`).join('')}${Array.from({length:8},(_,i)=>{const a=i*45*Math.PI/180,x1=(48*Math.cos(a)).toFixed(1),y1=(48*Math.sin(a)).toFixed(1),x2=(85*Math.cos(a+.28)).toFixed(1),y2=(85*Math.sin(a+.28)).toFixed(1),x3=(85*Math.cos(a-.28)).toFixed(1),y3=(85*Math.sin(a-.28)).toFixed(1);return`<path d="M${x1},${y1} C${x2},${y2} ${x3},${y3} ${x1},${y1}" stroke-width="1.4" opacity=".6"/>`;}).join('')}<circle r="6" fill="#e11d48" stroke="none"/></g></svg>`,
-  flame:`<div style="display:flex;flex-direction:column;align-items:center">
+  om:`<div style="font-size:min(20vw,25vh);color:rgba(225,29,72,.72);font-family:serif;animation:omglow 3s ease-in-out infinite">ॐ</div>`,
+  mandala:`<svg width="100%" height="100%" viewBox="0 0 270 270" style="max-width:min(70vw,70vh);max-height:min(70vw,70vh);animation:mandalaspin 90s linear infinite;opacity:.72"><g transform="translate(135,135)" fill="none" stroke="#e11d48">${Array.from({length:12},(_,i)=>{const a=i*30*Math.PI/180;return`<line x1="0" y1="0" x2="${(114*Math.cos(a)).toFixed(1)}" y2="${(114*Math.sin(a)).toFixed(1)}" stroke-width="1" opacity=".35"/>`;}).join('')}${[114,92,70,50,30,13].map((r,i)=>`<circle r="${r}" stroke-width="${i<2?2:1.5}" opacity=".45"/>`).join('')}${Array.from({length:8},(_,i)=>{const a=i*45*Math.PI/180,x1=(48*Math.cos(a)).toFixed(1),y1=(48*Math.sin(a)).toFixed(1),x2=(85*Math.cos(a+.28)).toFixed(1),y2=(85*Math.sin(a+.28)).toFixed(1),x3=(85*Math.cos(a-.28)).toFixed(1),y3=(85*Math.sin(a-.28)).toFixed(1);return`<path d="M${x1},${y1} C${x2},${y2} ${x3},${y3} ${x1},${y1}" stroke-width="1.4" opacity=".6"/>`;}).join('')}<circle r="6" fill="#e11d48" stroke="none"/></g></svg>`,
+  flame:`<div style="display:flex;flex-direction:column;align-items:center;transform:scale(min(2.5,min(70vw/92px,70vh/224px)))">
     <div id="flameEl" style="position:relative;width:54px;height:140px;transform-origin:bottom center">
       <div style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);width:50px;height:128px;border-radius:50% 50% 20% 20%/60% 60% 30% 30%;filter:blur(10px);background:radial-gradient(ellipse at 50% 85%,rgba(255,200,80,.18),transparent 70%)"></div>
       <div style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);width:28px;height:122px;background:linear-gradient(to top,rgba(160,90,0,.98) 0%,rgba(255,130,0,.92) 15%,rgba(255,185,15,.88) 35%,rgba(255,225,70,.9) 58%,rgba(255,248,180,.93) 78%,rgba(255,255,252,1) 96%);border-radius:50% 50% 18% 18%/58% 58% 28% 28%;filter:blur(.35px)"></div>
