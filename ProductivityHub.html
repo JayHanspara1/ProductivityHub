@@ -74,8 +74,11 @@ body{font-family:Arial,sans-serif;background:#0d0d0d;padding:16px;font-size:13px
 .dc-bar{height:2px;background:#2a2a2a;border-radius:1px;margin:2px 1px 0;overflow:hidden}
 .dc-fill{height:2px;border-radius:1px}
 /* invisible scrollbar for habit table */
-.table-wrap{overflow-x:auto;padding-bottom:6px;scrollbar-width:none;-ms-overflow-style:none}
-.table-wrap::-webkit-scrollbar{display:none}
+.table-wrap{overflow-x:auto;overflow-y:auto;max-height:50vh;padding-bottom:6px;scrollbar-width:thin;scrollbar-color:#2a2a2a #0a0a0a}
+.table-wrap::-webkit-scrollbar{width:6px;height:6px}
+.table-wrap::-webkit-scrollbar-track{background:#0a0a0a}
+.table-wrap::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:3px}
+.table-wrap::-webkit-scrollbar-thumb:hover{background:#3a3a3a}
 table{border-collapse:collapse;width:max-content;min-width:100%}
 .th-main{background:#1e1e1e;color:#aaa;font-weight:500;padding:7px 4px;text-align:center;font-size:11px;white-space:nowrap;border-bottom:0.5px solid #2a2a2a}
 .th-main.hcol{text-align:left;padding-left:10px;min-width:155px;width:155px;position:sticky;left:0;z-index:2}
@@ -395,8 +398,8 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
       <div class="j-counter">
         <div class="jnum" id="jNum">0</div>
         <div class="jmalas" id="jMalas">0 rounds (Malas) of 108</div>
+        <div style="font-size:16px;color:#4ade80;margin-top:8px;font-weight:500" id="jDailyMala">Today: 0 malas</div>
         <div class="jbtn" id="jBtn" onclick="countJ()">COUNT</div>
-        <span style="font-size:11px;color:#4ade80;margin-top:-4px" id="jTodLbl"></span>
         <button class="jreset" onclick="resetJ()">Reset Session</button>
       </div>
     </div>
@@ -406,10 +409,11 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
     <div class="tratak-panel">
       <div class="ysel">
         <button class="yb active" onclick="setYantra('dot',this)">Bindu (Dot)</button>
-        <button class="yb" onclick="setYantra('yantra',this)">Shree Yantra</button>
         <button class="yb" onclick="setYantra('om',this)">Om Symbol</button>
         <button class="yb" onclick="setYantra('mandala',this)">Mandala</button>
         <button class="yb" onclick="setYantra('flame',this)">Flame</button>
+        <button class="yb" onclick="document.getElementById('customImgInput').click()">Custom Image</button>
+        <input type="file" id="customImgInput" accept="image/*" style="display:none" onchange="loadCustomImage(this)">
       </div>
       <div class="farea" id="fArea"><div id="fObj"></div><div class="ft-disp" id="ftDisp">00:00</div></div>
       <div class="tctrl">
@@ -443,7 +447,7 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 </div>
 </div>
 <script>
-const WEB_APP_URL='https://script.google.com/macros/s/AKfycbwDb7W5z4bDRibyz_9sE6UAPHVCPPIdp_vemgTw1694BE5T-RMoZq2Kwq0eKO5rtq5PYQ/exec';
+const WEB_APP_URL='https://script.google.com/macros/s/AKfycbzTHRqzRNfvCEqSjCP8cT0vfipfoyV1X_4Gyy0PRq66hZGhCk7qqJ5blJq4e3MWjxhPew/exec';
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DOW_S=['Su','Mo','Tu','We','Th','Fr','Sa'];
 const MOODS=['😞','😐','🙂','😀','🤩'];
@@ -595,7 +599,7 @@ function renderHabits(){
   for(let d=1;d<=D;d++){const wd=new Date(year,month,d).getDay(),isT=isCur&&d===todayD,wk=[0,6].includes(wd);t1+=`<th class="th-main" style="${isT?'color:#4ade80;border-bottom:1.5px solid #4ade80':wk?'color:#333':''}">${d}</th>`;t2+=`<th class="th-sub" style="${wk?'color:#333':''}">${DOW_S[wd]}</th>`;}
   t1+=`<th class="th-main" style="min-width:44px">%</th>`;t2+=`<th class="th-sub"></th>`;
   let rows='';
-  habits.forEach((h,hi)=>{const p=hPct(h,todayD),pc=pColor(p),hn=h.replace(/\\/g,'\\\\').replace(/'/g,"\\'");let cells=`<td class="hcol"><button class="del-btn" onclick="delHabit(${hi})">×</button> ${h}</td>`;for(let d=1;d<=D;d++){const dn=!!hdata[hk(h,d)],isFut=isCur&&d>todayD,isT=isCur&&d===todayD;cells+=`<td><div class="hc${dn?' done':''}${isFut?' future':''}${isT?' tday':''}" onclick="${isFut?'':` toggleH('${hn}',${d})`}">${dn?'✓':''}</div></td>`;}cells+=`<td class="pct-col" style="color:${pc}">${p}%<div class="pbar"><div class="pbar-fill" style="width:${p}%;background:${pc}"></div></div></td>`;rows+=`<tr>${cells}</tr>`;});
+  habits.forEach((h,hi)=>{const p=hPct(h,todayD),pc=pColor(p),hn=h.replace(/\\/g,'\\\\').replace(/'/g,"\\'");let cells=`<td class="hcol"><button class="del-btn" onclick="delHabit(${hi})">×</button> <span ondblclick="editHabit(${hi})" style="cursor:pointer" title="Double-click to edit">${h}</span></td>`;for(let d=1;d<=D;d++){const dn=!!hdata[hk(h,d)],isFut=isCur&&d>todayD,isT=isCur&&d===todayD;cells+=`<td><div class="hc${dn?' done':''}${isFut?' future':''}${isT?' tday':''}" onclick="${isFut?'':` toggleH('${hn}',${d})`}">${dn?'✓':''}</div></td>`;}cells+=`<td class="pct-col" style="color:${pc}">${p}%<div class="pbar"><div class="pbar-fill" style="width:${p}%;background:${pc}"></div></div></td>`;rows+=`<tr>${cells}</tr>`;});
   let mc=`<td class="mood-lbl-td">Mood</td>`;for(let d=1;d<=D;d++){const cur=mood[mk2(d)],isFut=isCur&&d>todayD;mc+=`<td><div style="display:flex;flex-direction:column;align-items:center;gap:1px">${MOODS.map((em,mi)=>`<span class="mb${cur===mi?' on':''}" onclick="${isFut?'':` toggleMood(${d},${mi})`}">${em}</span>`).join('')}</div></td>`;}mc+=`<td></td>`;
   document.getElementById('hTbl').innerHTML=`<thead><tr>${t1}</tr><tr>${t2}</tr></thead><tbody>${rows}<tr>${mc}</tr></tbody>`;
 }
@@ -603,6 +607,7 @@ function toggleH(h,d){hdata[hk(h,d)]=!hdata[hk(h,d)];renderHabits();scheduleSave
 function toggleMood(d,mi){mood[mk2(d)]=mood[mk2(d)]===mi?null:mi;renderHabits();scheduleSave();}
 function addHabit(){const v=document.getElementById('newHabit').value.trim();if(!v)return;habits.push(v);document.getElementById('newHabit').value='';renderHabits();scheduleSave();}
 function delHabit(i){if(!confirm('Remove this habit?'))return;habits.splice(i,1);renderHabits();scheduleSave();}
+function editHabit(i){const oldName=habits[i];const newName=prompt('Edit habit name:',oldName);if(!newName||newName.trim()===''||newName===oldName)return;const trimmed=newName.trim();if(trimmed.length>40){alert('Habit name too long (max 40 characters)');return;}habits[i]=trimmed;renderHabits();scheduleSave();}
 
 /* ANALYTICS */
 function renderAnalytics(){
@@ -657,7 +662,17 @@ function countJ(){
   const t=todayStr();
   njDaily[t]=(njDaily[t]||0)+1;
   njSess++;  // increment session count
-  // Visual feedback on button
+  
+  // IMMEDIATE visual update - update UI FIRST before any async operations
+  const tdc=njDaily[t];
+  const malas=Math.floor(njSess/108);
+  const dailyMalas=Math.floor(tdc/108);
+  document.getElementById('jNum').textContent=njSess;
+  document.getElementById('jMalas').textContent=`${malas} rounds (Malas) of 108`;
+  document.getElementById('jDailyMala').textContent=`Today: ${dailyMalas} mala${dailyMalas!==1?'s':''} (${tdc} counts)`;
+  document.getElementById('njbadge').textContent=tdc;
+  
+  // Immediate visual feedback on button
   const btn=document.getElementById('jBtn');
   if(btn){
     btn.style.transform='scale(.88)';
@@ -665,10 +680,18 @@ function countJ(){
     btn.style.borderColor='#4ade80';
     setTimeout(()=>{btn.style.transform='';btn.style.background='';btn.style.borderColor='';},110);
   }
-  renderNamJap();
-  setDot('saving');
-  saveNamJap(); // immediate save — no debounce
-  if(navigator.vibrate)navigator.vibrate(12);
+  
+  // Stronger haptic feedback for mobile
+  if(navigator.vibrate){
+    navigator.vibrate([10,5,10]); // double pulse for better feedback
+  }
+  
+  // Then update full UI and save (async operations come after immediate feedback)
+  setTimeout(()=>{
+    renderNamJap();
+    setDot('saving');
+    saveNamJap();
+  },0);
 }
 
 function resetJ(){
@@ -684,10 +707,14 @@ function renderNamJap(){
   njSess=tdc;
   
   const malas=Math.floor(njSess/108);
+  const dailyMalas=Math.floor(tdc/108);
+  
+  // Update all displays immediately
   document.getElementById('jNum').textContent=njSess;
   document.getElementById('jMalas').textContent=`${malas} rounds (Malas) of 108`;
+  document.getElementById('jDailyMala').textContent=`Today: ${dailyMalas} mala${dailyMalas!==1?'s':''} (${tdc} counts)`;
   document.getElementById('njbadge').textContent=tdc;
-  document.getElementById('jTodLbl').textContent=`Today: ${tdc} (${Math.floor(tdc/108)}m)`;
+  
   // Get selected month/year for bar chart
   const njm=document.getElementById('njMSel'),njy=document.getElementById('njYSel');
   const vm=njm?+njm.value:new Date().getMonth(),vy=njy?+njy.value:new Date().getFullYear();
@@ -707,138 +734,10 @@ function renderNamJap(){
 }
 
 /* BINDU TRATAK */
+let customImageData=null; // Store custom uploaded image
 const YOBJS={
   dot:`<div class="t-dot"></div>`,
-  yantra:`<svg width="100%" height="100%" viewBox="0 0 500 500" style="max-width:min(85vw,85vh);max-height:min(85vw,85vh)">
-    <defs>
-      <style>
-        .ys{fill:none;stroke:#e11d48;stroke-width:2}
-        .yf{fill:#e11d48;stroke:#e11d48;stroke-width:1.5}
-      </style>
-    </defs>
-    
-    <!-- Background -->
-    <rect width="500" height="500" fill="#000"/>
-    
-    <!-- Outer square frames with T-gates -->
-    <rect x="30" y="30" width="440" height="440" class="ys" stroke-width="3"/>
-    <rect x="45" y="45" width="410" height="410" class="ys" stroke-width="2"/>
-    <rect x="58" y="58" width="384" height="384" class="ys" stroke-width="1.5"/>
-    
-    <!-- T-shaped gates -->
-    <!-- Top left gate -->
-    <rect x="30" y="30" width="24" height="65" class="ys" stroke-width="2.5"/>
-    <rect x="36" y="30" width="12" height="50" class="yf"/>
-    <rect x="30" y="30" width="65" height="24" class="ys" stroke-width="2.5"/>
-    <rect x="30" y="36" width="50" height="12" class="yf"/>
-    
-    <!-- Top right gate -->
-    <rect x="446" y="30" width="24" height="65" class="ys" stroke-width="2.5"/>
-    <rect x="452" y="30" width="12" height="50" class="yf"/>
-    <rect x="405" y="30" width="65" height="24" class="ys" stroke-width="2.5"/>
-    <rect x="420" y="36" width="50" height="12" class="yf"/>
-    
-    <!-- Bottom left gate -->
-    <rect x="30" y="405" width="24" height="65" class="ys" stroke-width="2.5"/>
-    <rect x="36" y="420" width="12" height="50" class="yf"/>
-    <rect x="30" y="446" width="65" height="24" class="ys" stroke-width="2.5"/>
-    <rect x="30" y="452" width="50" height="12" class="yf"/>
-    
-    <!-- Bottom right gate -->
-    <rect x="446" y="405" width="24" height="65" class="ys" stroke-width="2.5"/>
-    <rect x="452" y="420" width="12" height="50" class="yf"/>
-    <rect x="405" y="446" width="65" height="24" class="ys" stroke-width="2.5"/>
-    <rect x="420" y="452" width="50" height="12" class="yf"/>
-    
-    <!-- Side gates (left and right) -->
-    <rect x="30" y="162" width="28" height="23" class="yf"/>
-    <rect x="30" y="315" width="28" height="23" class="yf"/>
-    <rect x="442" y="162" width="28" height="23" class="yf"/>
-    <rect x="442" y="315" width="28" height="23" class="yf"/>
-    
-    <!-- Concentric circles -->
-    <circle cx="250" cy="250" r="205" class="ys" stroke-width="2.5"/>
-    <circle cx="250" cy="250" r="190" class="ys" stroke-width="2"/>
-    <circle cx="250" cy="250" r="175" class="ys" stroke-width="1.5"/>
-    
-    <!-- Outer 16 lotus petals (filled) -->
-    ${Array.from({length:16},(_,i)=>{
-      const angle = (i * 22.5 - 90) * Math.PI / 180;
-      const r1 = 175, r2 = 190;
-      const spread = 0.196; // petal width angle
-      
-      const x1 = 250 + r1 * Math.cos(angle);
-      const y1 = 250 + r1 * Math.sin(angle);
-      const x2 = 250 + r2 * Math.cos(angle);
-      const y2 = 250 + r2 * Math.sin(angle);
-      const x3 = 250 + r1 * Math.cos(angle + spread);
-      const y3 = 250 + r1 * Math.sin(angle + spread);
-      
-      return `<path d="M${x1},${y1} L${x2},${y2} L${x3},${y3} Z" class="yf"/>`;
-    }).join('')}
-    
-    <!-- Inner 8 lotus petals (filled, larger) -->
-    ${Array.from({length:8},(_,i)=>{
-      const angle = (i * 45 - 90) * Math.PI / 180;
-      const r1 = 160, r2 = 175;
-      const spread = 0.393; // wider petals
-      
-      const x1 = 250 + r1 * Math.cos(angle);
-      const y1 = 250 + r1 * Math.sin(angle);
-      const x2 = 250 + r2 * Math.cos(angle);
-      const y2 = 250 + r2 * Math.sin(angle);
-      const x3 = 250 + r1 * Math.cos(angle + spread);
-      const y3 = 250 + r1 * Math.sin(angle + spread);
-      
-      return `<path d="M${x1},${y1} L${x2},${y2} L${x3},${y3} Z" class="yf"/>`;
-    }).join('')}
-    
-    <circle cx="250" cy="250" r="160" class="ys" stroke-width="2"/>
-    
-    <!-- Nine interlocking triangles (Sri Yantra) -->
-    <!-- These need to be precisely calculated for proper interlocking -->
-    
-    <!-- Largest downward triangle -->
-    <polygon points="250,95 380,370 120,370" class="ys" stroke-width="2.5"/>
-    
-    <!-- Largest upward triangle -->  
-    <polygon points="250,405 120,130 380,130" class="ys" stroke-width="2.5"/>
-    
-    <!-- Second downward triangles -->
-    <polygon points="250,115 365,355 135,355" class="ys" stroke-width="2"/>
-    
-    <!-- Second upward triangle -->
-    <polygon points="250,385 135,145 365,145" class="ys" stroke-width="2"/>
-    
-    <!-- Third layer downward -->
-    <polygon points="250,138 345,335 155,335" class="ys" stroke-width="2"/>
-    
-    <!-- Third layer upward -->
-    <polygon points="250,362 155,165 345,165" class="ys" stroke-width="2"/>
-    
-    <!-- Fourth layer downward -->
-    <polygon points="250,162 325,315 175,315" class="ys" stroke-width="1.8"/>
-    
-    <!-- Fourth layer upward -->
-    <polygon points="250,338 175,185 325,185" class="ys" stroke-width="1.8"/>
-    
-    <!-- Fifth layer - small triangles near center -->
-    <polygon points="250,195 295,280 205,280" class="ys" stroke-width="1.5"/>
-    <polygon points="250,305 205,220 295,220" class="ys" stroke-width="1.5"/>
-    
-    <!-- Inner small triangles -->
-    <polygon points="250,215 280,270 220,270" class="ys" stroke-width="1.5"/>
-    <polygon points="250,285 220,230 280,230" class="ys" stroke-width="1.5"/>
-    
-    <!-- Centermost triangles -->
-    <polygon points="250,235 270,260 230,260" class="ys" stroke-width="1.2"/>
-    <polygon points="250,265 230,240 270,240" class="ys" stroke-width="1.2"/>
-    
-    <!-- Central bindu (sacred point) -->
-    <circle cx="250" cy="250" r="16" class="ys" stroke-width="1.5"/>
-    <circle cx="250" cy="250" r="10" class="ys" stroke-width="1.2"/>
-    <circle cx="250" cy="250" r="5" fill="#e11d48"/>
-  </svg>`,
+  custom:`<div id="customImgDisplay" style="max-width:min(85vw,85vh);max-height:min(85vw,85vh);display:flex;align-items:center;justify-content:center"><img src="" id="customImg" style="max-width:100%;max-height:80vh;object-fit:contain;display:none"></div>`,
   om:`<div style="font-size:min(20vw,25vh);color:rgba(225,29,72,.72);font-family:serif;animation:omglow 3s ease-in-out infinite">ॐ</div>`,
   mandala:`<svg width="100%" height="100%" viewBox="0 0 270 270" style="max-width:min(70vw,70vh);max-height:min(70vw,70vh);animation:mandalaspin 90s linear infinite;opacity:.72"><g transform="translate(135,135)" fill="none" stroke="#e11d48">${Array.from({length:12},(_,i)=>{const a=i*30*Math.PI/180;return`<line x1="0" y1="0" x2="${(114*Math.cos(a)).toFixed(1)}" y2="${(114*Math.sin(a)).toFixed(1)}" stroke-width="1" opacity=".35"/>`;}).join('')}${[114,92,70,50,30,13].map((r,i)=>`<circle r="${r}" stroke-width="${i<2?2:1.5}" opacity=".45"/>`).join('')}${Array.from({length:8},(_,i)=>{const a=i*45*Math.PI/180,x1=(48*Math.cos(a)).toFixed(1),y1=(48*Math.sin(a)).toFixed(1),x2=(85*Math.cos(a+.28)).toFixed(1),y2=(85*Math.sin(a+.28)).toFixed(1),x3=(85*Math.cos(a-.28)).toFixed(1),y3=(85*Math.sin(a-.28)).toFixed(1);return`<path d="M${x1},${y1} C${x2},${y2} ${x3},${y3} ${x1},${y1}" stroke-width="1.4" opacity=".6"/>`;}).join('')}<circle r="6" fill="#e11d48" stroke="none"/></g></svg>`,
   flame:`<div style="display:flex;flex-direction:column;align-items:center">
