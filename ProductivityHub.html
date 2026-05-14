@@ -180,8 +180,8 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 .jbw{flex:0 0 auto;width:calc((100% - 30*2px)/31);min-width:14px;display:flex;flex-direction:column;align-items:center;height:100%}
 .jbi{width:100%;display:flex;align-items:flex-end;justify-content:center;flex:1}
 .jbr{width:100%;border-radius:2px 2px 0 0;min-height:2px;max-width:18px;transition:height .3s;position:relative}
-.jbl{font-size:6px;color:#333;margin-top:2px;text-align:center}
-.jstats-row{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;margin-top:8px}
+.jbl{font-size:6px;color:#888;margin-top:2px;text-align:center}
+.jstats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
 .jst{background:#141414;border-radius:6px;padding:8px;text-align:center}
 .jst-v{font-size:16px;font-weight:500}
 .jst-l{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:.6px;margin-top:2px}
@@ -412,8 +412,6 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
         <button class="yb" onclick="setYantra('om',this)">Om Symbol</button>
         <button class="yb" onclick="setYantra('mandala',this)">Mandala</button>
         <button class="yb" onclick="setYantra('flame',this)">Flame</button>
-        <button class="yb" onclick="document.getElementById('customImgInput').click()">Custom Image</button>
-        <input type="file" id="customImgInput" accept="image/*" style="display:none" onchange="loadCustomImage(this)">
       </div>
       <div class="farea" id="fArea"><div id="fObj"></div><div class="ft-disp" id="ftDisp">00:00</div></div>
       <div class="tctrl">
@@ -447,7 +445,7 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 </div>
 </div>
 <script>
-const WEB_APP_URL='https://script.google.com/macros/s/AKfycbzTHRqzRNfvCEqSjCP8cT0vfipfoyV1X_4Gyy0PRq66hZGhCk7qqJ5blJq4e3MWjxhPew/exec';
+const WEB_APP_URL='https://script.google.com/macros/s/AKfycbyGdcR6SNz7uE_vglxyz_gv-BP_1vMRcOW9JziFGayxkQMUbIOI56QfT4veLsKu5P0I/exec';
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DOW_S=['Su','Mo','Tu','We','Th','Fr','Sa'];
 const MOODS=['😞','😐','🙂','😀','🤩'];
@@ -727,17 +725,31 @@ function renderNamJap(){
   }
   const mx=Math.max(...bars.map(b=>b.cnt),108);
   document.getElementById('jBar').innerHTML=bars.map(b=>{const col=b.fut?'#1a1a1a':b.cnt>=108?'#4ade80':b.cnt>=54?'#fcd34d':b.cnt>0?'#93c5fd':'#1e1e1e';return`<div class="jbw"><div class="jbi"><div class="jbr" style="height:${b.cnt&&!b.fut?Math.max(b.cnt/mx*100,3):2}%;background:${col}">${b.cnt>0&&!b.fut?`<span style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:#888;white-space:nowrap">${b.cnt}</span>`:''}</div></div><div class="jbl">${b.lbl}</div></div>`;}).join('');
+  
+  // Calculate stats: Today, Weekly, Monthly, All time
   const cm=now.getMonth(),cy=now.getFullYear();
+  
+  // Weekly: last 7 days
+  let weekTotal=0;
+  for(let i=0;i<7;i++){
+    const d=new Date();
+    d.setDate(d.getDate()-i);
+    const ds=d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
+    weekTotal+=(njDaily[ds]||0);
+  }
+  
+  // Monthly: current month
   const mTotal=Object.entries(njDaily).filter(([k])=>{const d=new Date(k);return d.getMonth()===cm&&d.getFullYear()===cy;}).reduce((s,[,v])=>s+v,0);
+  
+  // All time
   const allTime=Object.values(njDaily).reduce((s,v)=>s+v,0);
-  document.getElementById('jStats').innerHTML=`<div class="stat"><div class="stat-val" style="color:#4ade80">${tdc}</div><div class="stat-lbl">Today</div></div><div class="stat"><div class="stat-val" style="color:#fcd34d">${Math.floor(mTotal/108)}</div><div class="stat-lbl">Month (malas)</div></div><div class="stat"><div class="stat-val" style="color:#d8b4fe">${Math.floor(allTime/108)}</div><div class="stat-lbl">All time (malas)</div></div>`;
+  
+  document.getElementById('jStats').innerHTML=`<div class="stat"><div class="stat-val" style="color:#4ade80">${tdc}</div><div class="stat-lbl">Today</div></div><div class="stat"><div class="stat-val" style="color:#93c5fd">${Math.floor(weekTotal/108)}</div><div class="stat-lbl">Weekly (malas)</div></div><div class="stat"><div class="stat-val" style="color:#fcd34d">${Math.floor(mTotal/108)}</div><div class="stat-lbl">Monthly (malas)</div></div><div class="stat"><div class="stat-val" style="color:#d8b4fe">${Math.floor(allTime/108)}</div><div class="stat-lbl">All time (malas)</div></div>`;
 }
 
 /* BINDU TRATAK */
-let customImageData=null; // Store custom uploaded image
 const YOBJS={
   dot:`<div class="t-dot"></div>`,
-  custom:`<div id="customImgDisplay" style="max-width:min(85vw,85vh);max-height:min(85vw,85vh);display:flex;align-items:center;justify-content:center"><img src="" id="customImg" style="max-width:100%;max-height:80vh;object-fit:contain;display:none"></div>`,
   om:`<div style="font-size:min(20vw,25vh);color:rgba(225,29,72,.72);font-family:serif;animation:omglow 3s ease-in-out infinite">ॐ</div>`,
   mandala:`<svg width="100%" height="100%" viewBox="0 0 270 270" style="max-width:min(70vw,70vh);max-height:min(70vw,70vh);animation:mandalaspin 90s linear infinite;opacity:.72"><g transform="translate(135,135)" fill="none" stroke="#e11d48">${Array.from({length:12},(_,i)=>{const a=i*30*Math.PI/180;return`<line x1="0" y1="0" x2="${(114*Math.cos(a)).toFixed(1)}" y2="${(114*Math.sin(a)).toFixed(1)}" stroke-width="1" opacity=".35"/>`;}).join('')}${[114,92,70,50,30,13].map((r,i)=>`<circle r="${r}" stroke-width="${i<2?2:1.5}" opacity=".45"/>`).join('')}${Array.from({length:8},(_,i)=>{const a=i*45*Math.PI/180,x1=(48*Math.cos(a)).toFixed(1),y1=(48*Math.sin(a)).toFixed(1),x2=(85*Math.cos(a+.28)).toFixed(1),y2=(85*Math.sin(a+.28)).toFixed(1),x3=(85*Math.cos(a-.28)).toFixed(1),y3=(85*Math.sin(a-.28)).toFixed(1);return`<path d="M${x1},${y1} C${x2},${y2} ${x3},${y3} ${x1},${y1}" stroke-width="1.4" opacity=".6"/>`;}).join('')}<circle r="6" fill="#e11d48" stroke="none"/></g></svg>`,
   flame:`<div style="display:flex;flex-direction:column;align-items:center">
