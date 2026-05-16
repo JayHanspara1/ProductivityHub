@@ -445,7 +445,7 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 </div>
 </div>
 <script>
-const WEB_APP_URL='https://script.google.com/macros/s/AKfycbyGdcR6SNz7uE_vglxyz_gv-BP_1vMRcOW9JziFGayxkQMUbIOI56QfT4veLsKu5P0I/exec';
+const WEB_APP_URL='https://script.google.com/macros/s/AKfycbxqbr1re-DBuldMVmNZSYEF04PkDRJFVU920U_i0B64-CD0qowzAtMlUBOHRESN14awmA/exec';
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DOW_S=['Su','Mo','Tu','We','Th','Fr','Sa'];
 const MOODS=['😞','😐','🙂','😀','🤩'];
@@ -724,7 +724,12 @@ function renderNamJap(){
     bars.push({lbl:String(d),cnt:njDaily[ds]||0,fut:isFut});
   }
   const mx=Math.max(...bars.map(b=>b.cnt),108);
-  document.getElementById('jBar').innerHTML=bars.map(b=>{const col=b.fut?'#1a1a1a':b.cnt>=108?'#4ade80':b.cnt>=54?'#fcd34d':b.cnt>0?'#93c5fd':'#1e1e1e';return`<div class="jbw"><div class="jbi"><div class="jbr" style="height:${b.cnt&&!b.fut?Math.max(b.cnt/mx*100,3):2}%;background:${col}">${b.cnt>0&&!b.fut?`<span style="position:absolute;top:-18px;left:50%;transform:translateX(-50%);font-size:9px;color:#888;white-space:nowrap">${b.cnt}</span>`:''}</div></div><div class="jbl">${b.lbl}</div></div>`;}).join('');
+  document.getElementById('jBar').innerHTML=bars.map(b=>{
+    const col=b.fut?'#1a1a1a':b.cnt>=108?'#4ade80':b.cnt>=54?'#fcd34d':b.cnt>0?'#93c5fd':'#1e1e1e';
+    const barHeight=b.cnt&&!b.fut?Math.max(b.cnt/mx*100,3):2;
+    const showInside=barHeight>15; // Show inside if bar is tall enough
+    return`<div class="jbw"><div class="jbi"><div class="jbr" style="height:${barHeight}%;background:${col}">${b.cnt>0&&!b.fut?`<span style="position:absolute;${showInside?'bottom:2px':'top:-18px'};left:50%;transform:translateX(-50%);font-size:9px;color:${showInside?'#000':'#888'};white-space:nowrap;font-weight:${showInside?'600':'400'}">${b.cnt}</span>`:''}</div></div><div class="jbl">${b.lbl}</div></div>`;
+  }).join('');
   
   // Calculate stats: Today, Weekly, Monthly, All time
   const cm=now.getMonth(),cy=now.getFullYear();
@@ -744,7 +749,12 @@ function renderNamJap(){
   // All time
   const allTime=Object.values(njDaily).reduce((s,v)=>s+v,0);
   
-  document.getElementById('jStats').innerHTML=`<div class="stat"><div class="stat-val" style="color:#4ade80">${tdc}</div><div class="stat-lbl">Today</div></div><div class="stat"><div class="stat-val" style="color:#93c5fd">${Math.floor(weekTotal/108)}</div><div class="stat-lbl">Weekly (malas)</div></div><div class="stat"><div class="stat-val" style="color:#fcd34d">${Math.floor(mTotal/108)}</div><div class="stat-lbl">Monthly (malas)</div></div><div class="stat"><div class="stat-val" style="color:#d8b4fe">${Math.floor(allTime/108)}</div><div class="stat-lbl">All time (malas)</div></div>`;
+  const todayMalas=Math.floor(tdc/108);
+  const weekMalas=Math.floor(weekTotal/108);
+  const monthMalas=Math.floor(mTotal/108);
+  const allMalas=Math.floor(allTime/108);
+  
+  document.getElementById('jStats').innerHTML=`<div class="stat"><div class="stat-val" style="color:#4ade80">${todayMalas}m / ${tdc}</div><div class="stat-lbl">Today</div></div><div class="stat"><div class="stat-val" style="color:#93c5fd">${weekMalas}m / ${weekTotal}</div><div class="stat-lbl">Weekly</div></div><div class="stat"><div class="stat-val" style="color:#fcd34d">${monthMalas}m / ${mTotal}</div><div class="stat-lbl">Monthly</div></div><div class="stat"><div class="stat-val" style="color:#d8b4fe">${allMalas}m / ${allTime}</div><div class="stat-lbl">All time</div></div>`;
 }
 
 /* BINDU TRATAK */
