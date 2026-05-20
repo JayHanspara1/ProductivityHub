@@ -61,7 +61,7 @@ body{font-family:Arial,sans-serif;background:#0d0d0d;padding:16px;font-size:13px
 .tab.active .tbadge{background:#0f2d18;color:#4ade80}
 .stats-row{display:grid;gap:8px;padding:12px 16px;background:#111}
 .stat{background:#1e1e1e;border-radius:8px;border:0.5px solid #2a2a2a;padding:10px 12px;text-align:center}
-.stat-val{font-size:20px;font-weight:500;color:#fff}
+.stat-val{font-size:14px;font-weight:500;color:#fff}
 .stat-lbl{font-size:10px;color:#888;margin-top:2px}
 .sec-hdr{padding:9px 16px 5px;font-size:10px;font-weight:500;color:#666;text-transform:uppercase;letter-spacing:.8px;border-top:0.5px solid #222}
 .daily-grid{display:flex;flex-wrap:wrap;gap:3px;padding:5px 16px 10px}
@@ -188,7 +188,7 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 .j-counter{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:8px 0}
 .jnum{font-size:72px;font-weight:500;color:#fff;line-height:1;letter-spacing:-3px}
 .jmalas{font-size:11px;color:#555;margin-top:-6px}
-.jbtn{width:220px;height:220px;border-radius:50%;background:#0f1f0f;border:1.5px solid #166534;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;color:#4ade80;letter-spacing:3px;text-transform:uppercase;user-select:none;-webkit-user-select:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:background .08s,transform .06s;}
+.jbtn{width:220px;height:220px;border-radius:50%;background:#0f1f0f;border:1.5px solid #166534;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;color:#4ade80;letter-spacing:3px;text-transform:uppercase;user-select:none;-webkit-user-select:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:background .08s,transform .06s;will-change:transform,background;}
 .jreset{background:transparent;border:0.5px solid #2a2a2a;color:#444;border-radius:7px;padding:6px 22px;font-size:11px;cursor:pointer}
 .jreset:hover{border-color:#fca5a5;color:#fca5a5}
 /* TRATAK */
@@ -445,7 +445,7 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 </div>
 </div>
 <script>
-const WEB_APP_URL='https://script.google.com/macros/s/AKfycbxqbr1re-DBuldMVmNZSYEF04PkDRJFVU920U_i0B64-CD0qowzAtMlUBOHRESN14awmA/exec';
+const WEB_APP_URL='https://script.google.com/macros/s/AKfycbzU3pBpFzZxK7gDCyFYKzqexibpo2hCuNhakOxtZyob8tpaDEyHUovHs6C_XZWVltVWrA/exec';
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DOW_S=['Su','Mo','Tu','We','Th','Fr','Sa'];
 const MOODS=['😞','😐','🙂','😀','🤩'];
@@ -661,35 +661,46 @@ function countJ(){
   njDaily[t]=(njDaily[t]||0)+1;
   njSess++;  // increment session count
   
-  // IMMEDIATE visual update - update UI FIRST before any async operations
+  // ULTRA-FAST visual update - update critical UI elements IMMEDIATELY
   const tdc=njDaily[t];
   const malas=Math.floor(njSess/108);
   const dailyMalas=Math.floor(tdc/108);
-  document.getElementById('jNum').textContent=njSess;
-  document.getElementById('jMalas').textContent=`${malas} rounds (Malas) of 108`;
-  document.getElementById('jDailyMala').textContent=`Today: ${dailyMalas} mala${dailyMalas!==1?'s':''} (${tdc} counts)`;
-  document.getElementById('njbadge').textContent=tdc;
   
-  // Immediate visual feedback on button
+  // Update main display first (most important)
+  const jNum=document.getElementById('jNum');
+  const jMalas=document.getElementById('jMalas');
+  const jDailyMala=document.getElementById('jDailyMala');
+  const njbadge=document.getElementById('njbadge');
+  
+  if(jNum)jNum.textContent=njSess;
+  if(jMalas)jMalas.textContent=`${malas} rounds (Malas) of 108`;
+  if(jDailyMala)jDailyMala.textContent=`Today: ${dailyMalas} Mala | ${tdc} Counts`;
+  if(njbadge)njbadge.textContent=tdc;
+  
+  // Immediate visual feedback on button with faster animation
   const btn=document.getElementById('jBtn');
   if(btn){
-    btn.style.transform='scale(.88)';
-    btn.style.background='#0c2a0c';
+    btn.style.transform='scale(.85)';
+    btn.style.background='#0a1f0a';
     btn.style.borderColor='#4ade80';
-    setTimeout(()=>{btn.style.transform='';btn.style.background='';btn.style.borderColor='';},110);
+    btn.style.boxShadow='0 0 20px rgba(74,222,128,0.4)';
+    setTimeout(()=>{
+      btn.style.transform='';
+      btn.style.background='';
+      btn.style.borderColor='';
+      btn.style.boxShadow='';
+    },80);
   }
   
-  // Stronger haptic feedback for mobile
+  // Stronger haptic feedback for mobile - instant response
   if(navigator.vibrate){
-    navigator.vibrate([10,5,10]); // double pulse for better feedback
+    navigator.vibrate([8,5,8]); // quick double pulse
   }
   
-  // Then update full UI and save (async operations come after immediate feedback)
-  setTimeout(()=>{
-    renderNamJap();
-    setDot('saving');
-    saveNamJap();
-  },0);
+  // Then update full UI and save (non-critical operations)
+  renderNamJap();
+  setDot('saving');
+  saveNamJap();
 }
 
 function resetJ(){
@@ -710,7 +721,7 @@ function renderNamJap(){
   // Update all displays immediately
   document.getElementById('jNum').textContent=njSess;
   document.getElementById('jMalas').textContent=`${malas} rounds (Malas) of 108`;
-  document.getElementById('jDailyMala').textContent=`Today: ${dailyMalas} mala${dailyMalas!==1?'s':''} (${tdc} counts)`;
+  document.getElementById('jDailyMala').textContent=`Today: ${dailyMalas} Mala | ${tdc} Counts`;
   document.getElementById('njbadge').textContent=tdc;
   
   // Get selected month/year for bar chart
@@ -754,7 +765,7 @@ function renderNamJap(){
   const monthMalas=Math.floor(mTotal/108);
   const allMalas=Math.floor(allTime/108);
   
-  document.getElementById('jStats').innerHTML=`<div class="stat"><div class="stat-val" style="color:#4ade80">${todayMalas}m / ${tdc}</div><div class="stat-lbl">Today</div></div><div class="stat"><div class="stat-val" style="color:#93c5fd">${weekMalas}m / ${weekTotal}</div><div class="stat-lbl">Weekly</div></div><div class="stat"><div class="stat-val" style="color:#fcd34d">${monthMalas}m / ${mTotal}</div><div class="stat-lbl">Monthly</div></div><div class="stat"><div class="stat-val" style="color:#d8b4fe">${allMalas}m / ${allTime}</div><div class="stat-lbl">All time</div></div>`;
+  document.getElementById('jStats').innerHTML=`<div class="stat"><div class="stat-val" style="color:#4ade80">${todayMalas} Mala | ${tdc} Counts</div><div class="stat-lbl">Today</div></div><div class="stat"><div class="stat-val" style="color:#93c5fd">${weekMalas} Mala | ${weekTotal} Counts</div><div class="stat-lbl">Weekly</div></div><div class="stat"><div class="stat-val" style="color:#fcd34d">${monthMalas} Mala | ${mTotal} Counts</div><div class="stat-lbl">Monthly</div></div><div class="stat"><div class="stat-val" style="color:#d8b4fe">${allMalas} Mala | ${allTime} Counts</div><div class="stat-lbl">All time</div></div>`;
 }
 
 /* BINDU TRATAK */
@@ -808,8 +819,48 @@ function startFlameAnim(){
   frame();
 }
 
-function startT(){tSecs=0;tRun=true;document.getElementById('tSBtn').style.display='none';document.getElementById('tEBtn').style.display='block';document.getElementById('ftDisp').classList.add('on');tInt=setInterval(()=>{tSecs++;document.getElementById('ftDisp').textContent=fmts(tSecs);},1000);}
-function endT(){clearInterval(tInt);tRun=false;document.getElementById('tSBtn').style.display='block';document.getElementById('tEBtn').style.display='none';document.getElementById('ftDisp').classList.remove('on');if(tSecs>10)alert(`Session complete: ${fmts(tSecs)} of focused attention.`);tSecs=0;document.getElementById('ftDisp').textContent='00:00';}
+async function startT(){
+  tSecs=0;
+  tRun=true;
+  document.getElementById('tSBtn').style.display='none';
+  document.getElementById('tEBtn').style.display='block';
+  document.getElementById('ftDisp').classList.add('on');
+  tInt=setInterval(()=>{
+    tSecs++;
+    document.getElementById('ftDisp').textContent=fmts(tSecs);
+  },1000);
+  
+  // Request wake lock to keep screen on during focus
+  if('wakeLock' in navigator){
+    try{
+      wakeLock=await navigator.wakeLock.request('screen');
+      console.log('Screen wake lock active');
+    }catch(e){
+      console.log('Wake lock failed:',e);
+    }
+  }
+}
+function endT(){
+  clearInterval(tInt);
+  tRun=false;
+  document.getElementById('tSBtn').style.display='block';
+  document.getElementById('tEBtn').style.display='none';
+  document.getElementById('ftDisp').classList.remove('on');
+  
+  // Release wake lock
+  if(wakeLock){
+    wakeLock.release().then(()=>{
+      console.log('Screen wake lock released');
+      wakeLock=null;
+    }).catch(e=>{
+      console.log('Wake lock release failed:',e);
+    });
+  }
+  
+  if(tSecs>10)alert(`Session complete: ${fmts(tSecs)} of focused attention.`);
+  tSecs=0;
+  document.getElementById('ftDisp').textContent='00:00';
+}
 let wakeLock=null;
 async function reqWakeLock(){
   if('wakeLock' in navigator){
@@ -831,6 +882,18 @@ function goFullscreen(){
 }
 document.addEventListener('fullscreenchange',()=>{if(!document.fullscreenElement)relWakeLock();});
 document.addEventListener('webkitfullscreenchange',()=>{if(!document.webkitFullscreenElement)relWakeLock();});
+
+// Re-request wake lock when page becomes visible again during focus session
+document.addEventListener('visibilitychange',async()=>{
+  if(!document.hidden&&tRun&&!wakeLock&&'wakeLock' in navigator){
+    try{
+      wakeLock=await navigator.wakeLock.request('screen');
+      console.log('Screen wake lock re-acquired');
+    }catch(e){
+      console.log('Wake lock re-request failed:',e);
+    }
+  }
+});
 
 /* SETTINGS MODAL */
 function openModal(){document.getElementById('settingsModal').classList.add('open');}
