@@ -445,7 +445,7 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 </div>
 </div>
 <script>
-const WEB_APP_URL='https://script.google.com/macros/s/AKfycbzU3pBpFzZxK7gDCyFYKzqexibpo2hCuNhakOxtZyob8tpaDEyHUovHs6C_XZWVltVWrA/exec';
+const WEB_APP_URL='https://script.google.com/macros/s/AKfycbw4W1jBjsXfK-aCoaH2jRqxoG0ExQBmXvDebvRwuDaTwqmZQsJT7FhbOxNVfRCWUVyC/exec';
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DOW_S=['Su','Mo','Tu','We','Th','Fr','Sa'];
 const MOODS=['😞','😐','🙂','😀','🤩'];
@@ -781,10 +781,28 @@ const YOBJS={
       <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%) rotate(9deg);transform-origin:bottom center;width:3px;height:22px;background:linear-gradient(to top,#1c0a00,#7c3f0a,#92400e);border-radius:2px 1px 0 0"></div>
       <div style="position:absolute;bottom:27px;left:calc(50% + 3px);width:7px;height:7px;background:radial-gradient(circle,rgba(254,215,170,.95),rgba(251,146,60,.85),transparent);border-radius:50%;filter:blur(1px)"></div>
     </div>
-    <div style="width:38px;height:84px;background:linear-gradient(to right,#bbb 0%,#e8e8e8 20%,#fff 38%,#f0f0f0 52%,#e0e0e0 68%,#c8c8c8 82%,#b0b0b0 100%);border-radius:3px 3px 5px 5px;position:relative;box-shadow:0 0 28px rgba(180,130,0,.15),inset 0 0 8px rgba(0,0,0,.1)">
-      <div style="position:absolute;top:-5px;left:0;right:0;height:8px;background:linear-gradient(to bottom,#ccc,#ddd);border-radius:50% 50% 0 0;box-shadow:0 -2px 8px rgba(200,200,200,.18)"></div>
-      <div style="position:absolute;top:6px;right:7px;width:5px;height:20px;background:linear-gradient(to bottom,#d0d0d0,#aaa);border-radius:0 0 50% 50%;opacity:.55"></div>
-      <div style="position:absolute;top:4px;left:7px;width:3px;height:14px;background:rgba(255,255,255,.45);border-radius:2px"></div>
+    <!-- Traditional Diya (Oil Lamp) -->
+    <div style="position:relative;width:90px;height:38px;display:flex;justify-content:center;align-items:flex-end">
+      <!-- Diya bowl/base -->
+      <div style="position:relative;width:90px;height:32px">
+        <!-- Main bowl body -->
+        <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80px;height:28px;background:linear-gradient(to bottom,#c2410c 0%,#dc2626 35%,#b91c1c 65%,#7f1d1d 100%);border-radius:50% 50% 45% 45%/35% 35% 60% 60%;box-shadow:inset 0 -3px 8px rgba(0,0,0,.35),0 2px 12px rgba(220,38,38,.25)"></div>
+        
+        <!-- Top rim/lip -->
+        <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:86px;height:12px;background:linear-gradient(to bottom,#ea580c,#dc2626,#b91c1c);border-radius:50%;box-shadow:inset 0 1px 3px rgba(255,255,255,.2),inset 0 -2px 4px rgba(0,0,0,.3)"></div>
+        
+        <!-- Oil surface reflection -->
+        <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:70px;height:16px;background:radial-gradient(ellipse at 50% 40%,rgba(255,237,213,.15),rgba(217,119,6,.08),transparent);border-radius:50%;opacity:.7"></div>
+        
+        <!-- Decorative dots pattern -->
+        <div style="position:absolute;top:14px;left:16px;width:4px;height:4px;background:rgba(254,215,170,.35);border-radius:50%"></div>
+        <div style="position:absolute;top:14px;right:16px;width:4px;height:4px;background:rgba(254,215,170,.35);border-radius:50%"></div>
+        <div style="position:absolute;top:18px;left:22px;width:3px;height:3px;background:rgba(254,215,170,.3);border-radius:50%"></div>
+        <div style="position:absolute;top:18px;right:22px;width:3px;height:3px;background:rgba(254,215,170,.3);border-radius:50%"></div>
+        
+        <!-- Spout/lip for wick (slight protrusion) -->
+        <div style="position:absolute;top:3px;left:50%;transform:translateX(-50%);width:20px;height:8px;background:linear-gradient(to bottom,#dc2626,#b91c1c);border-radius:40% 40% 50% 50%/60% 60% 80% 80%;box-shadow:inset 0 -1px 2px rgba(0,0,0,.2)"></div>
+      </div>
     </div>
   </div>`,
 };
