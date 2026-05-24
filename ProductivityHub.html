@@ -180,6 +180,7 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 .jbw{flex:0 0 auto;width:calc((100% - 30*2px)/31);min-width:14px;display:flex;flex-direction:column;align-items:center;height:100%}
 .jbi{width:100%;display:flex;align-items:flex-end;justify-content:center;flex:1}
 .jbr{width:100%;border-radius:2px 2px 0 0;min-height:2px;max-width:18px;transition:height .3s;position:relative}
+.jbr:hover .bar-count{opacity:1!important}
 .jbl{font-size:6px;color:#888;margin-top:2px;text-align:center}
 .jstats-row{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-top:8px}
 .jst{background:#141414;border-radius:6px;padding:8px;text-align:center}
@@ -189,7 +190,7 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 .jnum{font-size:72px;font-weight:500;color:#fff;line-height:1;letter-spacing:-3px}
 .jmalas{font-size:11px;color:#555;margin-top:-6px}
 .jbtn{width:220px;height:220px;border-radius:50%;background:#0f1f0f;border:1.5px solid #166534;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;color:#4ade80;letter-spacing:3px;text-transform:uppercase;user-select:none;-webkit-user-select:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:background .08s,transform .06s;will-change:transform,background;}
-.jreset{background:transparent;border:0.5px solid #2a2a2a;color:#444;border-radius:7px;padding:6px 22px;font-size:11px;cursor:pointer}
+.jreset{background:transparent;border:0.5px solid #2a2a2a;color:#444;border-radius:7px;padding:6px 22px;font-size:11px;cursor:pointer;position:relative;z-index:1}
 .jreset:hover{border-color:#fca5a5;color:#fca5a5}
 /* TRATAK */
 .tratak-panel{padding:16px}
@@ -356,6 +357,24 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
         <div class="bar-ch" id="hBar"></div>
       </div>
       <div class="astats" id="aStats"></div>
+      
+      <!-- Nam Jap Daily Chart -->
+      <div class="chart-box" style="margin-top:16px">
+        <div class="ch-head">
+          <h3>Daily Jap — <span id="jMonthLbl"></span></h3>
+          <div style="display:flex;gap:6px;align-items:center">
+            <select id="njMSel" onchange="renderNamJap()" style="background:#1a1a1a;border:0.5px solid #2a2a2a;color:#aaa;border-radius:5px;padding:2px 5px;font-size:10px;outline:none"></select>
+            <input type="number" id="njYSel" min="2020" max="2099" onchange="renderNamJap()" style="background:#1a1a1a;border:0.5px solid #2a2a2a;color:#aaa;border-radius:5px;padding:2px 4px;font-size:10px;outline:none;width:48px">
+          </div>
+        </div>
+        <div class="jbar-ch" id="jBar"></div>
+      </div>
+      
+      <!-- Nam Jap Statistics -->
+      <div class="chart-box" style="margin-top:16px">
+        <div class="ch-head"><h3>Nam Jap Progress</h3></div>
+        <div class="jstats-row" id="jStats"></div>
+      </div>
     </div>
   </div>
   <!-- FOCUS -->
@@ -382,25 +401,13 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
   <!-- NAM JAP -->
   <div id="p-namjap" style="display:none">
     <div class="jap-panel">
-      <!-- Analytics compact top -->
-      <div class="j-analytics">
-        <div class="jch-head">
-          <h4>Daily Jap — <span id="jMonthLbl"></span></h4>
-          <div style="display:flex;gap:6px;align-items:center">
-            <select id="njMSel" onchange="renderNamJap()" style="background:#1a1a1a;border:0.5px solid #2a2a2a;color:#aaa;border-radius:5px;padding:2px 5px;font-size:10px;outline:none"></select>
-            <input type="number" id="njYSel" min="2020" max="2099" onchange="renderNamJap()" style="background:#1a1a1a;border:0.5px solid #2a2a2a;color:#aaa;border-radius:5px;padding:2px 4px;font-size:10px;outline:none;width:48px">
-          </div>
-        </div>
-        <div class="jbar-ch" id="jBar"></div>
-        <div class="jstats-row" id="jStats"></div>
-      </div>
       <!-- Counter — full width, main focus -->
-      <div class="j-counter">
+      <div class="j-counter" onclick="countJ()" style="cursor:pointer">
         <div class="jnum" id="jNum">0</div>
         <div class="jmalas" id="jMalas">0 rounds (Malas) of 108</div>
         <div style="font-size:16px;color:#4ade80;margin-top:8px;font-weight:500" id="jDailyMala">Today: 0 malas</div>
-        <div class="jbtn" id="jBtn" onclick="countJ()">COUNT</div>
-        <button class="jreset" onclick="resetJ()">Reset Session</button>
+        <div class="jbtn" id="jBtn">COUNT</div>
+        <button class="jreset" onclick="event.stopPropagation();resetJ()">Reset Session</button>
       </div>
     </div>
   </div>
@@ -445,7 +452,7 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 </div>
 </div>
 <script>
-const WEB_APP_URL='https://script.google.com/macros/s/AKfycbw4W1jBjsXfK-aCoaH2jRqxoG0ExQBmXvDebvRwuDaTwqmZQsJT7FhbOxNVfRCWUVyC/exec';
+const WEB_APP_URL='https://script.google.com/macros/s/AKfycbz8qPOYtmVV4yzhz_N3M6xrayt5GhRq6K1Ni7ihNJK_BprfMs8nQrIm4oD7hFhnHTdcPQ/exec';
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DOW_S=['Su','Mo','Tu','We','Th','Fr','Sa'];
 const MOODS=['😞','😐','🙂','😀','🤩'];
@@ -739,7 +746,7 @@ function renderNamJap(){
     const col=b.fut?'#1a1a1a':b.cnt>=108?'#4ade80':b.cnt>=54?'#fcd34d':b.cnt>0?'#93c5fd':'#1e1e1e';
     const barHeight=b.cnt&&!b.fut?Math.max(b.cnt/mx*100,3):2;
     const showInside=barHeight>15; // Show inside if bar is tall enough
-    return`<div class="jbw"><div class="jbi"><div class="jbr" style="height:${barHeight}%;background:${col}">${b.cnt>0&&!b.fut?`<span style="position:absolute;${showInside?'bottom:2px':'top:-18px'};left:50%;transform:translateX(-50%);font-size:9px;color:${showInside?'#000':'#888'};white-space:nowrap;font-weight:${showInside?'600':'400'}">${b.cnt}</span>`:''}</div></div><div class="jbl">${b.lbl}</div></div>`;
+    return`<div class="jbw"><div class="jbi"><div class="jbr" style="height:${barHeight}%;background:${col}" title="${b.cnt>0?b.cnt+' counts':''}">${b.cnt>0&&!b.fut?`<span class="bar-count" style="position:absolute;${showInside?'bottom:2px':'top:-18px'};left:50%;transform:translateX(-50%);font-size:9px;color:${showInside?'#000':'#fff'};white-space:nowrap;font-weight:600;opacity:0;transition:opacity .2s;pointer-events:none">${b.cnt}</span>`:''}</div></div><div class="jbl">${b.lbl}</div></div>`;
   }).join('');
   
   // Calculate stats: Today, Weekly, Monthly, All time
@@ -773,35 +780,35 @@ const YOBJS={
   dot:`<div class="t-dot"></div>`,
   om:`<div style="font-size:min(20vw,25vh);color:rgba(225,29,72,.72);font-family:serif;animation:omglow 3s ease-in-out infinite">ॐ</div>`,
   mandala:`<svg width="100%" height="100%" viewBox="0 0 270 270" style="max-width:min(70vw,70vh);max-height:min(70vw,70vh);animation:mandalaspin 90s linear infinite;opacity:.72"><g transform="translate(135,135)" fill="none" stroke="#e11d48">${Array.from({length:12},(_,i)=>{const a=i*30*Math.PI/180;return`<line x1="0" y1="0" x2="${(114*Math.cos(a)).toFixed(1)}" y2="${(114*Math.sin(a)).toFixed(1)}" stroke-width="1" opacity=".35"/>`;}).join('')}${[114,92,70,50,30,13].map((r,i)=>`<circle r="${r}" stroke-width="${i<2?2:1.5}" opacity=".45"/>`).join('')}${Array.from({length:8},(_,i)=>{const a=i*45*Math.PI/180,x1=(48*Math.cos(a)).toFixed(1),y1=(48*Math.sin(a)).toFixed(1),x2=(85*Math.cos(a+.28)).toFixed(1),y2=(85*Math.sin(a+.28)).toFixed(1),x3=(85*Math.cos(a-.28)).toFixed(1),y3=(85*Math.sin(a-.28)).toFixed(1);return`<path d="M${x1},${y1} C${x2},${y2} ${x3},${y3} ${x1},${y1}" stroke-width="1.4" opacity=".6"/>`;}).join('')}<circle r="6" fill="#e11d48" stroke="none"/></g></svg>`,
-  flame:`<div style="display:flex;flex-direction:column;align-items:center">
-    <div id="flameEl" style="position:relative;width:54px;height:140px;transform-origin:bottom center">
-      <div style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);width:50px;height:128px;border-radius:50% 50% 20% 20%/60% 60% 30% 30%;filter:blur(10px);background:radial-gradient(ellipse at 50% 85%,rgba(255,200,80,.18),transparent 70%)"></div>
-      <div style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);width:28px;height:122px;background:linear-gradient(to top,rgba(160,90,0,.98) 0%,rgba(255,130,0,.92) 15%,rgba(255,185,15,.88) 35%,rgba(255,225,70,.9) 58%,rgba(255,248,180,.93) 78%,rgba(255,255,252,1) 96%);border-radius:50% 50% 18% 18%/58% 58% 28% 28%;filter:blur(.35px)"></div>
-      <div style="position:absolute;bottom:12px;left:50%;transform:translateX(-50%);width:14px;height:30px;background:radial-gradient(ellipse at 50% 65%,rgba(224,242,254,.98),rgba(96,165,250,.92),rgba(37,99,235,.78),rgba(29,78,216,.4),transparent);border-radius:50% 50% 20% 20%;filter:blur(1.5px)"></div>
-      <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%) rotate(9deg);transform-origin:bottom center;width:3px;height:22px;background:linear-gradient(to top,#1c0a00,#7c3f0a,#92400e);border-radius:2px 1px 0 0"></div>
-      <div style="position:absolute;bottom:27px;left:calc(50% + 3px);width:7px;height:7px;background:radial-gradient(circle,rgba(254,215,170,.95),rgba(251,146,60,.85),transparent);border-radius:50%;filter:blur(1px)"></div>
+  flame:`<div style="display:flex;flex-direction:column;align-items:center;gap:0">
+    <div id="flameEl" style="position:relative;width:54px;height:130px;transform-origin:bottom center">
+      <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:50px;height:128px;border-radius:50% 50% 20% 20%/60% 60% 30% 30%;filter:blur(10px);background:radial-gradient(ellipse at 50% 85%,rgba(255,200,80,.18),transparent 70%)"></div>
+      <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:28px;height:122px;background:linear-gradient(to top,rgba(160,90,0,.98) 0%,rgba(255,130,0,.92) 15%,rgba(255,185,15,.88) 35%,rgba(255,225,70,.9) 58%,rgba(255,248,180,.93) 78%,rgba(255,255,252,1) 96%);border-radius:50% 50% 18% 18%/58% 58% 28% 28%;filter:blur(.35px)"></div>
+      <div style="position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:14px;height:30px;background:radial-gradient(ellipse at 50% 65%,rgba(224,242,254,.98),rgba(96,165,250,.92),rgba(37,99,235,.78),rgba(29,78,216,.4),transparent);border-radius:50% 50% 20% 20%;filter:blur(1.5px)"></div>
+      <div style="position:absolute;bottom:4px;left:50%;transform:translateX(-50%) rotate(9deg);transform-origin:bottom center;width:3px;height:22px;background:linear-gradient(to top,#1c0a00,#7c3f0a,#92400e);border-radius:2px 1px 0 0"></div>
+      <div style="position:absolute;bottom:23px;left:calc(50% + 3px);width:7px;height:7px;background:radial-gradient(circle,rgba(254,215,170,.95),rgba(251,146,60,.85),transparent);border-radius:50%;filter:blur(1px)"></div>
     </div>
-    <!-- Traditional Diya (Oil Lamp) -->
-    <div style="position:relative;width:90px;height:38px;display:flex;justify-content:center;align-items:flex-end">
+    <!-- Traditional Diya (Oil Lamp) - Bigger size -->
+    <div style="position:relative;width:150px;height:60px;display:flex;justify-content:center;align-items:flex-end;margin-top:-10px">
       <!-- Diya bowl/base -->
-      <div style="position:relative;width:90px;height:32px">
+      <div style="position:relative;width:150px;height:52px">
         <!-- Main bowl body -->
-        <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:80px;height:28px;background:linear-gradient(to bottom,#c2410c 0%,#dc2626 35%,#b91c1c 65%,#7f1d1d 100%);border-radius:50% 50% 45% 45%/35% 35% 60% 60%;box-shadow:inset 0 -3px 8px rgba(0,0,0,.35),0 2px 12px rgba(220,38,38,.25)"></div>
+        <div style="position:absolute;bottom:0;left:50%;transform:translateX(-50%);width:138px;height:46px;background:linear-gradient(to bottom,#c2410c 0%,#dc2626 35%,#b91c1c 65%,#7f1d1d 100%);border-radius:50% 50% 45% 45%/35% 35% 60% 60%;box-shadow:inset 0 -5px 12px rgba(0,0,0,.35),0 4px 18px rgba(220,38,38,.25)"></div>
         
         <!-- Top rim/lip -->
-        <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:86px;height:12px;background:linear-gradient(to bottom,#ea580c,#dc2626,#b91c1c);border-radius:50%;box-shadow:inset 0 1px 3px rgba(255,255,255,.2),inset 0 -2px 4px rgba(0,0,0,.3)"></div>
+        <div style="position:absolute;top:0;left:50%;transform:translateX(-50%);width:145px;height:20px;background:linear-gradient(to bottom,#ea580c,#dc2626,#b91c1c);border-radius:50%;box-shadow:inset 0 1px 4px rgba(255,255,255,.2),inset 0 -2px 5px rgba(0,0,0,.3)"></div>
         
         <!-- Oil surface reflection -->
-        <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:70px;height:16px;background:radial-gradient(ellipse at 50% 40%,rgba(255,237,213,.15),rgba(217,119,6,.08),transparent);border-radius:50%;opacity:.7"></div>
+        <div style="position:absolute;top:12px;left:50%;transform:translateX(-50%);width:118px;height:26px;background:radial-gradient(ellipse at 50% 40%,rgba(255,237,213,.15),rgba(217,119,6,.08),transparent);border-radius:50%;opacity:.7"></div>
         
         <!-- Decorative dots pattern -->
-        <div style="position:absolute;top:14px;left:16px;width:4px;height:4px;background:rgba(254,215,170,.35);border-radius:50%"></div>
-        <div style="position:absolute;top:14px;right:16px;width:4px;height:4px;background:rgba(254,215,170,.35);border-radius:50%"></div>
-        <div style="position:absolute;top:18px;left:22px;width:3px;height:3px;background:rgba(254,215,170,.3);border-radius:50%"></div>
-        <div style="position:absolute;top:18px;right:22px;width:3px;height:3px;background:rgba(254,215,170,.3);border-radius:50%"></div>
+        <div style="position:absolute;top:22px;left:24px;width:6px;height:6px;background:rgba(254,215,170,.35);border-radius:50%"></div>
+        <div style="position:absolute;top:22px;right:24px;width:6px;height:6px;background:rgba(254,215,170,.35);border-radius:50%"></div>
+        <div style="position:absolute;top:30px;left:34px;width:5px;height:5px;background:rgba(254,215,170,.3);border-radius:50%"></div>
+        <div style="position:absolute;top:30px;right:34px;width:5px;height:5px;background:rgba(254,215,170,.3);border-radius:50%"></div>
         
         <!-- Spout/lip for wick (slight protrusion) -->
-        <div style="position:absolute;top:3px;left:50%;transform:translateX(-50%);width:20px;height:8px;background:linear-gradient(to bottom,#dc2626,#b91c1c);border-radius:40% 40% 50% 50%/60% 60% 80% 80%;box-shadow:inset 0 -1px 2px rgba(0,0,0,.2)"></div>
+        <div style="position:absolute;top:5px;left:50%;transform:translateX(-50%);width:32px;height:12px;background:linear-gradient(to bottom,#dc2626,#b91c1c);border-radius:40% 40% 50% 50%/60% 60% 80% 80%;box-shadow:inset 0 -1px 3px rgba(0,0,0,.2)"></div>
       </div>
     </div>
   </div>`,
