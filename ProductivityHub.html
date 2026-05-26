@@ -36,6 +36,7 @@ body{font-family:Arial,sans-serif;background:#0d0d0d;padding:16px;font-size:13px
 .sbar-fill{height:3px;border-radius:2px;transition:width .3s,background .3s}
 #app{display:none}
 .wrap{background:#181818;border-radius:12px;border:0.5px solid #2e2e2e;overflow:hidden}
+#p-habits,#p-analytics,#p-focus,#p-namjap,#p-tratak{min-height:calc(100vh - 140px)}
 .header{background:#1e1e1e;padding:10px 18px;display:flex;align-items:center;justify-content:space-between;border-bottom:0.5px solid #2a2a2a;flex-wrap:wrap;gap:8px}
 .hbrand h1{color:#fff;font-size:15px;font-weight:500}
 .hbrand p{color:#4ade80;font-size:10px;font-style:italic;opacity:.8}
@@ -74,7 +75,7 @@ body{font-family:Arial,sans-serif;background:#0d0d0d;padding:16px;font-size:13px
 .dc-bar{height:2px;background:#2a2a2a;border-radius:1px;margin:2px 1px 0;overflow:hidden}
 .dc-fill{height:2px;border-radius:1px}
 /* invisible scrollbar for habit table */
-.table-wrap{overflow-x:auto;overflow-y:auto;max-height:50vh;padding-bottom:6px;scrollbar-width:thin;scrollbar-color:#2a2a2a #0a0a0a}
+.table-wrap{overflow-x:auto;overflow-y:auto;padding-bottom:6px;scrollbar-width:thin;scrollbar-color:#2a2a2a #0a0a0a}
 .table-wrap::-webkit-scrollbar{width:6px;height:6px}
 .table-wrap::-webkit-scrollbar-track{background:#0a0a0a}
 .table-wrap::-webkit-scrollbar-thumb{background:#2a2a2a;border-radius:3px}
@@ -172,7 +173,7 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 .sm.active{background:#166534;color:#86efac;border-color:#166534}
 .sm:hover:not(.active){border-color:#4ade80;color:#4ade80}
 /* NAM JAP */
-.jap-panel{padding:12px;display:flex;flex-direction:column;gap:10px}
+.jap-panel{min-height:calc(100vh - 140px);display:flex;flex-direction:column;justify-content:center;align-items:center;padding:12px}
 .j-analytics{background:#1e1e1e;border-radius:10px;border:0.5px solid #2a2a2a;padding:12px}
 .jch-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px;flex-wrap:wrap;gap:6px}
 .jch-head h4{color:#ddd;font-size:12px;font-weight:500}
@@ -186,7 +187,7 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
 .jst{background:#141414;border-radius:6px;padding:8px;text-align:center}
 .jst-v{font-size:16px;font-weight:500}
 .jst-l{font-size:9px;color:#555;text-transform:uppercase;letter-spacing:.6px;margin-top:2px}
-.j-counter{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:8px 0}
+.j-counter{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:10px;padding:20px 0;max-width:100%;width:100%}
 .jnum{font-size:72px;font-weight:500;color:#fff;line-height:1;letter-spacing:-3px}
 .jmalas{font-size:11px;color:#555;margin-top:-6px}
 .jbtn{width:220px;height:220px;border-radius:50%;background:#0f1f0f;border:1.5px solid #166534;cursor:pointer;display:flex;align-items:center;justify-content:center;font-size:15px;font-weight:500;color:#4ade80;letter-spacing:3px;text-transform:uppercase;user-select:none;-webkit-user-select:none;touch-action:manipulation;-webkit-tap-highlight-color:transparent;transition:background .08s,transform .06s;will-change:transform,background;}
@@ -244,6 +245,8 @@ td.pct-col{font-size:12px;font-weight:500;padding:0 5px;min-width:46px;color:#ff
   .todo-toolbar,.todo-add{flex-direction:column}
   .todo-item{grid-template-columns:18px 1fr}
   .todo-meta{grid-column:2;flex-wrap:wrap;gap:3px;margin-top:3px}
+  .jap-panel{min-height:calc(100vh - 120px);padding:8px}
+  #p-habits,#p-analytics,#p-focus,#p-namjap,#p-tratak{min-height:calc(100vh - 120px)}
 }
 </style>
 </head>
