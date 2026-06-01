@@ -1405,17 +1405,11 @@ function handleHabitTap(el,h,d){
 function toggleH(h,d){
   const k=hk(h,d);const prev=hdata[k]||0;
   hdata[k]=prev===1?0:1;
-  const tag=`habit:${h}:${todayStr()}`;
-  if(hdata[k]===1)addAutoJournal(`✅ ${h} — Done`,tag);
-  else if(prev===1)removeAutoJournalSilent(tag);
   renderHabits();scheduleSave();
 }
 function toggleHSlip(h,d){
   const k=hk(h,d);const prev=hdata[k]||0;
   hdata[k]=prev===2?0:2;
-  const tag=`habit:${h}:${todayStr()}`;
-  if(hdata[k]===2)addAutoJournal(`❌ ${h} — Slip`,tag);
-  else if(prev===2)removeAutoJournalSilent(tag);
   renderHabits();scheduleSave();
 }
 function toggleMood(d,mi){mood[mk2(d)]=mood[mk2(d)]===mi?null:mi;renderHabits();scheduleSave();}
