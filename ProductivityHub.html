@@ -266,7 +266,7 @@ td.pct-col{font-size:13px;font-weight:600;padding:0 6px;min-width:48px;color:var
 .sm.active{background:var(--accent-muted);color:var(--accent);border-color:var(--accent)}.sm:hover:not(.active){border-color:var(--accent);color:var(--accent)}
 
 /* ── Nam Jap (New Design) ───────────────────────────────── */
-.jap-panel{padding:16px;display:flex;flex-direction:column;gap:12px;min-height:calc(100vh - 60px)}
+.jap-panel{padding:16px;display:flex;flex-direction:column;gap:12px;min-height:calc(100vh - 60px);user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .j-analytics{background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border-subtle);padding:16px}
 .jch-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
 .jch-head h4{color:var(--text-primary);font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px}
@@ -285,29 +285,29 @@ td.pct-col{font-size:13px;font-weight:600;padding:0 6px;min-width:48px;color:var
 .jst-v{font-size:18px;font-weight:700}.jst-l{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.6px;margin-top:4px}
 
 /* Nam Jap Ring Counter */
-.j-ring-container{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:16px 0}
+.j-ring-container{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:16px 0;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .j-ring-wrap{position:relative;width:280px;height:280px;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;-webkit-user-select:none}
 .j-ring-wrap svg{width:280px;height:280px;transform:rotate(-90deg)}
 .j-ring-bg{fill:none;stroke:var(--bg-hover);stroke-width:4}
 .j-ring-fg{fill:none;stroke:var(--accent);stroke-width:4;stroke-linecap:round;transition:stroke-dasharray .15s ease-out;filter:drop-shadow(0 0 6px rgba(74,222,128,.3))}
 .j-ring-fg.pulse{animation:ringPulse .6s ease}
 .j-ring-inner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;width:200px}
-.j-ring-name{font-size:32px;font-weight:700;color:#e11d48;letter-spacing:2px;animation:nameAppear .3s ease;padding:12px 16px;display:flex;align-items:center;justify-content:center;text-shadow:0 0 20px rgba(225,29,72,.3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2}
+.j-ring-name{font-size:42px;font-weight:700;color:#e11d48;letter-spacing:3px;animation:nameAppear .3s ease;min-height:50px;display:flex;align-items:center;justify-content:center;text-shadow:0 0 20px rgba(225,29,72,.3);max-width:200px;overflow:hidden;word-break:break-word;line-height:1.2}
 .j-ring-count{font-size:28px;font-weight:500;color:var(--text-muted);letter-spacing:-1px;margin-top:2px;font-variant-numeric:tabular-nums}
 .j-ring-malas{font-size:12px;color:var(--text-muted);margin-top:2px}
 .j-ring-tap{font-size:11px;color:var(--text-muted);margin-top:8px;opacity:.6}
 
 /* Chant Name Selector */
-.j-name-selector{display:flex;flex-direction:column;align-items:center;gap:12px}
+.j-name-selector{display:flex;flex-direction:column;align-items:center;gap:12px;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
 .j-name-label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px}
 .j-name-dropdown{position:relative;display:inline-block}
-.j-name-btn{background:var(--bg-card);border:1px solid var(--border-default);color:var(--text-primary);border-radius:var(--radius-md);padding:10px 20px;font-size:14px;cursor:pointer;transition:all var(--transition-fast);min-width:180px;text-align:center}
+.j-name-btn{background:var(--bg-card);border:1px solid var(--border-default);color:var(--text-primary);border-radius:var(--radius-md);padding:10px 20px;font-size:14px;cursor:pointer;transition:all var(--transition-fast);min-width:180px;text-align:center;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
 .j-name-btn:hover{border-color:var(--accent);background:var(--accent-muted)}
 .j-name-btn::after{content:' ▾';font-size:10px;color:var(--text-muted);margin-left:8px}
 .j-name-list{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);background:var(--bg-card);border:1px solid var(--border-default);border-radius:var(--radius-md);padding:6px 0;z-index:50;min-width:200px;max-height:280px;overflow-y:auto;box-shadow:var(--shadow-lg);margin-top:4px;scrollbar-width:thin;scrollbar-color:var(--bg-hover) var(--bg-card)}
 .j-name-list::-webkit-scrollbar{width:5px}.j-name-list::-webkit-scrollbar-track{background:var(--bg-card)}.j-name-list::-webkit-scrollbar-thumb{background:var(--bg-hover);border-radius:3px}
 .j-name-list.open{display:block}
-.j-name-option{padding:10px 16px;font-size:14px;color:var(--text-primary);cursor:pointer;transition:background var(--transition-fast);text-align:center;display:flex;align-items:center;justify-content:center;gap:8px}
+.j-name-option{padding:10px 16px;font-size:14px;color:var(--text-primary);cursor:pointer;transition:background var(--transition-fast);text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
 .j-name-option:hover{background:var(--accent-muted);color:var(--accent)}
 .j-name-del{font-size:12px;color:var(--text-muted);cursor:pointer;padding:0 2px;opacity:0.5;transition:opacity var(--transition-fast),color var(--transition-fast)}
 .j-name-del:hover{opacity:1;color:var(--danger)}
@@ -545,7 +545,7 @@ td.pct-col{font-size:13px;font-weight:600;padding:0 6px;min-width:48px;color:var
   /* Nam Jap */
   .jap-panel{padding:12px}
   .j-ring-wrap{width:240px;height:240px}.j-ring-wrap svg{width:240px;height:240px}
-  .j-ring-name{font-size:24px;padding:10px 12px;letter-spacing:1px}.j-ring-count{font-size:24px}
+  .j-ring-name{font-size:22px}.j-ring-count{font-size:24px}
   .j-ring-inner{width:160px}
   .j-name-btn{padding:8px 14px;font-size:13px;min-width:150px}
   .j-analytics{padding:12px}
@@ -618,7 +618,7 @@ td.pct-col{font-size:13px;font-weight:600;padding:0 6px;min-width:48px;color:var
   .sess-grid{grid-template-columns:repeat(3,1fr);gap:5px}
   .sm{padding:7px 3px;font-size:10px}
   .j-ring-wrap{width:200px;height:200px}.j-ring-wrap svg{width:200px;height:200px}
-  .j-ring-name{font-size:16px;padding:8px 10px;letter-spacing:0.5px}.j-ring-count{font-size:22px}.j-ring-inner{width:140px}
+  .j-ring-name{font-size:18px}.j-ring-count{font-size:22px}.j-ring-inner{width:140px}
   .j-name-btn{padding:7px 12px;font-size:12px;min-width:130px}
   .j-name-list{min-width:160px}
   .todo-toolbar input,.todo-toolbar select,.todo-add input,.todo-add select{width:100%;font-size:11px}
@@ -855,9 +855,6 @@ td.pct-col{font-size:13px;font-weight:600;padding:0 6px;min-width:48px;color:var
         </div>
       </div>
 
-      <!-- Chanting Name Display (below dropdown, above ring) -->
-      <div class="j-ring-name" id="jRingName">&#x0930;&#x093E;&#x092E;</div>
-
       <!-- Ring Counter (full page clickable) -->
       <div class="j-ring-container" onclick="countJ()" style="cursor:pointer">
         <div class="j-ring-wrap" id="jRingWrap">
@@ -866,6 +863,7 @@ td.pct-col{font-size:13px;font-weight:600;padding:0 6px;min-width:48px;color:var
             <circle class="j-ring-fg" id="jRingFg" cx="140" cy="140" r="120" stroke-dasharray="0 753.98"/>
           </svg>
           <div class="j-ring-inner">
+            <div class="j-ring-name" id="jRingName">&#x0930;&#x093E;&#x092E;</div>
             <div class="j-ring-count" id="jRingCount">0</div>
             <div class="j-ring-malas" id="jRingMalas">0 / 108</div>
             <div class="j-ring-tap">Tap to count</div>
@@ -1385,13 +1383,9 @@ function renderHabits(){
   for(let d=1;d<=D;d++){const wd=new Date(year,month,d).getDay(),isT=isCur&&d===todayD,wk=[0,6].includes(wd);t1+=`<th class="th-main" style="${isT?'color:var(--accent);border-bottom:2px solid var(--accent)':wk?'color:var(--text-muted)':''}">${d}</th>`;t2+=`<th class="th-sub" style="${wk?'color:var(--text-muted)':''}">${DOW_S[wd]}</th>`;}
   t1+=`<th class="th-main" style="min-width:48px">%</th>`;t2+=`<th class="th-sub"></th>`;
   let rows='';
-  habits.forEach((h,hi)=>{const p=hPct(h,todayD),pc=pColor(p),hn=h.replace(/\\/g,'\\\\').replace(/'/g,"\\'");const slips=hSlips(h,todayD);let cells=`<td class="hcol"><button class="del-btn" onclick="delHabit(${hi})">&#215;</button> <span ondblclick="editHabit(${hi})" style="cursor:pointer">${h}</span></td>`;for(let d=1;d<=D;d++){const val=hdata[hk(h,d)]||0,isFut=isCur&&d>todayD,isT=isCur&&d===todayD;let cls='hc';if(val===1)cls+=' done';else if(val===2)cls+=' slip';if(isFut)cls+=' future';if(isT)cls+=' tday';const symbol=val===1?'\u2713':val===2?'\u2717':'';const tc=isFut?'':`handleHabitTap(this,'${hn}',${d})`;cells+=`<td><div class="${cls}" onclick="${tc}">${symbol}</div></td>`;}cells+=`<td class="pct-col" style="color:${pc}">${p}%<div class="pbar"><div class="pbar-fill" style="width:${p}%;background:${pc}"></div></div>${slips?`<div style="font-size:9px;color:var(--danger);margin-top:2px">${slips} slip</div>`:`<div style="font-size:9px;margin-top:2px">&nbsp;</div>`}</td>`;rows+=`<tr>${cells}</tr>`;});
+  habits.forEach((h,hi)=>{const p=hPct(h,todayD),pc=pColor(p),hn=h.replace(/\\/g,'\\\\').replace(/'/g,"\\'");const slips=hSlips(h,todayD);let cells=`<td class="hcol"><button class="del-btn" onclick="delHabit(${hi})">&#215;</button> <span ondblclick="event.preventDefault();event.stopPropagation();editHabit(${hi})" style="cursor:pointer">${h}</span></td>`;for(let d=1;d<=D;d++){const val=hdata[hk(h,d)]||0,isFut=isCur&&d>todayD,isT=isCur&&d===todayD;let cls='hc';if(val===1)cls+=' done';else if(val===2)cls+=' slip';if(isFut)cls+=' future';if(isT)cls+=' tday';const symbol=val===1?'\u2713':val===2?'\u2717':'';const tc=isFut?'':`handleHabitTap(this,'${hn}',${d})`;cells+=`<td><div class="${cls}" onclick="${tc}">${symbol}</div></td>`;}cells+=`<td class="pct-col" style="color:${pc}">${p}%<div class="pbar"><div class="pbar-fill" style="width:${p}%;background:${pc}"></div></div>${slips?`<div style="font-size:9px;color:var(--danger);margin-top:2px">${slips} slip</div>`:`<div style="font-size:9px;margin-top:2px">&nbsp;</div>`}</td>`;rows+=`<tr>${cells}</tr>`;});
   let mc=`<td class="mood-lbl-td">Mood</td>`;for(let d=1;d<=D;d++){const cur=mood[mk2(d)],isFut=isCur&&d>todayD;mc+=`<td><div style="display:flex;flex-direction:column;align-items:center;gap:2px">${MOODS.map((em,mi)=>`<span class="mb${cur===mi?' on':''}" onclick="${isFut?'':`toggleMood(${d},${mi})`}">${em}</span>`).join('')}</div></td>`;}mc+=`<td></td>`;
   document.getElementById('hTbl').innerHTML=`<thead><tr>${t1}</tr><tr>${t2}</tr></thead><tbody>${rows}<tr>${mc}</tr></tbody>`;
-  // Auto-scroll to show current day
-  const wrap=document.querySelector('.table-wrap');
-  const todayCol=wrap?.querySelector('.tday');
-  if(todayCol&&wrap)wrap.scrollLeft=todayCol.offsetLeft-wrap.offsetLeft-60;
 }
 let _lastTap={el:null,time:0};
 function handleHabitTap(el,h,d){
@@ -1405,23 +1399,58 @@ function handleHabitTap(el,h,d){
   }
 }
 function toggleH(h,d){
+  // Store scroll position before render
+  const wrap=document.querySelector('.table-wrap');
+  const scrollPos=wrap?.scrollLeft||0;
+  
   const k=hk(h,d);const prev=hdata[k]||0;
   hdata[k]=prev===1?0:1;
-  renderHabits();scheduleSave();
+  renderHabits();
+  
+  // Restore scroll position after render
+  if(wrap)setTimeout(()=>wrap.scrollLeft=scrollPos,0);
+  scheduleSave();
 }
 function toggleHSlip(h,d){
+  // Store scroll position before render
+  const wrap=document.querySelector('.table-wrap');
+  const scrollPos=wrap?.scrollLeft||0;
+  
   const k=hk(h,d);const prev=hdata[k]||0;
   hdata[k]=prev===2?0:2;
-  renderHabits();scheduleSave();
+  renderHabits();
+  
+  // Restore scroll position after render
+  if(wrap)setTimeout(()=>wrap.scrollLeft=scrollPos,0);
+  scheduleSave();
 }
-function toggleMood(d,mi){mood[mk2(d)]=mood[mk2(d)]===mi?null:mi;renderHabits();scheduleSave();}
+function toggleMood(d,mi){
+  // Store scroll position before render
+  const wrap=document.querySelector('.table-wrap');
+  const scrollPos=wrap?.scrollLeft||0;
+  
+  mood[mk2(d)]=mood[mk2(d)]===mi?null:mi;
+  renderHabits();
+  
+  // Restore scroll position after render
+  if(wrap)setTimeout(()=>wrap.scrollLeft=scrollPos,0);
+  scheduleSave();
+}
 function addHabit(){const v=document.getElementById('newHabit').value.trim();if(!v)return;habits.push(v);document.getElementById('newHabit').value='';renderHabits();scheduleSave();showToast('success','Habit Added',v);}
 function delHabit(i){if(!confirm('Remove this habit?'))return;const r=habits[i];habits.splice(i,1);Object.keys(hdata).filter(k=>k.startsWith(r+'-')).forEach(k=>delete hdata[k]);renderHabits();saveData();showUndoToast(`"${r}" deleted`,()=>{habits.splice(i,0,r);renderHabits();scheduleSave();});}
 function editHabit(i){
   const o=habits[i],n=prompt('Edit habit name:',o);
   if(!n||!n.trim()||n===o)return;
-  if(n.trim().length>40){alert('Too long');return;}
+  if(n.trim().length>40){showToast('error','Error','Habit name too long (max 40 characters)');return;}
   const newName=n.trim();
+  
+  // Store scroll position before rendering
+  const wrap=document.querySelector('.table-wrap');
+  const scrollPos=wrap?.scrollLeft||0;
+  
+  // Disable auto-scroll during edit
+  window.isEditingHabit=true;
+  
   // Update local state immediately
   const toAdd={},toDel=[];
   Object.keys(hdata).forEach(k=>{
@@ -1437,6 +1466,14 @@ function editHabit(i){
   Object.assign(hdata,toAdd);
   habits[i]=newName;
   renderHabits();
+  
+  // Restore scroll position
+  if(wrap)wrap.scrollLeft=scrollPos;
+  
+  // Re-enable auto-scroll
+  window.isEditingHabit=false;
+  
+  showToast('success','Updated',`"${newName}" saved`);
   // Rename on backend (atomic, handles all months)
   renameHabitBackend(o,newName);
 }
@@ -1602,6 +1639,12 @@ function countJ(){
   ring.classList.add('pulse');
   // Haptic
   if(navigator.vibrate)navigator.vibrate([8,5,8]);
+  // Nam Jap → Journal: mala milestone
+  const prevMalas=Math.floor(prev/108),newMalas=Math.floor(tdc/108);
+  if(newMalas>prevMalas){
+    const tag=`namjap:mala:${t}:${newMalas}`;
+    addAutoJournal(`📿 Nam Jap: ${newMalas} mala completed today (${tdc} counts)`,tag);
+  }
   // Nam Jap → Habit auto-check
   if(tdc>=108){
     const njHabitIdx=habits.findIndex(h=>h.toLowerCase().includes('namjap')||h.toLowerCase().includes('nam jap')||h.toLowerCase().includes('chant'));
