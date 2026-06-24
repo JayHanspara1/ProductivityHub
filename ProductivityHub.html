@@ -219,17 +219,29 @@ td.pct-col{font-size:13px;font-weight:600;padding:0 6px;min-width:48px;color:var
 
 /* ── Goal Cards (inside tasks) ──────────────────────────── */
 .goal-section{padding:0 20px 12px}
-.goal-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:20px;margin-bottom:12px;transition:all var(--transition-fast)}
+.goal-card{background:var(--bg-card);border:1px solid var(--border-subtle);border-radius:var(--radius-lg);padding:16px;margin-bottom:12px;transition:all var(--transition-fast)}
 .goal-card:hover{border-color:var(--accent);box-shadow:var(--shadow-md)}
-.goal-title{font-size:16px;font-weight:600;color:var(--text-primary);margin-bottom:8px}
+.goal-header{display:flex;align-items:center;gap:8px;margin-bottom:12px}
+.goal-title{font-size:16px;font-weight:600;color:var(--text-primary)}
 .goal-desc{font-size:13px;color:var(--text-secondary);margin-bottom:12px}
 .goal-progress{height:8px;background:var(--bg-hover);border-radius:4px;overflow:hidden;margin-bottom:8px}
 .goal-progress-bar{height:100%;background:linear-gradient(90deg,var(--accent),#16a34a);border-radius:4px;transition:width .3s}
-.goal-stats{display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted)}
-.goal-milestones{margin-top:12px;padding-top:12px;border-top:1px solid var(--border-subtle)}
-.milestone-item{display:flex;align-items:center;gap:10px;padding:8px 0}
-.milestone-checkbox{width:18px;height:18px;accent-color:var(--accent);cursor:pointer}
-.milestone-text{font-size:13px;color:var(--text-primary)}.milestone-text.completed{text-decoration:line-through;color:var(--text-muted)}
+.goal-stats{display:flex;justify-content:space-between;font-size:12px;color:var(--text-muted);margin-bottom:10px}
+.edit-btn{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:14px;padding:4px 8px;border-radius:4px;transition:all var(--transition-fast)}
+.edit-btn:hover{color:var(--accent);background:var(--bg-hover)}
+.del-btn{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:18px;padding:0 4px;transition:color var(--transition-fast)}
+.del-btn:hover{color:var(--danger)}
+.milestone-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(40px,1fr));gap:6px;margin-bottom:10px}
+.milestone-cell{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;padding:6px;background:var(--bg-secondary);border-radius:6px;border:1px solid var(--border-subtle);cursor:pointer;transition:all var(--transition-fast);user-select:none;-webkit-user-select:none}
+.milestone-cell:hover{border-color:var(--accent);background:var(--bg-hover)}
+.milestone-cell input[type="checkbox"]{width:14px;height:14px;accent-color:var(--accent);cursor:pointer;margin:0}
+.milestone-cell input[type="checkbox"]:checked+.milestone-label{color:var(--success);font-weight:600;text-decoration:line-through}
+.milestone-label{font-size:11px;color:var(--text-muted);font-weight:500;transition:all var(--transition-fast);flex:1}
+.milestone-del{background:none;border:none;color:var(--text-muted);cursor:pointer;font-size:12px;padding:0;transition:color var(--transition-fast);display:none}
+.milestone-cell:hover .milestone-del{display:block;color:var(--danger)}
+.goal-actions{display:flex;gap:6px;margin-top:8px}
+.action-btn{background:var(--bg-secondary);border:1px solid var(--border-subtle);color:var(--text-primary);padding:6px 10px;border-radius:4px;font-size:11px;cursor:pointer;transition:all var(--transition-fast)}
+.action-btn:hover{border-color:var(--accent);color:var(--accent)}
 
 /* ── Analytics ──────────────────────────────────────────── */
 .analytics-wrap{padding:20px}
@@ -266,7 +278,7 @@ td.pct-col{font-size:13px;font-weight:600;padding:0 6px;min-width:48px;color:var
 .sm.active{background:var(--accent-muted);color:var(--accent);border-color:var(--accent)}.sm:hover:not(.active){border-color:var(--accent);color:var(--accent)}
 
 /* ── Nam Jap (New Design) ───────────────────────────────── */
-.jap-panel{padding:16px;display:flex;flex-direction:column;gap:12px;min-height:calc(100vh - 60px);user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.jap-panel{padding:16px;display:flex;flex-direction:column;gap:12px;min-height:calc(100vh - 60px)}
 .j-analytics{background:var(--bg-card);border-radius:var(--radius-lg);border:1px solid var(--border-subtle);padding:16px}
 .jch-head{display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:8px;cursor:pointer;user-select:none;-webkit-tap-highlight-color:transparent}
 .jch-head h4{color:var(--text-primary);font-size:14px;font-weight:600;display:flex;align-items:center;gap:6px}
@@ -285,29 +297,29 @@ td.pct-col{font-size:13px;font-weight:600;padding:0 6px;min-width:48px;color:var
 .jst-v{font-size:18px;font-weight:700}.jst-l{font-size:10px;color:var(--text-muted);text-transform:uppercase;letter-spacing:.6px;margin-top:4px}
 
 /* Nam Jap Ring Counter */
-.j-ring-container{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:16px 0;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.j-ring-container{position:relative;display:flex;flex-direction:column;align-items:center;justify-content:center;flex:1;padding:16px 0}
 .j-ring-wrap{position:relative;width:280px;height:280px;cursor:pointer;-webkit-tap-highlight-color:transparent;touch-action:manipulation;user-select:none;-webkit-user-select:none}
 .j-ring-wrap svg{width:280px;height:280px;transform:rotate(-90deg)}
 .j-ring-bg{fill:none;stroke:var(--bg-hover);stroke-width:4}
 .j-ring-fg{fill:none;stroke:var(--accent);stroke-width:4;stroke-linecap:round;transition:stroke-dasharray .15s ease-out;filter:drop-shadow(0 0 6px rgba(74,222,128,.3))}
 .j-ring-fg.pulse{animation:ringPulse .6s ease}
 .j-ring-inner{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);text-align:center;width:200px}
-.j-ring-name{font-size:42px;font-weight:700;color:#e11d48;letter-spacing:3px;animation:nameAppear .3s ease;min-height:50px;display:flex;align-items:center;justify-content:center;text-shadow:0 0 20px rgba(225,29,72,.3);max-width:200px;overflow:hidden;word-break:break-word;line-height:1.2}
+.j-ring-name{font-size:32px;font-weight:700;color:#e11d48;letter-spacing:2px;animation:nameAppear .3s ease;padding:12px 16px;display:flex;align-items:center;justify-content:center;text-shadow:0 0 20px rgba(225,29,72,.3);white-space:nowrap;overflow:hidden;text-overflow:ellipsis;line-height:1.2}
 .j-ring-count{font-size:28px;font-weight:500;color:var(--text-muted);letter-spacing:-1px;margin-top:2px;font-variant-numeric:tabular-nums}
 .j-ring-malas{font-size:12px;color:var(--text-muted);margin-top:2px}
 .j-ring-tap{font-size:11px;color:var(--text-muted);margin-top:8px;opacity:.6}
 
 /* Chant Name Selector */
-.j-name-selector{display:flex;flex-direction:column;align-items:center;gap:12px;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
+.j-name-selector{display:flex;flex-direction:column;align-items:center;gap:12px}
 .j-name-label{font-size:11px;color:var(--text-muted);text-transform:uppercase;letter-spacing:1px}
 .j-name-dropdown{position:relative;display:inline-block}
-.j-name-btn{background:var(--bg-card);border:1px solid var(--border-default);color:var(--text-primary);border-radius:var(--radius-md);padding:10px 20px;font-size:14px;cursor:pointer;transition:all var(--transition-fast);min-width:180px;text-align:center;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent;touch-action:manipulation}
+.j-name-btn{background:var(--bg-card);border:1px solid var(--border-default);color:var(--text-primary);border-radius:var(--radius-md);padding:10px 20px;font-size:14px;cursor:pointer;transition:all var(--transition-fast);min-width:180px;text-align:center}
 .j-name-btn:hover{border-color:var(--accent);background:var(--accent-muted)}
 .j-name-btn::after{content:' ▾';font-size:10px;color:var(--text-muted);margin-left:8px}
 .j-name-list{display:none;position:absolute;top:100%;left:50%;transform:translateX(-50%);background:var(--bg-card);border:1px solid var(--border-default);border-radius:var(--radius-md);padding:6px 0;z-index:50;min-width:200px;max-height:280px;overflow-y:auto;box-shadow:var(--shadow-lg);margin-top:4px;scrollbar-width:thin;scrollbar-color:var(--bg-hover) var(--bg-card)}
 .j-name-list::-webkit-scrollbar{width:5px}.j-name-list::-webkit-scrollbar-track{background:var(--bg-card)}.j-name-list::-webkit-scrollbar-thumb{background:var(--bg-hover);border-radius:3px}
 .j-name-list.open{display:block}
-.j-name-option{padding:10px 16px;font-size:14px;color:var(--text-primary);cursor:pointer;transition:background var(--transition-fast);text-align:center;display:flex;align-items:center;justify-content:center;gap:8px;user-select:none;-webkit-user-select:none;-webkit-tap-highlight-color:transparent}
+.j-name-option{padding:10px 16px;font-size:14px;color:var(--text-primary);cursor:pointer;transition:background var(--transition-fast);text-align:center;display:flex;align-items:center;justify-content:center;gap:8px}
 .j-name-option:hover{background:var(--accent-muted);color:var(--accent)}
 .j-name-del{font-size:12px;color:var(--text-muted);cursor:pointer;padding:0 2px;opacity:0.5;transition:opacity var(--transition-fast),color var(--transition-fast)}
 .j-name-del:hover{opacity:1;color:var(--danger)}
@@ -534,6 +546,8 @@ td.pct-col{font-size:13px;font-weight:600;padding:0 6px;min-width:48px;color:var
   .todo-meta{grid-column:2;flex-wrap:wrap;gap:4px;margin-top:4px}
   .todo-sel{max-width:100%;font-size:10px}
   .goal-card{padding:14px}.goal-section{padding:0 14px 10px}
+  .milestone-grid{grid-template-columns:repeat(auto-fit,minmax(36px,1fr))}
+  .milestone-cell{padding:5px;font-size:10px}.action-btn{padding:5px 8px;font-size:10px}
   /* Focus timer */
   .focus-panel{padding:14px}.focus-center{gap:16px}
   .tring-c{width:200px;height:200px}.tring-c svg{width:200px;height:200px}
@@ -545,7 +559,7 @@ td.pct-col{font-size:13px;font-weight:600;padding:0 6px;min-width:48px;color:var
   /* Nam Jap */
   .jap-panel{padding:12px}
   .j-ring-wrap{width:240px;height:240px}.j-ring-wrap svg{width:240px;height:240px}
-  .j-ring-name{font-size:22px}.j-ring-count{font-size:24px}
+  .j-ring-name{font-size:24px;padding:10px 12px;letter-spacing:1px}.j-ring-count{font-size:24px}
   .j-ring-inner{width:160px}
   .j-name-btn{padding:8px 14px;font-size:13px;min-width:150px}
   .j-analytics{padding:12px}
@@ -618,7 +632,7 @@ td.pct-col{font-size:13px;font-weight:600;padding:0 6px;min-width:48px;color:var
   .sess-grid{grid-template-columns:repeat(3,1fr);gap:5px}
   .sm{padding:7px 3px;font-size:10px}
   .j-ring-wrap{width:200px;height:200px}.j-ring-wrap svg{width:200px;height:200px}
-  .j-ring-name{font-size:18px}.j-ring-count{font-size:22px}.j-ring-inner{width:140px}
+  .j-ring-name{font-size:16px;padding:8px 10px;letter-spacing:0.5px}.j-ring-count{font-size:22px}.j-ring-inner{width:140px}
   .j-name-btn{padding:7px 12px;font-size:12px;min-width:130px}
   .j-name-list{min-width:160px}
   .todo-toolbar input,.todo-toolbar select,.todo-add input,.todo-add select{width:100%;font-size:11px}
@@ -635,6 +649,8 @@ td.pct-col{font-size:13px;font-weight:600;padding:0 6px;min-width:48px;color:var
   .yb{padding:6px 10px;font-size:10px}
   .farea{min-height:40vh}
   .goal-card{padding:12px}.goal-title{font-size:14px}
+  .milestone-grid{grid-template-columns:repeat(auto-fit,minmax(32px,1fr));gap:5px}
+  .milestone-cell{padding:4px;font-size:9px}.milestone-label{font-size:9px}
   .lcard{padding:20px 16px}.lcard h2{font-size:20px}
   .mod{padding:14px}.mod-top h3{font-size:16px}
   .search-input{font-size:13px;padding:10px 12px}
@@ -784,7 +800,7 @@ td.pct-col{font-size:13px;font-weight:600;padding:0 6px;min-width:48px;color:var
       <select id="tcat" onchange="renderTasks()"><option value="">All categories</option><option>Work</option><option>Personal</option><option>Health</option><option>Study</option><option>Social</option><option>Other</option></select>
       <select id="tpri" onchange="renderTasks()"><option value="">All priorities</option><option value="1">P1 Critical</option><option value="2">P2 High</option><option value="3">P3 Medium</option><option value="4">P4 Low</option></select>
       <select id="tstat" onchange="renderTasks()"><option value="">All statuses</option><option>Todo</option><option>In-Progress</option><option>Done</option><option>Blocked</option></select>
-      <select id="tview" onchange="renderTasks()"><option value="tasks">Tasks</option><option value="goals">Goals</option><option value="all">All</option></select>
+      <select id="tview" onchange="renderTasks()"><option value="tasks">Tasks</option><option value="goals">Goals</option><option value="all" selected>All</option></select>
     </div>
     <div class="todo-list" id="todoList"></div>
     <div class="goal-section" id="goalSection"></div>
@@ -855,6 +871,9 @@ td.pct-col{font-size:13px;font-weight:600;padding:0 6px;min-width:48px;color:var
         </div>
       </div>
 
+      <!-- Chanting Name Display (below dropdown, above ring) -->
+      <div class="j-ring-name" id="jRingName">&#x0930;&#x093E;&#x092E;</div>
+
       <!-- Ring Counter (full page clickable) -->
       <div class="j-ring-container" onclick="countJ()" style="cursor:pointer">
         <div class="j-ring-wrap" id="jRingWrap">
@@ -863,7 +882,6 @@ td.pct-col{font-size:13px;font-weight:600;padding:0 6px;min-width:48px;color:var
             <circle class="j-ring-fg" id="jRingFg" cx="140" cy="140" r="120" stroke-dasharray="0 753.98"/>
           </svg>
           <div class="j-ring-inner">
-            <div class="j-ring-name" id="jRingName">&#x0930;&#x093E;&#x092E;</div>
             <div class="j-ring-count" id="jRingCount">0</div>
             <div class="j-ring-malas" id="jRingMalas">0 / 108</div>
             <div class="j-ring-tap">Tap to count</div>
@@ -1002,7 +1020,7 @@ td.pct-col{font-size:13px;font-weight:600;padding:0 6px;min-width:48px;color:var
 </div>
 
 <script>
-const WEB_APP_URL='https://script.google.com/macros/s/AKfycbxNIiwN58P52Vw6AhttCGBmDSR4LhlRHQRi9dMrkZWis3phLcdY7FYPfdSZnFZpk-v1vw/exec';
+const WEB_APP_URL='https://script.google.com/macros/s/AKfycbyJFXvLM7HWlvPTyAgGzOCFWV426IJqPBA5EjIHldvUOA6rrTkIe6uU5ZjN4Dm1at9RLQ/exec';
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DOW_S=['Su','Mo','Tu','We','Th','Fr','Sa'];
 const MOODS=['\u{1F61E}','\u{1F610}','\u{1F642}','\u{1F600}','\u{1F929}'];
@@ -1383,9 +1401,13 @@ function renderHabits(){
   for(let d=1;d<=D;d++){const wd=new Date(year,month,d).getDay(),isT=isCur&&d===todayD,wk=[0,6].includes(wd);t1+=`<th class="th-main" style="${isT?'color:var(--accent);border-bottom:2px solid var(--accent)':wk?'color:var(--text-muted)':''}">${d}</th>`;t2+=`<th class="th-sub" style="${wk?'color:var(--text-muted)':''}">${DOW_S[wd]}</th>`;}
   t1+=`<th class="th-main" style="min-width:48px">%</th>`;t2+=`<th class="th-sub"></th>`;
   let rows='';
-  habits.forEach((h,hi)=>{const p=hPct(h,todayD),pc=pColor(p),hn=h.replace(/\\/g,'\\\\').replace(/'/g,"\\'");const slips=hSlips(h,todayD);let cells=`<td class="hcol"><button class="del-btn" onclick="delHabit(${hi})">&#215;</button> <span ondblclick="event.preventDefault();event.stopPropagation();editHabit(${hi})" style="cursor:pointer">${h}</span></td>`;for(let d=1;d<=D;d++){const val=hdata[hk(h,d)]||0,isFut=isCur&&d>todayD,isT=isCur&&d===todayD;let cls='hc';if(val===1)cls+=' done';else if(val===2)cls+=' slip';if(isFut)cls+=' future';if(isT)cls+=' tday';const symbol=val===1?'\u2713':val===2?'\u2717':'';const tc=isFut?'':`handleHabitTap(this,'${hn}',${d})`;cells+=`<td><div class="${cls}" onclick="${tc}">${symbol}</div></td>`;}cells+=`<td class="pct-col" style="color:${pc}">${p}%<div class="pbar"><div class="pbar-fill" style="width:${p}%;background:${pc}"></div></div>${slips?`<div style="font-size:9px;color:var(--danger);margin-top:2px">${slips} slip</div>`:`<div style="font-size:9px;margin-top:2px">&nbsp;</div>`}</td>`;rows+=`<tr>${cells}</tr>`;});
+  habits.forEach((h,hi)=>{const p=hPct(h,todayD),pc=pColor(p),hn=h.replace(/\\/g,'\\\\').replace(/'/g,"\\'");const slips=hSlips(h,todayD);let cells=`<td class="hcol"><button class="del-btn" onclick="delHabit(${hi})">&#215;</button> <span ondblclick="editHabit(${hi})" style="cursor:pointer">${h}</span></td>`;for(let d=1;d<=D;d++){const val=hdata[hk(h,d)]||0,isFut=isCur&&d>todayD,isT=isCur&&d===todayD;let cls='hc';if(val===1)cls+=' done';else if(val===2)cls+=' slip';if(isFut)cls+=' future';if(isT)cls+=' tday';const symbol=val===1?'\u2713':val===2?'\u2717':'';const tc=isFut?'':`handleHabitTap(this,'${hn}',${d})`;cells+=`<td><div class="${cls}" onclick="${tc}">${symbol}</div></td>`;}cells+=`<td class="pct-col" style="color:${pc}">${p}%<div class="pbar"><div class="pbar-fill" style="width:${p}%;background:${pc}"></div></div>${slips?`<div style="font-size:9px;color:var(--danger);margin-top:2px">${slips} slip</div>`:`<div style="font-size:9px;margin-top:2px">&nbsp;</div>`}</td>`;rows+=`<tr>${cells}</tr>`;});
   let mc=`<td class="mood-lbl-td">Mood</td>`;for(let d=1;d<=D;d++){const cur=mood[mk2(d)],isFut=isCur&&d>todayD;mc+=`<td><div style="display:flex;flex-direction:column;align-items:center;gap:2px">${MOODS.map((em,mi)=>`<span class="mb${cur===mi?' on':''}" onclick="${isFut?'':`toggleMood(${d},${mi})`}">${em}</span>`).join('')}</div></td>`;}mc+=`<td></td>`;
   document.getElementById('hTbl').innerHTML=`<thead><tr>${t1}</tr><tr>${t2}</tr></thead><tbody>${rows}<tr>${mc}</tr></tbody>`;
+  // Auto-scroll to show current day
+  const wrap=document.querySelector('.table-wrap');
+  const todayCol=wrap?.querySelector('.tday');
+  if(todayCol&&wrap)wrap.scrollLeft=todayCol.offsetLeft-wrap.offsetLeft-60;
 }
 let _lastTap={el:null,time:0};
 function handleHabitTap(el,h,d){
@@ -1399,58 +1421,31 @@ function handleHabitTap(el,h,d){
   }
 }
 function toggleH(h,d){
-  // Store scroll position before render
   const wrap=document.querySelector('.table-wrap');
   const scrollPos=wrap?.scrollLeft||0;
-  
   const k=hk(h,d);const prev=hdata[k]||0;
   hdata[k]=prev===1?0:1;
   renderHabits();
-  
-  // Restore scroll position after render
   if(wrap)setTimeout(()=>wrap.scrollLeft=scrollPos,0);
   scheduleSave();
 }
 function toggleHSlip(h,d){
-  // Store scroll position before render
   const wrap=document.querySelector('.table-wrap');
   const scrollPos=wrap?.scrollLeft||0;
-  
   const k=hk(h,d);const prev=hdata[k]||0;
   hdata[k]=prev===2?0:2;
   renderHabits();
-  
-  // Restore scroll position after render
   if(wrap)setTimeout(()=>wrap.scrollLeft=scrollPos,0);
   scheduleSave();
 }
-function toggleMood(d,mi){
-  // Store scroll position before render
-  const wrap=document.querySelector('.table-wrap');
-  const scrollPos=wrap?.scrollLeft||0;
-  
-  mood[mk2(d)]=mood[mk2(d)]===mi?null:mi;
-  renderHabits();
-  
-  // Restore scroll position after render
-  if(wrap)setTimeout(()=>wrap.scrollLeft=scrollPos,0);
-  scheduleSave();
-}
+function toggleMood(d,mi){mood[mk2(d)]=mood[mk2(d)]===mi?null:mi;renderHabits();scheduleSave();}
 function addHabit(){const v=document.getElementById('newHabit').value.trim();if(!v)return;habits.push(v);document.getElementById('newHabit').value='';renderHabits();scheduleSave();showToast('success','Habit Added',v);}
 function delHabit(i){if(!confirm('Remove this habit?'))return;const r=habits[i];habits.splice(i,1);Object.keys(hdata).filter(k=>k.startsWith(r+'-')).forEach(k=>delete hdata[k]);renderHabits();saveData();showUndoToast(`"${r}" deleted`,()=>{habits.splice(i,0,r);renderHabits();scheduleSave();});}
 function editHabit(i){
   const o=habits[i],n=prompt('Edit habit name:',o);
   if(!n||!n.trim()||n===o)return;
-  if(n.trim().length>40){showToast('error','Error','Habit name too long (max 40 characters)');return;}
+  if(n.trim().length>40){alert('Too long');return;}
   const newName=n.trim();
-  
-  // Store scroll position before rendering
-  const wrap=document.querySelector('.table-wrap');
-  const scrollPos=wrap?.scrollLeft||0;
-  
-  // Disable auto-scroll during edit
-  window.isEditingHabit=true;
-  
   // Update local state immediately
   const toAdd={},toDel=[];
   Object.keys(hdata).forEach(k=>{
@@ -1466,14 +1461,6 @@ function editHabit(i){
   Object.assign(hdata,toAdd);
   habits[i]=newName;
   renderHabits();
-  
-  // Restore scroll position
-  if(wrap)wrap.scrollLeft=scrollPos;
-  
-  // Re-enable auto-scroll
-  window.isEditingHabit=false;
-  
-  showToast('success','Updated',`"${newName}" saved`);
   // Rename on backend (atomic, handles all months)
   renameHabitBackend(o,newName);
 }
@@ -1544,7 +1531,16 @@ function renderTasks(){
   if(fv==='goals'||fv==='all'){
     filteredGoals.forEach((g,i)=>{
       const progress=g.milestones.length?Math.round(g.milestones.filter(m=>m.done).length/g.milestones.length*100):0;
-      goalHtml+=`<div class="goal-card"><div class="goal-title">${g.title}</div><div class="goal-desc">${g.description||''}</div><div class="goal-progress"><div class="goal-progress-bar" style="width:${progress}%"></div></div><div class="goal-stats"><span>${progress}% complete</span><span>${g.milestones.filter(m=>m.done).length}/${g.milestones.length} milestones</span></div>${g.milestones.length?`<div class="goal-milestones">${g.milestones.map((m,mi)=>`<div class="milestone-item"><input type="checkbox" class="milestone-checkbox" ${m.done?'checked':''} onchange="toggleMilestone(${i},${mi})"><span class="milestone-text ${m.done?'completed':''}">${m.text}</span></div>`).join('')}</div>`:''}<div style="margin-top:12px;display:flex;gap:8px"><button class="journal-action-btn" onclick="addMilestone(${i})">+ Milestone</button><button class="journal-action-btn delete" onclick="deleteGoal(${i})">Delete</button></div></div>`;
+      goalHtml+=`<div class="goal-card">
+        <div class="goal-header">
+          <div class="goal-title" ondblclick="editGoalTitle(${i})" style="cursor:pointer;flex:1">${g.title}</div>
+          <button class="edit-btn" onclick="editGoalTitle(${i})">✏️</button>
+          <button class="del-btn" onclick="deleteGoal(${i})">&#215;</button>
+        </div>
+        <div class="goal-progress"><div class="goal-progress-bar" style="width:${progress}%"></div></div>
+        <div class="goal-stats"><span>${progress}% done</span><span>${g.milestones.filter(m=>m.done).length}/${g.milestones.length}</span></div>
+        ${g.milestones.length?`<div class="milestone-grid">${g.milestones.map((m,mi)=>`<div class="milestone-cell" title="${m.text}"><label style="display:flex;align-items:center;gap:4px;cursor:pointer;width:100%"><input type="checkbox" class="milestone-checkbox" ${m.done?'checked':''} onchange="toggleMilestone(${i},${mi})" style="margin:0"><span class="milestone-label" style="flex:1;text-align:left;font-size:11px;word-break:break-word">${m.text||'M'+(mi+1)}</span><button class="milestone-del" onclick="event.stopPropagation();deleteMilestone(${i},${mi})">✕</button></label></div>`).join('')}</div>`:''}<div class="goal-actions"><button class="action-btn" onclick="addMilestone(${i})">+ M</button></div>
+      </div>`;
     });
   }
   document.getElementById('goalSection').innerHTML=goalHtml;
@@ -1574,7 +1570,9 @@ function addTask(){
   }
   document.getElementById('ntask').value='';renderTasks();scheduleSave();
 }
-function addMilestone(i){const t=prompt('Milestone:');if(!t||!t.trim())return;goals[i].milestones.push({text:t.trim(),done:false});renderTasks();scheduleSave();}
+function addMilestone(i){const t=prompt('Milestone name:');if(!t||!t.trim())return;goals[i].milestones.push({text:t.trim(),done:false});renderTasks();scheduleSave();showToast('success','Milestone Added');}
+function deleteMilestone(i,mi){if(!confirm('Remove milestone?'))return;goals[i].milestones.splice(mi,1);renderTasks();scheduleSave();showToast('success','Milestone Removed');}
+function editGoalTitle(i){const newTitle=prompt('Edit goal title:',goals[i].title);if(!newTitle||!newTitle.trim())return;if(newTitle.trim()===goals[i].title)return;goals[i].title=newTitle.trim();renderTasks();scheduleSave();showToast('success','Goal Updated');}
 function toggleMilestone(i,mi){goals[i].milestones[mi].done=!goals[i].milestones[mi].done;renderTasks();scheduleSave();}
 function deleteGoal(i){if(!confirm('Delete goal?'))return;const r=goals[i];goals.splice(i,1);renderTasks();scheduleSave();showUndoToast('Goal deleted',()=>{goals.splice(i,0,r);renderTasks();scheduleSave();});}
 
@@ -1639,12 +1637,6 @@ function countJ(){
   ring.classList.add('pulse');
   // Haptic
   if(navigator.vibrate)navigator.vibrate([8,5,8]);
-  // Nam Jap → Journal: mala milestone
-  const prevMalas=Math.floor(prev/108),newMalas=Math.floor(tdc/108);
-  if(newMalas>prevMalas){
-    const tag=`namjap:mala:${t}:${newMalas}`;
-    addAutoJournal(`📿 Nam Jap: ${newMalas} mala completed today (${tdc} counts)`,tag);
-  }
   // Nam Jap → Habit auto-check
   if(tdc>=108){
     const njHabitIdx=habits.findIndex(h=>h.toLowerCase().includes('namjap')||h.toLowerCase().includes('nam jap')||h.toLowerCase().includes('chant'));
