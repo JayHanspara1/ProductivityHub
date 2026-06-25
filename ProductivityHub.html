@@ -856,7 +856,7 @@ td.pct-col{font-size:13px;font-weight:600;padding:0 6px;min-width:48px;color:var
       <div class="j-name-selector" onclick="event.stopPropagation()">
           <div class="j-name-label">Chanting Name</div>
           <div class="j-name-dropdown">
-            <button class="j-name-btn" id="jNameBtn" onclick="toggleNameDropdown()">&#x0930;&#x093E;&#x092E;</button>
+            <button class="j-name-btn" id="jNameBtn" onclick="toggleNameDropdown(event)">&#x0930;&#x093E;&#x092E;</button>
             <div class="j-name-list" id="jNameList">
             <div class="j-name-option selected" onclick="selectChantName('\u0930\u093E\u092E','Ram')">&#x0930;&#x093E;&#x092E; (Ram)</div>
             <div class="j-name-option" onclick="selectChantName('\u0938\u093E\u092E\u094D\u092C:\u0938\u0926\u093E\u0936\u093F\u0935:','Samb:Sadashiv')">साम्ब:सदाशिव: (Samb:Sadashiv)</div>
@@ -1687,7 +1687,10 @@ function updateNamJapStats(){
 function resetJ(){if(!confirm('Reset today\'s count?'))return;njDaily[todayStr()]=0;njSess=0;updateNamJapUI(0);saveNamJap();showToast('info','Reset','Count reset to zero');}
 
 function toggleJAnalytics(){const el=document.getElementById('jAnalytics');el.classList.toggle('collapsed');settings.jAnalyticsCollapsed=el.classList.contains('collapsed');scheduleSave();}
-function toggleNameDropdown(){document.getElementById('jNameList').classList.toggle('open');}
+function toggleNameDropdown(e){
+  if(e) e.stopPropagation();
+  document.getElementById('jNameList').classList.toggle('open');
+}
 function selectChantName(hindi,display){
   chantName=hindi;chantNameDisplay=display;
   document.getElementById('jNameBtn').textContent=hindi;
